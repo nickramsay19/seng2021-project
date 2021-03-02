@@ -40,5 +40,39 @@ export const Cocktails = [
             'Sugar syrup',
             'Mint'
         ]
+    },
+    {
+        name: 'Irish Coffee',
+        ingredients: [
+            'Irish Whiskey',
+            'Coffee'
+        ]
+    },
+    {
+        name: 'Espresso Martini',
+        ingredients: [
+            'Coffee',
+            'Vodka',
+            'Sugar syrup',
+            'Coffee Liqueur'
+        ]
+    },
+    {
+        name: 'Gin Fizz',
+        ingredients: [
+            'Gin',
+            'Lemon juice',
+            'Sugar syrup',
+            'Egg',
+            'Soda water'
+        ]
+    },
+    {
+        name: 'Pisco Sour',
+        ingredients: [
+            'Pisco',
+            'Lime juice',
+            'Egg'
+        ]
     }
 ]
