@@ -44,19 +44,6 @@ class Searchbar extends Component {
         })
     }
 
-    // returns a list of list items containing cocktail names extracted from search_results
-    SearchResults = (props) => {
-        const cocktail_names = this.state.search_results.map((result) =>
-            <li>{result.name}</li>
-        );
-
-        return (
-            <ul>
-                {cocktail_names}
-            </ul>
-        );
-    }
-
     render() {
         return(
             <div id="searchbar">
