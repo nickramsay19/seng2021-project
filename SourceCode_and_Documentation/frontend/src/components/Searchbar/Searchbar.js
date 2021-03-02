@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import stringSimilarity from 'string-similarity';
 import './Searchbar.css';
 import { Cocktails } from './Cocktails'
 
@@ -12,11 +13,12 @@ class Searchbar extends Component {
 
         // declare a new results array
         let results = [];
-
-        // TODO: Search for string similarity instead of exact match (case sensitive, typo sensitive, etc)
+        
+        // loop through each cocktail
         for(var i = 0; i < Cocktails.length; i++) {
-            // check if query is in the cocktail name
-            if(query.includes(Cocktails[i].name)){
+
+            // perform a string similarity check between query (to lower case) and cocktail name (to lower case)
+            if(stringSimilarity.compareTwoStrings(query.toLowerCase(), Cocktails[i].name.toLowerCase()) > 0.7){
 
                 // append the cocktail to search_results
                 results.push(Cocktails[i]);
@@ -24,10 +26,11 @@ class Searchbar extends Component {
                 // move on to next cocktail, cocktail already added
                 continue;
             }
-            // loop through ingredients
-            // TODO: Search for string similarity instead of exact match (case sensitive, typo sensitive, etc)
+            // loop throughingredients
             for(var j = 0; j < Cocktails[i].ingredients.length; j++){
-                if(query.includes(Cocktails[i].ingredients[j])){
+
+                // perform a string similarity check between query (to lower case) and all cocktail ingredients (to lower case)
+                if(stringSimilarity.compareTwoStrings(query.toLowerCase(), Cocktails[i].ingredients[j].toLowerCase()) > 0.7){
 
                     // append the cocktail to search_results
                     results.push(Cocktails[i]);
@@ -47,9 +50,12 @@ class Searchbar extends Component {
     render() {
         return(
             <div id="searchbar">
-                <input type="search" onChange={e => this.onSearchQueryChange(e.target.value)}/>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Margarita" onChange={e => this.onSearchQueryChange(e.target.value)}/>
+                </div>
+                
                 <ul>
-                    { this.state.search_results.map((result) => <li>{result.name}</li>) }
+                    { this.state.search_results.map((result) => <li><a href="#">{result.name}</a></li>) }
                 </ul>
 
             </div>
