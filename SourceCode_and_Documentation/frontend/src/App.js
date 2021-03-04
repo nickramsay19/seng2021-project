@@ -1,13 +1,11 @@
 import './App.css';
 import React from 'react';
-import Navbar from './components/Navbar/Navbar';
-import Searchbar from './components/Searchbar/Searchbar';
+import Main from './components/Main/main'
 
 function App() {
   return (
     <div className="App">
-      <Navbar />
-      <Searchbar />
+      <Main />
     </div>
   );
 }
