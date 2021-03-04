@@ -4,6 +4,7 @@ import { MenuItems } from './MenuItems'
 import './Navbar.css'
 import { Button } from '../Button'
 
+
 class Navbar extends Component {
     state = { clicked: false }
 
