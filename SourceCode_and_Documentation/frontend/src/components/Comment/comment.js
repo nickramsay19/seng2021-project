@@ -4,10 +4,12 @@ import "./comment.css";
 class Comment extends Component {
     render() {
         return(
-            <div class="form-floating">
-                <textarea id="comment" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 50px"></textarea>
-                <label for="floatingTextarea2">Comments</label>
-                <button>Submit</button>
+            <div class="comm">
+                <div class="form-floating">
+                    <textarea id="comment" class="form-control" placeholder="Comment" id="floatingTextarea" style="height: 100px"></textarea>
+                    <label for="floatingTextarea2">Add an anonymous comment...</label>
+                    <button type="button" class="btn btn-outline-primary float-end">Post</button>
+                </div>
             </div>
         )
     }
