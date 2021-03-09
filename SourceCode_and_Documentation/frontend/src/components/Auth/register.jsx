@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 
-export default class Register extends Component {
+export default class Home extends Component {
     render() {
         return (
-            <header>
-                Register Page
-            </header>
+            <div class="container">
+                <header>
+                    <h1>Register page</h1>
+                </header>
+            </div>
         )
     }
 }
