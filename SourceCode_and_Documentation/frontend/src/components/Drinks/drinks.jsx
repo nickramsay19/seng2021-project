@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 
-export default class Drinks extends Component {
+export default class Home extends Component {
     render() {
         return (
-            <header>
-                Drinks Page
-            </header>
+            <div class="container">
+                <header>
+                    <h1>Drinks Page</h1>
+                </header>
+            </div>
         )
     }
 }

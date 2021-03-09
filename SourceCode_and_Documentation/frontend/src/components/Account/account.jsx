@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 
-export default class Account extends Component {
+export default class Home extends Component {
     render() {
         return (
-            <header>
-                Account Page
-            </header>
+            <div class="container">
+                <header>
+                    <h1>Account page</h1>
+                </header>
+            </div>
         )
     }
 }
