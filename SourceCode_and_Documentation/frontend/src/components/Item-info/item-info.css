@@ -1,0 +1,22 @@
+.item-info-card {
+    display: inline-block;
+    background-color: #f5f5f5;
+    border-radius: 30px;
+    padding: 2em;
+}
+
+.item-image {
+    background-color: #c4c4c4;
+    width: 500px;
+    height: 500px;
+    margin: 0px;
+}
+
+.item-row {
+    display: flex;
+    margin: 1em 0em;
+}
+
+.item-ingredients {
+    padding-left: 2em;
+}
