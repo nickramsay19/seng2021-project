@@ -11,51 +11,73 @@ class Searchbar extends Component {
     // updates search_results based on search bar input
     onSearchQueryChange = (query) => {
 
+        // split query into separate word searches
+        let query_words = query.split(" ");
+
         // declare a new results array
         let results = [];
         
-        // loop through each cocktail
-        for(var i = 0; i < Cocktails.length; i++) {
+        // loop through each query word
+        for(let i = 0; i < query_words.length; i++) {
 
-            // perform a string similarity check between query (to lower case) and cocktail name (to lower case)
-            if(stringSimilarity.compareTwoStrings(query.toLowerCase(), Cocktails[i].name.toLowerCase()) > 0.7){
+            // loop through each cocktail
+            for(let j = 0; j < Cocktails.length; j++) {
 
-                // append the cocktail to search_results
-                results.push(Cocktails[i]);
+                // split cocktail into separate words
+                let cocktails_words = Cocktails[j].name.split(" ")
 
-                // move on to next cocktail, cocktail already added
-                continue;
-            }
-            // loop throughingredients
-            for(var j = 0; j < Cocktails[i].ingredients.length; j++){
+                // loop through each word in cocktail name
+                for(let k = 0; k < cocktails_words.length; k++) {
 
-                // perform a string similarity check between query (to lower case) and all cocktail ingredients (to lower case)
-                if(stringSimilarity.compareTwoStrings(query.toLowerCase(), Cocktails[i].ingredients[j].toLowerCase()) > 0.7){
+                    // perform a string similarity check between query (to lower case) and cocktail name (to lower case)
+                    if(stringSimilarity.compareTwoStrings(query_words[i].toLowerCase(), cocktails_words[k].toLowerCase()) > 0.7){
 
-                    // append the cocktail to search_results
-                    results.push(Cocktails[i]);
+                        // append the cocktail to search_results
+                        results.push(Cocktails[j]);
 
-                    // break the for loop, cocktail already added
-                    break;
+                        // break the for loop, cocktail has already been added
+                        break;
+                    }
+                    // loop through ingredients
+                    for(let l = 0; l < Cocktails[j].ingredients.length; l++){
+
+                        // split cocktail ingredient into separate words
+                        let ingredient_words = Cocktails[j].ingredients[l].split(" ")
+
+                        for(let m = 0; m < ingredient_words.length; m++) {
+                            // perform a string similarity check between query (to lower case) and all cocktail ingredients (to lower case)
+                            if(stringSimilarity.compareTwoStrings(query_words[i].toLowerCase(), ingredient_words[m].toLowerCase()) > 0.7){
+
+                                // append the cocktail to search_results
+                                results.push(Cocktails[j]);
+
+                                // break the for loop, cocktail has already been added
+                                break;
+                            }
+                        }
+                        
+                    }
                 }
             }
         }
-    
+
         // set search_results
+        // remove duplicates by converting to a set then arr again
         this.setState({
-            search_results: results
+            search_results: [...new Set(results)],
         })
     }
 
     render() {
         return(
             <div id="searchbar">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Margarita" onChange={e => this.onSearchQueryChange(e.target.value)}/>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Margarita" onChange={e => this.onSearchQueryChange(e.target.value)} /> 
+                    <button class="btn btn-outline-secondary" type="button">Search</button>
                 </div>
                 
-                <ul>
-                    { this.state.search_results.map((result) => <li><a href="#">{result.name}</a></li>) }
+                <ul class="list-group">
+                    { this.state.search_results.map((result) => <li class="list-group-item"><a href="#">{result.name}</a></li>) }
                 </ul>
 
             </div>
