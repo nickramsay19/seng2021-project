@@ -1,0 +1,21 @@
+.item-card {
+    position: relative;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-flow: wrap;
+    width: 220px;
+    height: 270px;
+    border-radius: 10px;
+    justify-content: center;
+}
+
+.item-image {
+    margin-top: 35px;
+    background-color: #c4c4c4;
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+}
+
+
+
