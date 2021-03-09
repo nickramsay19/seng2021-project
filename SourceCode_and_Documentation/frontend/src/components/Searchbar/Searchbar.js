@@ -11,9 +11,17 @@ class Searchbar extends Component {
     // updates search_results based on search bar input
     onSearchQueryChange = (query) => {
 
+        // split query into separate word searches
+        //let query_words = query.split(" ");
+
         // declare a new results array
         let results = [];
         
+        // loop through each query word
+        //for(var i = 0; i < query_words.length; i++) {
+
+        //}
+
         // loop through each cocktail
         for(var i = 0; i < Cocktails.length; i++) {
 
@@ -50,12 +58,13 @@ class Searchbar extends Component {
     render() {
         return(
             <div id="searchbar">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Margarita" onChange={e => this.onSearchQueryChange(e.target.value)}/>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Margarita" onChange={e => this.onSearchQueryChange(e.target.value)} /> 
+                    <button class="btn btn-outline-secondary" type="button">Search</button>
                 </div>
                 
-                <ul>
-                    { this.state.search_results.map((result) => <li><a href="#">{result.name}</a></li>) }
+                <ul class="list-group">
+                    { this.state.search_results.map((result) => <li class="list-group-item"><a href="#">{result.name}</a></li>) }
                 </ul>
 
             </div>
