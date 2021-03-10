@@ -21,3 +21,15 @@
     padding-left: 2em;
     white-space: pre-wrap;
 }
+
+.item-back {
+    float: right;
+}
+
+.item-top-bar {
+    display: block;
+}
+
+.item-title {
+    width: 50%
+}

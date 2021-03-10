@@ -7,9 +7,13 @@ class ItemInfo extends Component {
     render() { 
         return ( 
             <div className="item-info-card">
-                <h1 className="item-title">
-                    {this.props.name}
-                </h1>
+                <div className="item-top-bar">
+                    <h1 className="item-title">
+                        {this.props.name}
+                    </h1>
+                    <Link to="/drinks"><p className="item-back">Back</p></Link>
+                </div>
+                
                 <div className="item-row">
                     <div className="item-image"></div>
                     <div className="item-ingredients">
@@ -32,7 +36,7 @@ class ItemInfo extends Component {
                         {this.props.instructions}
                     </p>
                 </div>
-                <Link to="/drinks"><p>Back</p></Link>
+                
                 <p>Add to Shopping List</p>   
             </div>
          );
