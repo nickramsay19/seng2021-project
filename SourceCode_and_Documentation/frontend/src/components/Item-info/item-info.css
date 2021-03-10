@@ -33,3 +33,19 @@
 .item-title {
     width: 50%
 }
+
+.comm {
+    width: 800px;
+    height: 180px;
+    border: 1px solid rgb(43, 209, 43);
+    padding: 10px;
+    margin:0 auto;
+}
+
+.cmtBlock {
+    width: 800px;
+    height: auto;
+    border: 1px solid rgb(43, 209, 43);
+    padding: 10px;
+    margin: 0 auto;
+}
