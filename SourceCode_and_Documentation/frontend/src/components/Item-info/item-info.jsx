@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './item-info.css';
+import { Link } from 'react-router-dom';
 
 class ItemInfo extends Component {
     state = {  }
@@ -7,7 +8,7 @@ class ItemInfo extends Component {
         return ( 
             <div className="item-info-card">
                 <h1 className="item-title">
-                    Item Title
+                    {this.props.name}
                 </h1>
                 <div className="item-row">
                     <div className="item-image"></div>
@@ -16,7 +17,9 @@ class ItemInfo extends Component {
                             Ingredients
                         </h2>
                         <p className="item-ingredient-list">
-                            Something to Map
+                            {this.props.ingredients.map(item => 
+                                `${item}\n`    
+                            )}
                         </p>
                     </div>
                 </div>
@@ -26,10 +29,11 @@ class ItemInfo extends Component {
                         Instructions
                     </h2>
                     <p className="item-text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime facilis inventore laboriosam doloribus saepe alias ab debitis adipisci natus quia cumque, iste obcaecati sequi! Aut iusto aperiam exercitationem rerum tempora!
+                        {this.props.instructions}
                     </p>
                 </div>
-                <p></p>     
+                <Link to="/drinks"><p>Back</p></Link>
+                <p>Add to Shopping List</p>   
             </div>
          );
     }
