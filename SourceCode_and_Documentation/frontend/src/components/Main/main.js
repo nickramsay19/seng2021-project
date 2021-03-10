@@ -17,7 +17,7 @@ class Main extends Component {
                 <Navbar />
                 <Switch>
                     <Route exact path="/" component={Home} />
-                    <Route path="/drinks" exact component={Drinks} />
+                    <Route exact path="/drinks" exact component={Drinks} />
                     <Route path="/account" exact component={Account} />
                     <Route path="/contact" exact component={Contact} />
                     <Route path="/register" exact component={Register} />

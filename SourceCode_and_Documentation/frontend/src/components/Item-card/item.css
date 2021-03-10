@@ -1,0 +1,23 @@
+.item-card {
+    background-color: #f5f5f5;
+    display: inline-block;
+    width: 220px;
+    height: 270px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 1em;
+    color: #000;
+}
+
+.item-card-image {
+    margin: auto;
+    margin-top: 35px;
+    background-color: #c4c4c4;
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+
+
