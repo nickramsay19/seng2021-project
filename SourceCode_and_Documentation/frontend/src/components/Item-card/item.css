@@ -6,6 +6,7 @@
     border-radius: 10px;
     text-align: center;
     margin: 1em;
+    color: #000;
 }
 
 .item-card-image {
@@ -15,6 +16,7 @@
     width: 150px;
     height: 150px;
     border-radius: 5px;
+    margin-bottom: 30px;
 }
 
 

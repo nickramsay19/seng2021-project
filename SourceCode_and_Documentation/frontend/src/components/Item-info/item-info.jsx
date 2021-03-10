@@ -11,7 +11,8 @@ class ItemInfo extends Component {
                     <h1 className="item-title">
                         {this.props.name}
                     </h1>
-                    <Link to="/drinks"><p className="item-back">Back</p></Link>
+                    <p className="item-button">Add to Shopping List</p>  
+                    <Link to="/drinks"><p className="item-button">Back</p></Link>
                 </div>
                 
                 <div className="item-row">
@@ -20,11 +21,11 @@ class ItemInfo extends Component {
                         <h2 className="item-header">
                             Ingredients
                         </h2>
-                        <p className="item-ingredient-list">
+                        <div className="item-ingredient-list">
                             {this.props.ingredients.map(item => 
-                                `${item}\n`    
+                                <p className="item-ingredient-highlight">{item}</p>    
                             )}
-                        </p>
+                        </div>
                     </div>
                 </div>
                 
@@ -37,7 +38,7 @@ class ItemInfo extends Component {
                     </p>
                 </div>
                 
-                <p>Add to Shopping List</p>   
+                 
             </div>
          );
     }

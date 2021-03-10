@@ -2,7 +2,7 @@
     display: inline-block;
     background-color: #f5f5f5;
     border-radius: 30px;
-    padding: 2em;
+    padding: 2em 4em;
 }
 
 .item-image {
@@ -19,17 +19,34 @@
 
 .item-ingredients {
     padding-left: 2em;
-    white-space: pre-wrap;
 }
 
-.item-back {
-    float: right;
+.item-ingredient-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.item-button {
+    padding: 0.5em 1em;
+    background-color: #c4c4c4;
+    color: #000;
+    border-radius: 10px; 
 }
 
 .item-top-bar {
-    display: block;
+    display: flex;
+    vertical-align: top;
+    justify-content: space-between;
 }
 
 .item-title {
     width: 50%
 }
+
+.item-ingredient-highlight {
+    background-color: #c4c4c4;
+    margin-right: 1em;
+    padding: 0.5em 1em;
+    border-radius: 10px;
+}
+

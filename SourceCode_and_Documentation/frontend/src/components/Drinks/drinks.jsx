@@ -72,56 +72,56 @@ const HardCodedLinks = () => {
                         ingredients={Cocktails[0].ingredients} 
                         instructions={Cocktails[0].instructions}
             />
-        </Route>
-        <Route exact path="/drinks/1">
-            <ItemInfo   name={Cocktails[1].name} 
-                        ingredients={Cocktails[1].ingredients} 
-                        instructions={Cocktails[1].instructions}
-            />
-        </Route>
-        <Route exact path="/drinks/2">
-            <ItemInfo   name={Cocktails[2].name} 
-                        ingredients={Cocktails[2].ingredients} 
-                        instructions={Cocktails[2].instructions}
-            />
-        </Route>
-        <Route exact path="/drinks/3">
-            <ItemInfo   name={Cocktails[3].name} 
-                        ingredients={Cocktails[3].ingredients} 
-                        instructions={Cocktails[3].instructions}
-            />
-        </Route>
-        <Route exact path="/drinks/4">
-            <ItemInfo   name={Cocktails[4].name} 
-                        ingredients={Cocktails[4].ingredients} 
-                        instructions={Cocktails[4].instructions}
-            />
-        </Route>
-        <Route exact path="/drinks/5">
-            <ItemInfo   name={Cocktails[5].name} 
-                        ingredients={Cocktails[5].ingredients} 
-                        instructions={Cocktails[5].instructions}
-            />
-        </Route>
-        <Route exact path="/drinks/6">
-            <ItemInfo   name={Cocktails[6].name} 
-                        ingredients={Cocktails[6].ingredients} 
-                        instructions={Cocktails[6].instructions}
-            />
-        </Route>
-        <Route exact path="/drinks/7">
-            <ItemInfo   name={Cocktails[7].name} 
-                        ingredients={Cocktails[7].ingredients} 
-                        instructions={Cocktails[7].instructions}
-            />
-        </Route>
-        <Route exact path="/drinks/8">
-            <ItemInfo   name={Cocktails[8].name} 
-                        ingredients={Cocktails[8].ingredients} 
-                        instructions={Cocktails[8].instructions}
-            />
-        </Route>
-    </React.Fragment>
+            </Route>
+            <Route exact path="/drinks/1">
+                <ItemInfo   name={Cocktails[1].name} 
+                            ingredients={Cocktails[1].ingredients} 
+                            instructions={Cocktails[1].instructions}
+                />
+            </Route>
+            <Route exact path="/drinks/2">
+                <ItemInfo   name={Cocktails[2].name} 
+                            ingredients={Cocktails[2].ingredients} 
+                            instructions={Cocktails[2].instructions}
+                />
+            </Route>
+            <Route exact path="/drinks/3">
+                <ItemInfo   name={Cocktails[3].name} 
+                            ingredients={Cocktails[3].ingredients} 
+                            instructions={Cocktails[3].instructions}
+                />
+            </Route>
+            <Route exact path="/drinks/4">
+                <ItemInfo   name={Cocktails[4].name} 
+                            ingredients={Cocktails[4].ingredients} 
+                            instructions={Cocktails[4].instructions}
+                />
+            </Route>
+            <Route exact path="/drinks/5">
+                <ItemInfo   name={Cocktails[5].name} 
+                            ingredients={Cocktails[5].ingredients} 
+                            instructions={Cocktails[5].instructions}
+                />
+            </Route>
+            <Route exact path="/drinks/6">
+                <ItemInfo   name={Cocktails[6].name} 
+                            ingredients={Cocktails[6].ingredients} 
+                            instructions={Cocktails[6].instructions}
+                />
+            </Route>
+            <Route exact path="/drinks/7">
+                <ItemInfo   name={Cocktails[7].name} 
+                            ingredients={Cocktails[7].ingredients} 
+                            instructions={Cocktails[7].instructions}
+                />
+            </Route>
+            <Route exact path="/drinks/8">
+                <ItemInfo   name={Cocktails[8].name} 
+                            ingredients={Cocktails[8].ingredients} 
+                            instructions={Cocktails[8].instructions}
+                />
+            </Route>
+        </React.Fragment>
     )
 }    
 
