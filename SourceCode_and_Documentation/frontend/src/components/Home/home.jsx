@@ -4,7 +4,7 @@ import Searchbar from '../Searchbar/Searchbar'
 export default class Home extends Component {
     render() {
         return (
-            <div class="container">
+            <div className="container">
                 <header>
                     <h1>Main Page</h1>
                 </header>

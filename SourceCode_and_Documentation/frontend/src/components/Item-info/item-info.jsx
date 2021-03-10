@@ -28,7 +28,8 @@ class ItemInfo extends Component {
                     <p className="item-text">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime facilis inventore laboriosam doloribus saepe alias ab debitis adipisci natus quia cumque, iste obcaecati sequi! Aut iusto aperiam exercitationem rerum tempora!
                     </p>
-                </div>     
+                </div>
+                <p></p>     
             </div>
          );
     }
