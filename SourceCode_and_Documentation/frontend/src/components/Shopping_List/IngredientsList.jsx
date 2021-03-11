@@ -15,8 +15,29 @@ class IngredientsList extends Component {
 
         // set state
         this.state = {
-            ingredients: cookies.get('ingredients') || ['Tequilla', 'Lime juice', 'Triple sec']
+            ingredients: cookies.get('ingredients') || []
         };
+    }
+
+    // return ingredients with duplicates removed
+    getUniqueIngredients = () => {
+
+        // convert ingredients array to state, then array to remove duplicates
+        return [... new Set(this.state.ingredients)];
+    }
+
+    // return the amount of an ingredient in ingredients
+    getIngredientCount = ingredient => {
+
+        let count = 0;
+
+        for(let i = 0; i < this.state.ingredients.length; i++) {
+            if(this.state.ingredients[i] === ingredient) {
+                count++;
+            }
+        }
+
+        return count;
     }
  
     // handle ingredient removal
@@ -25,14 +46,17 @@ class IngredientsList extends Component {
         // get cookies
         const { cookies } = this.props;
             
-        let new_ingredients = [];
+        // declare new ingredients array
+        let new_ingredients = this.state.ingredients;
 
-        for(let i = 0; i < this.state.ingredients.length; i++){
-            if(ingredient != this.state.ingredients[i]) {
-                new_ingredients.push(this.state.ingredients[i])
-            }
-        }
+        // remove single occurence of ingredient
+        new_ingredients.splice(new_ingredients.indexOf(ingredient), 1);
+        
+
+        // adjust ingredients in cookies
         cookies.set('ingredients', new_ingredients, { path: '/' });
+
+        // set the component state to reflect ingredients
         this.setState({ ingredients: new_ingredients });
     }
  
@@ -40,9 +64,11 @@ class IngredientsList extends Component {
         return (
             <ul className="list-group list-group-flush">
                 {   
-                    this.state.ingredients.map((ingredient, index) =>   
+                    this.getUniqueIngredients().map((ingredient, index) =>   
+                    
                         <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
-                            {ingredient} 
+                            <span>{ingredient} <small class="text-muted">x { this.getIngredientCount(ingredient) }</small></span>
+                            
                             <button className="btn btn-danger" onClick={() => this.removeIngredient(ingredient)}>
                                 Remove
                             </button>
