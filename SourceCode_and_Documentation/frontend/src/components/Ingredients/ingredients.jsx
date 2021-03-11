@@ -1,92 +1,43 @@
 import React, { Component } from 'react';
 import Item from '../Item-card/item'
-import ItemInfo from '../Item-info/item-info'
-import { Cocktails } from '../Drinks/Cocktails.js'
-import { BrowserRouter as Router, Switch, Route, Link, useRouteMatch } from 'react-router-dom'
+import IngredientInfo from '../Ingredient-info/ingredient-info'
+import { Cocktails } from '../Searchbar/Cocktails.js'
+import { Route, Link, withRouter } from 'react-router-dom'
 
-export default class Ingredients extends Component {
-    render() {
+
+
+class Ingredients extends Component {
+
+    render() { 
+        let IngredientList = []; 
+
+        for(let i = 0; i < Cocktails.length; i++){
+            for(let j = 0; j < Cocktails[i].ingredients.length; j++){
+                IngredientList.push(Cocktails[i].ingredients[j]);
+            }
+        }
+
+        IngredientList = [...new Set(IngredientList)]
+        const { match } = this.props;
         return (
-            <Router>
-                <div className="container">
-                    <h1>Ingredients Page</h1>
-                    <Switch>
-                        <Route exact path="/drinks">
-                            {Cocktails.map((item, index) =>
-                                <Link to={`drinks/${index}`} key={item.name+index+'card'}>
-                                    <Item name={item.name}/>
-                                </Link> 
-                            )}
-                        </Route>
-                        <HardCodedLinks />
-                    </Switch>
-                </div>
-
-                
-            </Router>
-           
-        )
+            <div className="container">
+                <Route exact path={match.path}>
+                    <h2>Select an ingredient to see more info</h2>
+                    {IngredientList.map(( ingredient, id ) => (
+                        <Link to={`${match.url}/${ingredient}`}>
+                        <Item key={id}>{ingredient}</Item>
+                        </Link>
+                        
+                    ))}
+                </Route>
+                <Route path={`${match.path}/:ingredientID`}>
+                    <IngredientInfo />
+                </Route>
+    
+            </div>
+        );
     }
-}
+  }
 
-const HardCodedLinks = () => {
-    return (
-        <React.Fragment>
-            <Route exact path="/drinks/0">
-            <ItemInfo   name={Cocktails[0].name} 
-                        ingredients={Cocktails[0].ingredients} 
-                        instructions={Cocktails[0].instructions}
-            />
-            </Route>
-            <Route exact path="/drinks/1">
-                <ItemInfo   name={Cocktails[1].name} 
-                            ingredients={Cocktails[1].ingredients} 
-                            instructions={Cocktails[1].instructions}
-                />
-            </Route>
-            <Route exact path="/drinks/2">
-                <ItemInfo   name={Cocktails[2].name} 
-                            ingredients={Cocktails[2].ingredients} 
-                            instructions={Cocktails[2].instructions}
-                />
-            </Route>
-            <Route exact path="/drinks/3">
-                <ItemInfo   name={Cocktails[3].name} 
-                            ingredients={Cocktails[3].ingredients} 
-                            instructions={Cocktails[3].instructions}
-                />
-            </Route>
-            <Route exact path="/drinks/4">
-                <ItemInfo   name={Cocktails[4].name} 
-                            ingredients={Cocktails[4].ingredients} 
-                            instructions={Cocktails[4].instructions}
-                />
-            </Route>
-            <Route exact path="/drinks/5">
-                <ItemInfo   name={Cocktails[5].name} 
-                            ingredients={Cocktails[5].ingredients} 
-                            instructions={Cocktails[5].instructions}
-                />
-            </Route>
-            <Route exact path="/drinks/6">
-                <ItemInfo   name={Cocktails[6].name} 
-                            ingredients={Cocktails[6].ingredients} 
-                            instructions={Cocktails[6].instructions}
-                />
-            </Route>
-            <Route exact path="/drinks/7">
-                <ItemInfo   name={Cocktails[7].name} 
-                            ingredients={Cocktails[7].ingredients} 
-                            instructions={Cocktails[7].instructions}
-                />
-            </Route>
-            <Route exact path="/drinks/8">
-                <ItemInfo   name={Cocktails[8].name} 
-                            ingredients={Cocktails[8].ingredients} 
-                            instructions={Cocktails[8].instructions}
-                />
-            </Route>
-        </React.Fragment>
-    )
-}    
-
+const IngredientRouter = withRouter(Ingredients)
+export default IngredientRouter
