@@ -1,13 +1,14 @@
 .card1 {
     background-color: #f5f5f5;
     display: inline-block;
-    width: 1120px;
-    height: 550px;
+    width: 1100px;
+    height: 425px;
     border-radius: 10px;
     text-align: center;
     margin: auto;
     margin-top: 1em;
     color: #000;
+    margin-bottom: 20px;
 }
 
 .card-image1 {
@@ -29,4 +30,13 @@
     text-align: center;
     margin: 1em;
     color: #000;
+}
+
+.card-link1 {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.card-body1 {
+    
 }

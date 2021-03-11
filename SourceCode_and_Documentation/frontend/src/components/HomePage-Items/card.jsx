@@ -7,19 +7,17 @@ class Card extends Component {
     render() { 
         return ( 
 
-            <div class="card1">
-            <div class="card-image1"></div>
-            <div class="card-body">
-              <h5 class="card-title">Cocktail of the Day</h5>
-              <p class="card-text">Margarita</p>
+            <div className="card1">
+            <div className="card-image1"></div>
+            <div className="card-body">
+              <h5 className="card-title">Cocktail of the Day</h5>
+              <p className="card-text">Margarita</p>
             </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">Tequilla</li>
-              <li class="list-group-item">Triple sec</li>
-              <li class="list-group-item">Lime juice</li>
+            <ul className="list-group list-group-flush">
+              <li className="list-group-item">Tequilla, Triple sec, Lime juice</li>
             </ul>
-            <div class="card-body">
-              <Link to="/drinks/Margarita" class="card-link">Info</Link>
+            <div className="card-body">
+              <Link to="/drinks/Margarita" className="card-link1">Info</Link>
             </div>
           </div>
                     /*<ul class="card">
