@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import stringSimilarity from 'string-similarity';
-import { Cocktails } from './Cocktails'
+import { Cocktails } from '../Drinks/Cocktails'
 import './Searchbar.css';
 
 
