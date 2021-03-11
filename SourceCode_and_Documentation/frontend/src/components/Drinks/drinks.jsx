@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import Item from '../Item-card/item'
 import ItemInfo from '../Item-info/item-info'
-<<<<<<< HEAD
-import { Cocktails } from './Cocktails.js'
-import { BrowserRouter as Router, Switch, Route, Link, useRouteMatch } from 'react-router-dom'
-=======
 import { Cocktails } from '../Searchbar/Cocktails.js'
 import { Route, Link, withRouter } from 'react-router-dom'
->>>>>>> f71c9fa7... added working urls for drinks; rewrote main routing for future use; added new id field to dummy data
 
 class Drinks extends Component {
     render() { 

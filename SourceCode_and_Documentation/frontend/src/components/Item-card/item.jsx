@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './item.css'
 class Item extends Component {
     render() { 
-        console.log("props",this.props)
         return ( 
             <div className="item-card">
                 <div className="item-card-image"></div>

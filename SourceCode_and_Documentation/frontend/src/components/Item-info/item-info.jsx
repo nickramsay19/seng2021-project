@@ -8,7 +8,6 @@ class Cocktail extends Component {
     render() { 
         const { match } = this.props;
         const { cocktailId } = match.params;
-        console.log("match",match)
         const cocktail = Cocktails.find(({ id }) => id === cocktailId)
         return ( 
             <div className="item-info-card">
