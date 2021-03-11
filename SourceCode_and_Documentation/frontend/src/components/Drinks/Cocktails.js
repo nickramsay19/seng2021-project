@@ -1,6 +1,7 @@
 export const Cocktails = [
     {
         name: 'Margarita',
+        id: 'Margarita',
         ingredients: [
             'Tequilla',
             'Triple sec',
@@ -13,6 +14,7 @@ export const Cocktails = [
     },
     {
         name: 'Martini',
+        id: 'Martini',
         ingredients: [
             'Gin',
             'Dry vermouth'
@@ -24,6 +26,7 @@ export const Cocktails = [
     },
     {
         name: 'Gin and Tonic',
+        id: 'Gin-and-Tonic',
         ingredients: [
             'Gin',
             'Tonic water'
@@ -34,6 +37,7 @@ export const Cocktails = [
     },
     {
         name: 'Pina Colada',
+        id: 'Pina-Colada',
         ingredients: [
             'Pineapple',
             'Coconut creme',
@@ -46,6 +50,7 @@ export const Cocktails = [
     },
     {
         name: 'Mojito',
+        id: 'Mojito',
         ingredients: [
             'White rum',
             'Lime juice',
@@ -60,8 +65,9 @@ export const Cocktails = [
     },
     {
         name: 'Irish Coffee',
+        id: 'Irish-Coffee',
         ingredients: [
-            'Irish Whiskey',
+            'Irish-Whiskey',
             'Coffee'
         ],
         instructions: `Heat the coffee, whiskey and sugar; do not boil.  
@@ -69,6 +75,7 @@ export const Cocktails = [
     },
     {
         name: 'Espresso Martini',
+        id: 'Espresso-Martini',
         ingredients: [
             'Coffee',
             'Vodka',
@@ -79,6 +86,7 @@ export const Cocktails = [
     },
     {
         name: 'Gin Fizz',
+        id: 'Gin-Fizz',
         ingredients: [
             'Gin',
             'Lemon juice',
@@ -93,6 +101,7 @@ export const Cocktails = [
     },
     {
         name: 'Pisco Sour',
+        id: 'Pisco-Sour',
         ingredients: [
             'Pisco',
             'Lime juice',

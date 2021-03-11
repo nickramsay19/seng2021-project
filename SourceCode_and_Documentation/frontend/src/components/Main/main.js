@@ -14,10 +14,10 @@ class Main extends Component {
             <Router>
                 <Navbar />
                 <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route path="/shopping-list" exact component={Shopping_List} />
-                    <Route exact path="/drinks" exact component={Drinks} />
-                    <Route path="/ingredients" exact component={Ingredients} />
+                    <Route exact path="/"><Home/></Route>
+                    <Route path="/shopping-list"><Shopping_List/></Route>
+                    <Route path="/drinks"><Drinks/></Route>
+                    <Route path="/ingredients"><Ingredients/></Route>
                 </Switch>              
             </Router>
         );

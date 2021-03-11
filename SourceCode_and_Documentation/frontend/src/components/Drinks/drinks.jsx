@@ -1,69 +1,63 @@
 import React, { Component } from 'react';
 import Item from '../Item-card/item'
 import ItemInfo from '../Item-info/item-info'
+<<<<<<< HEAD
 import { Cocktails } from './Cocktails.js'
 import { BrowserRouter as Router, Switch, Route, Link, useRouteMatch } from 'react-router-dom'
+=======
+import { Cocktails } from '../Searchbar/Cocktails.js'
+import { Route, Link, withRouter } from 'react-router-dom'
+>>>>>>> f71c9fa7... added working urls for drinks; rewrote main routing for future use; added new id field to dummy data
 
-// const DrinksList = () => {
-//     return (
-//         <React.Fragment>
-//              <header>
-//                 <h1>Drinks Page</h1>
-//             </header>
-//             {
-//                 Cocktails.map((item, index) =>
-//                 <Link to={`drinks/${item.name}`} key={item.name+index+'card'}>
-//                     <Item name={item.name}/>
-//                 </Link> 
-//                 ) 
-//             }
-            
-//         </React.Fragment>
-       
-//     )
-// }
-
-// const T = () => {
-//     return (  
-//             Cocktails.map((item,index) =>
-//             <Route exact path={`drinks/${item.name}`}>
-//                 {console.log(item.name)}
-//                 <ItemInfo 
-//                             name={item.name} 
-//                             ingredients={item.ingredients} 
-//                             instruction={item.instructions}
-//                 />
-//             </Route>
-//         )    
-//     )
-   
-// }
-
-export default class Drinks extends Component {
-    render() {
-        return (
-            <Router>
-                <div className="container">
-                    <h1>Drinks Page</h1>
-                    <Switch>
-                        <Route exact path="/drinks">
-                            { Cocktails.map((item, index) =>
-                                <Link to={`drinks/${index}`} key={item.name+index+'card'}>
-                                    <Item name={item.name}/>
-                                </Link> 
-                            )}
-                        </Route>
-                        <HardCodedLinks />
-                    </Switch>
-                </div>
-
-                
-            </Router>
-           
-        )
+class Drinks extends Component {
+    render() { 
+      const { match } = this.props;
+      return (
+        <div className="container">
+            <Route exact path={match.path}>
+                <h2>Select a drink to see more info</h2>
+                {Cocktails.map(({ name, id }) => (
+                    
+                        <Link to={`${match.url}/${id}`}>
+                        <Item key={id}>{name}</Item>
+                        </Link>
+                    
+                ))}
+            </Route>
+            <Route path={`${match.path}/:cocktailId`}>
+                <ItemInfo />
+            </Route>
+  
+        </div>
+      );
     }
-}
+  }
 
+
+// class Drinks extends Component {
+//     render() {
+//         const { match } = this.props;
+//         console.log("match path", match.path)
+//         console.log("match url", match.url)
+//         return (
+//             <div className="container">
+//                 <h1>Drinks Page</h1>
+//                 <Route exact path={match.path}>
+//                         {Cocktails.map(({ name, id }) => (
+//                             <Link to={`${match.url}/${id}`} key={id}>
+//                                 <ItemInfo>{name}</ItemInfo>
+//                             </Link>
+//                         ))}
+//                 </Route>
+//                 <Route path={`${match.path}/:cocktailId`}>
+//                     <ItemInfo/>
+//                 </Route>
+//             </div>          
+//         )
+//     }
+// }
+const DrinksRouter = withRouter(Drinks)
+export default DrinksRouter
 const HardCodedLinks = () => {
     return (
         <React.Fragment>
