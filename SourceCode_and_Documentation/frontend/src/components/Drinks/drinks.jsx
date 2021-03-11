@@ -47,7 +47,7 @@ export default class Drinks extends Component {
                     <h1>Drinks Page</h1>
                     <Switch>
                         <Route exact path="/drinks">
-                            {Cocktails.map((item, index) =>
+                            { Cocktails.map((item, index) =>
                                 <Link to={`drinks/${index}`} key={item.name+index+'card'}>
                                     <Item name={item.name}/>
                                 </Link> 
