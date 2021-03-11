@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './card.css'
 
 
@@ -18,8 +19,7 @@ class Card extends Component {
               <li class="list-group-item">Lime juice</li>
             </ul>
             <div class="card-body">
-              <a href="#" class="card-link">About</a>
-              <a href="#" class="card-link">Add to Shopping List</a>
+              <Link to="/drinks/Margarita" class="card-link">Info</Link>
             </div>
           </div>
                     /*<ul class="card">

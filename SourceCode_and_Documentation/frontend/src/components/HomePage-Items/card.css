@@ -5,7 +5,8 @@
     height: 550px;
     border-radius: 10px;
     text-align: center;
-    margin: 1em;
+    margin: auto;
+    margin-top: 1em;
     color: #000;
 }
 
@@ -20,7 +21,7 @@
 }
 
 .inner-card {
-    background-color: #f5f5f5;
+    background-color: #e0dfdf;
     display: inline-block;
     width: 1020px;
     height: 110px;
