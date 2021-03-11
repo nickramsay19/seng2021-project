@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './item-info.css';
 import { Link, withRouter } from 'react-router-dom';
-import { Cocktails } from '../Searchbar/Cocktails'
+import { Cocktails } from '../Drinks/Cocktails'
 
 class Cocktail extends Component {
     state = {  }
