@@ -1,15 +1,17 @@
-.card {
+.card1 {
     background-color: #f5f5f5;
     display: inline-block;
-    width: 1120px;
-    height: 700px;
+    width: 1100px;
+    height: 425px;
     border-radius: 10px;
     text-align: center;
-    margin: 1em;
+    margin: auto;
+    margin-top: 1em;
     color: #000;
+    margin-bottom: 20px;
 }
 
-.card-body {
+.card-image1 {
     margin: auto;
     margin-top: 35px;
     background-color: #c4c4c4;
@@ -20,7 +22,7 @@
 }
 
 .inner-card {
-    background-color: #f5f5f5;
+    background-color: #e0dfdf;
     display: inline-block;
     width: 1020px;
     height: 110px;
@@ -28,4 +30,13 @@
     text-align: center;
     margin: 1em;
     color: #000;
+}
+
+.card-link1 {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.card-body1 {
+    
 }
