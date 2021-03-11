@@ -1,10 +1,57 @@
 import React, { Component } from 'react';
 import './item-info.css';
 import { Link, withRouter } from 'react-router-dom';
-import { Cocktails } from '../Searchbar/Cocktails'
+import { Cocktails } from '../Drinks/Cocktails'
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
 
 class Cocktail extends Component {
-    state = {  }
+
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+    };
+    
+    constructor(props) {
+        super(props);
+    
+        // get cookies
+        const { cookies } = props;
+
+        // set state
+        this.state = {
+            ingredients: cookies.get('ingredients') || []
+        };
+    }
+
+    addIngredients = cocktailId => {
+        // get cookies
+        const { cookies } = this.props;
+        
+        const cocktail = Cocktails.find(({ id }) => id === cocktailId);
+
+        let new_ingredients = this.state.ingredients;
+        for (let i = 0; i < cocktail.ingredients.length; i++ ){
+            new_ingredients.push(cocktail.ingredients[i]);
+        }
+        //new_ingredients.push(cocktailId); // TODO: add each coktail ingredient not cokctail id
+
+        this.setState({ ingredients: new_ingredients });
+        cookies.set('ingredients', this.state.ingredients, { path: '/' });
+        
+    }
+
+    addIngredient = ingredient => {
+        // get cookies
+        const { cookies } = this.props;
+        
+        let new_ingredients = this.state.ingredients;
+        new_ingredients.push(ingredient);
+
+        this.setState({ ingredients: new_ingredients });
+        cookies.set('ingredients', this.state.ingredients, { path: '/' });
+        
+    }
+
     render() { 
         const { match } = this.props;
         const { cocktailId } = match.params;
@@ -15,7 +62,7 @@ class Cocktail extends Component {
                     <h1 className="item-title">
                         {cocktail.name}
                     </h1>
-                    <p className="item-button">Add to Shopping List</p>  
+                    <p className="item-button" onClick={() => this.addIngredients(cocktailId) }>Add to Shopping List</p>  
                     <Link to="/drinks"><p className="item-button">Back</p></Link>
                 </div>
                 
@@ -27,7 +74,7 @@ class Cocktail extends Component {
                         </h2>
                         <div className="item-ingredient-list">
                             {cocktail.ingredients.map((item) => 
-                                <p className="item-ingredient-highlight">{item}</p>    
+                                <p className="item-ingredient-highlight" onClick={() => this.addIngredient(item) }>{item}</p>    
                             )}
                         </div>
                     </div>
@@ -46,7 +93,7 @@ class Cocktail extends Component {
     }
 }
 const ItemInfoRouter = withRouter(Cocktail)
-export default ItemInfoRouter
+export default withCookies(ItemInfoRouter);
 // class ItemInfo extends Component {
 //     state = {  }
 //     render() { 
