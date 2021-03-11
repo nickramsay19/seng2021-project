@@ -80,9 +80,9 @@ class Searchbar extends Component {
                 
                 <ul class="list-group">
                     { 
-                        this.state.search_results.map((result, index) => 
+                        this.state.search_results.map(result => 
                         <li class="list-group-item" key={result.name}>
-                            <Link to={"drinks/" + index.toString() }>{result.name}</Link>
+                            <Link to={"drinks/" + result.id }>{result.name}</Link>
                         </li>) }
                 </ul>
 
