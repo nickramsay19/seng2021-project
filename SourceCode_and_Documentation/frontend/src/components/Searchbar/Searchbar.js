@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import stringSimilarity from 'string-similarity';
-import './Searchbar.css';
 import { Cocktails } from './Cocktails'
+import './Searchbar.css';
+
 
 class Searchbar extends Component {
     state = { 
@@ -77,7 +79,11 @@ class Searchbar extends Component {
                 </div>
                 
                 <ul class="list-group">
-                    { this.state.search_results.map((result) => <li class="list-group-item"><a href="#">{result.name}</a></li>) }
+                    { 
+                        this.state.search_results.map((result, index) => 
+                        <li class="list-group-item" key={result.name}>
+                            <Link to={"drinks/" + index.toString() }>{result.name}</Link>
+                        </li>) }
                 </ul>
 
             </div>
