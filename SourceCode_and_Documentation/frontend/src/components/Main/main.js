@@ -4,10 +4,8 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Navbar from '../Navbar/Navbar'
 import Home from '../Home/home'
 import Drinks from '../Drinks/drinks'
-import Account from '../Account/account'
-import Contact from '../Contact/contact'
-// import SignUp from '../Auth/register'
-import Register from '../Auth/register';
+import Ingredients from '../Ingredients/ingredients'
+import Shopping_List from '../Shopping_List/shopping_list';
 
 class Main extends Component {
     state = {  }
@@ -17,10 +15,9 @@ class Main extends Component {
                 <Navbar />
                 <Switch>
                     <Route exact path="/" component={Home} />
+                    <Route path="/shopping-list" exact component={Shopping_List} />
                     <Route exact path="/drinks" exact component={Drinks} />
-                    <Route path="/account" exact component={Account} />
-                    <Route path="/contact" exact component={Contact} />
-                    <Route path="/register" exact component={Register} />
+                    <Route path="/ingredients" exact component={Ingredients} />
                 </Switch>              
             </Router>
         );

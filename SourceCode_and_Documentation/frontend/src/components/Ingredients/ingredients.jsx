@@ -1,53 +1,18 @@
 import React, { Component } from 'react';
 import Item from '../Item-card/item'
 import ItemInfo from '../Item-info/item-info'
-import { Cocktails } from './Cocktails.js'
+import { Cocktails } from '../Searchbar/Cocktails.js'
 import { BrowserRouter as Router, Switch, Route, Link, useRouteMatch } from 'react-router-dom'
 
-// const DrinksList = () => {
-//     return (
-//         <React.Fragment>
-//              <header>
-//                 <h1>Drinks Page</h1>
-//             </header>
-//             {
-//                 Cocktails.map((item, index) =>
-//                 <Link to={`drinks/${item.name}`} key={item.name+index+'card'}>
-//                     <Item name={item.name}/>
-//                 </Link> 
-//                 ) 
-//             }
-            
-//         </React.Fragment>
-       
-//     )
-// }
-
-// const T = () => {
-//     return (  
-//             Cocktails.map((item,index) =>
-//             <Route exact path={`drinks/${item.name}`}>
-//                 {console.log(item.name)}
-//                 <ItemInfo 
-//                             name={item.name} 
-//                             ingredients={item.ingredients} 
-//                             instruction={item.instructions}
-//                 />
-//             </Route>
-//         )    
-//     )
-   
-// }
-
-export default class Drinks extends Component {
+export default class Ingredients extends Component {
     render() {
         return (
             <Router>
                 <div className="container">
-                    <h1>Drinks Page</h1>
+                    <h1>Ingredients Page</h1>
                     <Switch>
                         <Route exact path="/drinks">
-                            { Cocktails.map((item, index) =>
+                            {Cocktails.map((item, index) =>
                                 <Link to={`drinks/${index}`} key={item.name+index+'card'}>
                                     <Item name={item.name}/>
                                 </Link> 
@@ -125,30 +90,3 @@ const HardCodedLinks = () => {
     )
 }    
 
-
-
-// function X() {
-//     return (
-//         <React.Fragment>          
-//             <Switch>
-//                 <Route exact path={path}>
-//                     {Cocktails.map((item, index) =>
-//                         <Link to={`${url}/${item.name}`} key={item.name+index+'card'}>
-//                             <Item  name={item.name}/>
-//                         </Link> 
-//                     )} 
-//                 </Route>
-
-//                 {Cocktails.map((item,index) =>
-//                     <Route path={match.url+ `/${item.name}`}>
-//                         <ItemInfo   key={item.name+index+'info'} 
-//                                     name={item.name} 
-//                                     ingredients={item.ingredients} 
-//                                     instruction={item.instructions}
-//                         />
-//                     </Route>
-//                 )}
-//             </Switch>
-//         </React.Fragment>
-//     )
-// }
