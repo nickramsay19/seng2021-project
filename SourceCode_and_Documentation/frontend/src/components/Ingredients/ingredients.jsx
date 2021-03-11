@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Item from '../Item-card/item'
 import ItemInfo from '../Item-info/item-info'
-import { Cocktails } from '../Searchbar/Cocktails.js'
+import { Cocktails } from '../Drinks/Cocktails.js'
 import { BrowserRouter as Router, Switch, Route, Link, useRouteMatch } from 'react-router-dom'
 
 export default class Ingredients extends Component {
