@@ -3,16 +3,35 @@ import './item-info.css';
 import { Link } from 'react-router-dom';
 
 function PostComt() {
+    var username=document.getElementById('nameInput');
     var content=document.getElementById("floatingTextarea");
     var msgBox=document.getElementById("messageBox");
-    if (content.value==="") {
-        return alert("the comment cannot be empty");
+    if (username.value==="" || content.value==="") {
+        username.value="";
+        content.value="";
+        return alert("The username or comment cannot be empty");
     }
 
+    var commentName=document.createElement("div");
+    commentName.className="cmt";
+    commentName.innerHTML="User: "+username.value;
     var commentPost=document.createElement("div");
-    commentPost.className="cmtBlock";
+    commentPost.className="cmt";
     commentPost.innerHTML=content.value;
-    msgBox.appendChild(commentPost);
+    username.value="";
+    content.value="";
+
+    var commentTime=document.createElement("div");
+    var cmtDate=new Date();
+    var arr=cmtDate.toLocaleDateString().split("/");
+	commentTime.innerHTML=arr[1]+"/"+arr[0]+"/"+arr[2]+", "+cmtDate.toLocaleTimeString();
+
+    var hr=document.createElement("div");
+    hr.innerHTML="<hr />";
+    commentTime.appendChild(commentName);
+    commentTime.appendChild(commentPost);
+    commentTime.appendChild(hr);
+    msgBox.appendChild(commentTime);
 }
 
 class ItemInfo extends Component {
@@ -52,16 +71,20 @@ class ItemInfo extends Component {
                 
                 <p>Add to Shopping List</p>
                 
-                <div className="comm">
+                <div className="item-comments">
                     <div className="form-floating">
                         <h3 className="item-header">
                             Comments
                         </h3>
-                        <textarea class="form-control" placeholder="Add an anonymous comment..." id="floatingTextarea"></textarea>
-                        <button type="button" class="btn btn-outline-primary float-end" onClick={PostComt}>Post</button>                
+                        <input type="text" class="form-control" id="nameInput" placeholder="Username"></input>
+                        <textarea class="form-control" placeholder="Add a comment..." id="floatingTextarea"></textarea>
+                        <button type="button" class="btn btn-outline-primary custom-btn" onClick={PostComt}>Post</button>                
                     </div>
                 </div>
-                <div class="message_box" id="messageBox"></div>
+                <hr class="cmtSep"></hr>
+                <div class="message_area">
+                    <div class="message_box" id="messageBox"></div>
+                </div>
                 
             </div>
         );
