@@ -13,12 +13,9 @@ class IngredientsList extends Component {
         // get cookies
         const { cookies } = props;
 
-        // add mock ingredients to cookies
-        //cookies.set('ingredients', ['Tequilla', 'Lime juice', 'Triple sec'], { path: '/' });
-
         // set state
         this.state = {
-            ingredients: /*cookies.get('ingredients') || */['Tequilla', 'Lime juice', 'Triple sec']
+            ingredients: cookies.get('ingredients') || ['Tequilla', 'Lime juice', 'Triple sec']
         };
     }
  
