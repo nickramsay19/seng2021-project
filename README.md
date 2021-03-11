@@ -1,4 +1,4 @@
-# SENG2021 Project
+# SENG2021 Cognac Bandits Project
 
 Team: Cognac Bandits
 
