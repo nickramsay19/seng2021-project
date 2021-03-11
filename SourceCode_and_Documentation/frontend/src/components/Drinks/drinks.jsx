@@ -3,6 +3,7 @@ import Item from '../Item-card/item'
 import ItemInfo from '../Item-info/item-info'
 import { Cocktails } from './Cocktails.js'
 import { Route, Link, withRouter } from 'react-router-dom'
+import { CookiesProvider } from 'react-cookie';
 
 class Drinks extends Component {
     render() { 
@@ -20,7 +21,9 @@ class Drinks extends Component {
                 ))}
             </Route>
             <Route path={`${match.path}/:cocktailId`}>
-                <ItemInfo />
+                <CookiesProvider>
+                    <ItemInfo />
+                </CookiesProvider>
             </Route>
   
         </div>
