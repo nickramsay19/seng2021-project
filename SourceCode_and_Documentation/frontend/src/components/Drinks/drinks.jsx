@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Item from '../Item-card/item'
 import ItemInfo from '../Item-info/item-info'
-import { Cocktails } from '../Searchbar/Cocktails.js'
+import { Cocktails } from './Cocktails.js'
 import { Route, Link, withRouter } from 'react-router-dom'
 import { CookiesProvider } from 'react-cookie';
 
