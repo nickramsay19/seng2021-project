@@ -40,6 +40,18 @@ class Cocktail extends Component {
         
     }
 
+    addIngredient = ingredient => {
+        // get cookies
+        const { cookies } = this.props;
+        
+        let new_ingredients = this.state.ingredients;
+        new_ingredients.push(ingredient);
+
+        this.setState({ ingredients: new_ingredients });
+        cookies.set('ingredients', this.state.ingredients, { path: '/' });
+        
+    }
+
     render() { 
         const { match } = this.props;
         const { cocktailId } = match.params;
@@ -62,7 +74,7 @@ class Cocktail extends Component {
                         </h2>
                         <div className="item-ingredient-list">
                             {cocktail.ingredients.map((item) => 
-                                <p className="item-ingredient-highlight">{item}</p>    
+                                <p className="item-ingredient-highlight" onClick={() => this.addIngredient(item) }>{item}</p>    
                             )}
                         </div>
                     </div>
