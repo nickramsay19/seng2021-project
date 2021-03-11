@@ -5,7 +5,7 @@ import Navbar from '../Navbar/Navbar'
 import Home from '../Home/home'
 import Drinks from '../Drinks/drinks'
 import Ingredients from '../Ingredients/ingredients'
-import Shopping_List from '../Auth/register';
+import Shopping_List from '../Shopping_List/shopping_list';
 
 class Main extends Component {
     state = {  }
