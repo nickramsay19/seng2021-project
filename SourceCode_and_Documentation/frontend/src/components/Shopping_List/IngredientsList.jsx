@@ -41,8 +41,11 @@ class IngredientsList extends Component {
             <ul className="list-group list-group-flush">
                 {   
                     this.state.ingredients.map((ingredient, index) =>   
+                    
                         <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
-                            {ingredient} 
+                            <input class="form-check-input" type="checkbox"></input>
+                            <span>{ingredient} <span class="badge bg-primary rounded-pill">1</span></span>
+                            
                             <button className="btn btn-danger" onClick={() => this.removeIngredient(ingredient)}>
                                 Remove
                             </button>
