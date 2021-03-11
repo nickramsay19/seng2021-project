@@ -47,18 +47,11 @@ class IngredientsList extends Component {
         const { cookies } = this.props;
             
         // declare new ingredients array
-        let new_ingredients = [];
+        let new_ingredients = this.state.ingredients;
 
-        // loop through each ingredient
-        for(let i = 0; i < this.state.ingredients.length; i++){
-
-            // check if the ingredient is not the one to be removed
-            if(ingredient != this.state.ingredients[i]) {
-
-                // add ingredient to new ingredients array
-                new_ingredients.push(this.state.ingredients[i])
-            }
-        }
+        // remove single occurence of ingredient
+        new_ingredients.splice(new_ingredients.indexOf(ingredient), 1);
+        
 
         // adjust ingredients in cookies
         cookies.set('ingredients', new_ingredients, { path: '/' });
@@ -74,7 +67,6 @@ class IngredientsList extends Component {
                     this.getUniqueIngredients().map((ingredient, index) =>   
                     
                         <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
-                            <input class="form-check-input" type="checkbox"></input>
                             <span>{ingredient} <small class="text-muted">x { this.getIngredientCount(ingredient) }</small></span>
                             
                             <button className="btn btn-danger" onClick={() => this.removeIngredient(ingredient)}>
