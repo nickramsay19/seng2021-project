@@ -65,11 +65,13 @@ hr.cmtSep {
 }
 
 .btn-outline-primary.custom-btn {
-	border-color: #6d76f7;
-    color: #6d76f7;
+    background-color: #c4c4c4;
+	border-color: #c4c4c4;
+    color: #000000;
 }
 
 .btn-outline-primary.custom-btn:hover {
-	border-color: #6d76f7;
-    background-color: #6d76f7;
+	border-color: #c4c4c4;
+    background-color: #c4c4c4;
+    color: #6d76f7;
 }
