@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { MenuItems } from './MenuItems'
 import './Navbar.css'
-import { Button } from '../Button'
+//import { Button } from '../Button'
 
 
 class Navbar extends Component {

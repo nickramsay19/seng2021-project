@@ -94,19 +94,22 @@ class Cocktail extends Component {
                     <h1 className="item-title">
                         {cocktail.name}
                     </h1>
-                    <p className="item-button" onClick={() => this.addIngredients(cocktailId) }>Add to Shopping List</p>  
-                    <Link to="/drinks"><p className="item-button">Back</p></Link>
+                    <a href="#" className="btn btn-outline-primary" onClick={() => this.addIngredients(cocktailId) }>Add to Shopping List</a>  
+                    
+                    <Link to="/drinks"><a href="#" className="btn btn-outline-primary">Back</a></Link>
                 </div>
                 
                 <div className="item-row">
                     <div className="item-image"></div>
                     <div className="item-ingredients">
                         <h2 className="item-header">
-                            Ingredients
+                            Ingredients 
+                            
                         </h2>
+                        <small class="text-muted"> Click to add to shopping list</small>
                         <div className="item-ingredient-list">
                             {cocktail.ingredients.map((item) => 
-                                <p className="item-ingredient-highlight" onClick={() => this.addIngredient(item) }>{item}</p>    
+                                <a href="#" className="btn btn-outline-primary" onClick={() => this.addIngredient(item) }>{item}</a>    
                             )}
                         </div>
                     </div>
