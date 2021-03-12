@@ -12,7 +12,7 @@ class IngredientInfo extends Component {
                     <h1 className="item-title">
                         {ingredientID || "Item Title"}
                     </h1>
-                    <Link to="/ingredients"><p className="item-button">Back</p></Link>
+                    <Link to="/ingredients"><p className="btn btn-outline-primary">Back</p></Link>
                 </div>
                 
                 <div className="item-row">
