@@ -94,9 +94,9 @@ class Cocktail extends Component {
                     <h1 className="item-title">
                         {cocktail.name}
                     </h1>
-                    <a href="#" className="btn btn-outline-primary" onClick={() => this.addIngredients(cocktailId) }>Add to Shopping List</a>  
+                    <a href="#" className="btn btn-shortened btn-outline-primary" onClick={() => this.addIngredients(cocktailId) }>Add to Shopping List</a>  
                     
-                    <Link to="/drinks"><a href="#" className="btn btn-outline-primary">Back</a></Link>
+                    <Link to="/drinks"><a href="#" className="btn btn-shortened btn-outline-primary">Back</a></Link>
                 </div>
                 
                 <div className="item-row">
@@ -109,7 +109,7 @@ class Cocktail extends Component {
                         <small class="text-muted"> Click to add to shopping list</small>
                         <div className="item-ingredient-list">
                             {cocktail.ingredients.map((item) => 
-                                <a href="#" className="btn btn-outline-primary" onClick={() => this.addIngredient(item) }>{item}</a>    
+                                <a href="#" className="btn btn-shortened btn-outline-primary" onClick={() => this.addIngredient(item) }>{item}</a>    
                             )}
                         </div>
                     </div>
