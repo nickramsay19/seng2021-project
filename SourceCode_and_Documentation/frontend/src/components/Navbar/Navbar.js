@@ -6,10 +6,21 @@ import './Navbar.css'
 
 
 class Navbar extends Component {
-    state = { clicked: false }
+    state = { 
+        clicked: false,
+        userSession: this.props.userSession
+    }
 
     handleClick = () => {
         this.setState({ clicked: !this.state.clicked })
+    }
+
+    logInButton = () => {
+        if(!this.state.userSession.getIsLoggedIn()){
+            return <Link className="nav-links" to="/login">Login</Link>
+        } else {
+            return <div styles="display: none;"></div>
+        }
     }
 
     render() {
@@ -29,6 +40,8 @@ class Navbar extends Component {
                             </li>
                         )
                     })}
+
+                    <this.logInButton />
                 </ul>
             </nav>
         )
