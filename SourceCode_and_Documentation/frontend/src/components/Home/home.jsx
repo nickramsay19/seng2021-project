@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import Searchbar from '../Searchbar/Searchbar'
 import Card from '../HomePage-Items/card'
 
-
-
 export default class Home extends Component {
     render() {
         return (
