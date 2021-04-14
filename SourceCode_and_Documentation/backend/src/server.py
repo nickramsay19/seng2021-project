@@ -2,7 +2,7 @@ import jwt
 from json import dumps
 from flask import Flask, request, send_from_directory
 from flask_cors import CORS
-
+from error import InputError
 
 def defaultHandler(err):
     response = err.get_response()
@@ -19,6 +19,15 @@ def defaultHandler(err):
 APP = Flask(__name__, static_url_path='/static/')
 CORS(APP)
 
+# Example
+@APP.route("/echo", methods=['GET'])
+def echo():
+    data = request.args.get('data')
+    if data == 'echo':
+   	    raise InputError(description='Cannot echo "echo"')
+    return dumps({
+        'data': data
+    })
 
 #############################
 ##       auth_login        ##
@@ -26,5 +35,6 @@ CORS(APP)
 
 @APP.route("/auth/login", methods=['POST'])
 def auth_login_flask():
-
-    return dumps(dataOut)
+    return dumps({
+        'data' : None
+    })
