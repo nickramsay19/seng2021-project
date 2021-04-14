@@ -99,6 +99,7 @@ export default Main;
  * 
  * ]
  * Pseudo functions to timeout if promise takes too long
+ * https://stackoverflow.com/questions/48577702/setting-a-timeout-for-each-promise-within-a-promise-all
 Promise.delay = function(t, val) {
     return new Promise(resolve => {
         setTimeout(resolve.bind(null, val), t);
