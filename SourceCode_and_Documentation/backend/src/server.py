@@ -4,6 +4,8 @@ from flask import Flask, request, send_from_directory
 from flask_cors import CORS
 from error import InputError
 
+import api
+
 def defaultHandler(err):
     response = err.get_response()
     print('response', err, err.get_response())
