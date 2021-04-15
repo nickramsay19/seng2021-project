@@ -31,13 +31,13 @@ Exceptions:
 '''
 def api_get_cocktail_details(id, position):
     url = 'http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + id
-    # print('fetching', url, '; position:', position)
+    print('fetching', url, '; position:', position)
     try:
         r = requests.get(url, timeout=DEFAULT_TIMEOUT).json()['drinks'][0]
     except requests.exceptions.ConnectTimeout:
         # print('position', position)
         return
-    # print('received response from', id, 'in position', position)
+    print('received response from', id, 'in position', position)
     return r
 
 '''
@@ -102,12 +102,12 @@ Exceptions:
 '''
 def api_get_ingredient_details(name):
     url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?i=' + name
-    # print('fetching', url)
+    print('fetching', url)
     try:
         ingredient_details = requests.get(url, timeout=DEFAULT_TIMEOUT).json()['ingredients'][0]
     except requests.exceptions.ConnectTimeout:
         return
-    # print('received response from', name)
+    print('received response from', name)
     return ingredient_details
 
 
