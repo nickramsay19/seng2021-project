@@ -6,18 +6,9 @@ import random
 from pprint import pprint 
 import time
 
-<<<<<<< HEAD
-import time
-'''
-
-'''
-
-DEFAULT_TIMEOUT = 1
-=======
 '''
 Author: Henry Ho 
 '''
->>>>>>> 337680fd... added a requirements.txt folder for necessary modules; updated README.md for instructions; refined arrays to be more manageable; added a whole bunch of functions and documentations
 
 # Increasing this reduces time taken to build database and increases multithread resources required
 DEFAULT_MAX_WORKERS = 100 
