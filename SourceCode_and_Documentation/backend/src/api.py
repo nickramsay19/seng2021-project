@@ -4,17 +4,22 @@ import concurrent.futures
 import inspect
 from pprint import pprint 
 
+import time
+'''
+
+'''
+
 DEFAULT_TIMEOUT = 1
 
 def api_get_cocktail_details(id, position):
     url = 'http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + id
-    # print('fetching', url, '; position:', position)
+    print('fetching', url, '; position:', position)
     try:
         r = requests.get(url, timeout=DEFAULT_TIMEOUT).json()['drinks'][0]
     except requests.exceptions.ConnectTimeout:
         # print('position', position)
         return
-    # print('received response from', id, 'in position', position)
+    print('received response from', id, 'in position', position)
     return r
 
 
@@ -45,12 +50,12 @@ def extract_ingredients(cocktails):
 
 def api_get_ingredient_details(name):
     url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?i=' + name
-    # print('fetching', url)
+    print('fetching', url)
     try:
         ingredient_details = requests.get(url, timeout=DEFAULT_TIMEOUT).json()['ingredients'][0]
     except requests.exceptions.ConnectTimeout:
         return
-    # print('received response from', name)
+    print('received response from', name)
     return ingredient_details
 
 
@@ -90,18 +95,26 @@ def api_get_ingredient_image(name):
     r = requests.get(url)
     return r
 
+t0 = time.time()
+
 cocktails = requests.get('http://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail').json()['drinks']
 
 cocktails_details = api_get_cocktails(cocktails) # list of objects
 
+t1 = time.time()
 ingredients = extract_ingredients(cocktails_details) # list of strings
 
 ingredients_details = api_get_ingredients(ingredients) # list of objects
+t2 = time.time()
+
+time_cocktails = t1 - t0
+time_ingredients = t2 - t0
 
 # printing all lists. comment out if too spammy
-pprint(sorted(cocktails_details, key=lambda x: x['strDrink'].casefold()))
-pprint(sorted(ingredients))
-pprint(sorted(ingredients_details, key=lambda x: x['strIngredient'].casefold()))
+pprint(cocktails)
+# pprint(sorted(cocktails_details, key=lambda x: x['strDrink'].casefold()))
+# pprint(sorted(ingredients))
+# pprint(sorted(ingredients_details, key=lambda x: x['strIngredient'].casefold()))
 
-print('Collected', len(cocktails_details), 'cocktails out of 100 in', DEFAULT_TIMEOUT, 'seconds')
-print('Received', len(ingredients_details), 'ingredient details out of', len(ingredients), 'in', DEFAULT_TIMEOUT * 2, 'seconds.' )
+print('Collected', len(cocktails_details), 'cocktails out of 100 in', time_cocktails, 'seconds')
+print('Received', len(ingredients_details), 'ingredient details out of', len(ingredients), 'in', time_ingredients, 'seconds.' )
