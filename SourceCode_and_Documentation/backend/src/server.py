@@ -43,7 +43,7 @@ def auth_login_flask():
 
 @APP.route("/api/cocktails_details", methods=['GET'])
 def api_cocktail_details():
-    response = api.new_cocktails_details
+    response = api.ref_cocktails_details
     reformattedData = {
         'drinks' : response
     }
@@ -51,7 +51,7 @@ def api_cocktail_details():
 
 @APP.route("/api/ingredients_details", methods=['GET'])
 def api_ingredients_details():
-    response = api.ingredients_details
+    response = api.ref_ingredients_details
     reformattedData = {
         'ingredients' : response
     }
@@ -59,7 +59,7 @@ def api_ingredients_details():
 
 @APP.route("/api/random_cocktail", methods = ['GET'])
 def api_random_cocktail():
-    response = api.random_cocktail()
+    response = api.random_cocktail(api.ref_cocktails_details)
     reformattedData = {
         'drinks' : response
     }
