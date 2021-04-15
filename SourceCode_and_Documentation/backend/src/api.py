@@ -3,7 +3,7 @@ import json
 import concurrent.futures
 import inspect
 import random
-from pprint import pprint 
+from pprint import pprint
 import time
 
 '''
@@ -11,9 +11,9 @@ Author: Henry Ho
 '''
 
 # Increasing this reduces time taken to build database and increases multithread resources required
-DEFAULT_MAX_WORKERS = 100 
+DEFAULT_MAX_WORKERS = 100
 # Increasing this increases time taken to build database with questionable increase in reliability
-DEFAULT_TIMEOUT = 2 
+DEFAULT_TIMEOUT = 2
 
 '''
 Description:
@@ -29,6 +29,8 @@ Returns:
 Exceptions:
     ConnectTimeout: The API failed to return the request on time.
 '''
+
+
 def api_get_cocktail_details(id, position):
     url = 'http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + id
     print('fetching', url, '; position:', position)
@@ -39,6 +41,7 @@ def api_get_cocktail_details(id, position):
         return
     print('received response from', id, 'in position', position)
     return r
+
 
 '''
 Description:
@@ -51,10 +54,13 @@ Args:
 Returns:
     cocktails_details: list of raw object outputs from API
 '''
+
+
 def api_get_cocktails(cocktails):
     cocktails_details = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=DEFAULT_MAX_WORKERS) as executor:
-        future_to_url = (executor.submit(api_get_cocktail_details, cocktail['idDrink'], i) for i, cocktail in enumerate(cocktails))
+        future_to_url = (executor.submit(api_get_cocktail_details,
+                         cocktail['idDrink'], i) for i, cocktail in enumerate(cocktails))
         for future in concurrent.futures.as_completed(future_to_url):
             try:
                 data = future.result()
@@ -66,6 +72,7 @@ def api_get_cocktails(cocktails):
 
     return cocktails_details
 
+
 '''
 Description:
 Extracts the string of all all ingredients used in the cocktails array.
@@ -75,16 +82,19 @@ Args:
 Returns:
     ingredients: list of strings
 '''
+
+
 def extract_ingredients(cocktails):
     ingredients = []
     for cocktail in cocktails:
-        for i in range(1,15):
+        for i in range(1, 15):
             ingredient = 'strIngredient' + str(i)
             if cocktail[ingredient] == None or cocktail[ingredient] == '':
                 break
             elif cocktail[ingredient].casefold() not in (ingredient.casefold() for ingredient in ingredients):
                 ingredients.append(cocktail[ingredient].capitalize())
     return ingredients
+
 
 '''
 Description:
@@ -100,11 +110,14 @@ Returns:
 Exceptions:
     ConnectTimeout: The API failed to return the request on time.
 '''
+
+
 def api_get_ingredient_details(name):
     url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?i=' + name
     print('fetching', url)
     try:
-        ingredient_details = requests.get(url, timeout=DEFAULT_TIMEOUT).json()['ingredients'][0]
+        ingredient_details = requests.get(url, timeout=DEFAULT_TIMEOUT).json()[
+            'ingredients'][0]
     except requests.exceptions.ConnectTimeout:
         return
     print('received response from', name)
@@ -123,10 +136,13 @@ Returns:
     ingredients_details: list of raw object output from API
 
 '''
+
+
 def api_get_ingredients(ingredients):
     ingredients_details = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=DEFAULT_MAX_WORKERS) as executor:
-        future_to_url = (executor.submit(api_get_ingredient_details, name) for name in ingredients)
+        future_to_url = (executor.submit(api_get_ingredient_details, name)
+                         for name in ingredients)
         for future in concurrent.futures.as_completed(future_to_url):
             try:
                 data = future.result()
@@ -136,6 +152,7 @@ def api_get_ingredients(ingredients):
             if data != None:
                 ingredients_details.append(data)
     return ingredients_details
+
 
 # UNTESTED
 '''
@@ -148,10 +165,13 @@ Args:
 Returns:
     r: small image resolution of the ingredient
 '''
+
+
 def api_get_ingredient_image_small(name):
     url = 'www.thecocktaildb.com/images/ingredients/'+name+'-Small.png'
     r = requests.get(url)
     return r
+
 
 # UNTESTED
 '''
@@ -164,10 +184,13 @@ Args:
 Returns:
     r: medium image resolution of the ingredient
 '''
+
+
 def api_get_ingredient_image_medium(name):
     url = 'www.thecocktaildb.com/images/ingredients/'+name+'-Medium.png'
     r = requests.get(url)
     return r
+
 
 # UNTESTED
 '''
@@ -180,10 +203,13 @@ Args:
 Returns:
     r: full image resolution of the ingredient
 '''
+
+
 def api_get_ingredient_image(name):
     url = 'www.thecocktaildb.com/images/ingredients/'+name+'.png'
     r = requests.get(url)
     return r
+
 
 # Does not belong here
 '''
@@ -193,8 +219,11 @@ Selects from a random list of refined array of cocktails and returns one.
 Returns:
     _ : refined object of a random cocktail
 '''
+
+
 def random_cocktail(ref_cocktails_details):
     return random.choice(ref_cocktails_details)
+
 
 '''
 Description:
@@ -206,24 +235,28 @@ Args:
 Returns:
     _: dictionary of refined cocktail
 '''
+
+
 def cocktail_cleanup(cocktail):
     ingredients = {}
 
-    for i in range(1,15):
+    for i in range(1, 15):
         ingredient_name = 'strIngredient' + str(i)
         ingredient_measure = 'strMeasure' + str(i)
         if cocktail[ingredient_name] == None or cocktail[ingredient_name] == '':
             break
         else:
-            ingredients[cocktail[ingredient_name]] = cocktail[ingredient_measure]
-    
+            ingredients[cocktail[ingredient_name]
+                        ] = cocktail[ingredient_measure]
+
     return {
-        'name' :        cocktail['strDrink'],
-        'id' :          cocktail['idDrink'],
-        'ingredients' : ingredients,
+        'name':        cocktail['strDrink'],
+        'id':          cocktail['idDrink'],
+        'ingredients': ingredients,
         'instructions': cocktail['strInstructions'],
-        'thumbnail' :   cocktail['strDrinkThumb']
+        'thumbnail':   cocktail['strDrinkThumb']
     }
+
 
 '''
 Description:
@@ -234,8 +267,11 @@ Args:
 Returns:
     _: list of refined cocktail objects
 '''
+
+
 def clean_cocktails_array(array):
-    return [ cocktail_cleanup(cocktail) for cocktail in array ] 
+    return [cocktail_cleanup(cocktail) for cocktail in array]
+
 
 '''
 Description:
@@ -247,12 +283,15 @@ Args:
 Returns:
     _: dictionary of refined ingredient
 '''
+
+
 def ingredient_cleanup(ingredient):
     return {
-        'ingredient' :  ingredient['strIngredient'],
-        'id' :          ingredient['idIngredient'],
-        'description' : ingredient['strDescription'],
+        'ingredient':  ingredient['strIngredient'],
+        'id':          ingredient['idIngredient'],
+        'description': ingredient['strDescription'],
     }
+
 
 '''
 Description:
@@ -263,8 +302,11 @@ Args:
 Returns:
     _: list of refined ingredient objects
 '''
+
+
 def clean_ingredients_array(array):
-    return [ ingredient_cleanup(ingredient) for ingredient in array ]
+    return [ingredient_cleanup(ingredient) for ingredient in array]
+
 
 '''
 Description:
@@ -277,23 +319,26 @@ Returns:
     used_in: list of dictionarises containing the name and id of cocktails using the ingredient
 
 '''
+
+
 def cocktails_using_ingredient(ingredient, ref_cocktails_details):
     used_in = []
     for cocktail in ref_cocktails_details:
         if ingredient in cocktail['ingredients'].keys():
-            used_in.append({'name'  : cocktail['name'],
-                            'id'    : cocktail['id']})
+            used_in.append({'name': cocktail['name'],
+                            'id': cocktail['id']})
     return used_in
 
 
 t0 = time.time()
 
-hundred_cocktails = requests.get('http://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail', timeout=DEFAULT_TIMEOUT).json()['drinks']
-cocktails_details = api_get_cocktails(hundred_cocktails) # list of objects
+hundred_cocktails = requests.get(
+    'http://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail', timeout=DEFAULT_TIMEOUT).json()['drinks']
+cocktails_details = api_get_cocktails(hundred_cocktails)  # list of objects
 ref_cocktails_details = clean_cocktails_array(cocktails_details)
 t1 = time.time()
-ingredients = extract_ingredients(cocktails_details) # list of strings
-ingredients_details = api_get_ingredients(ingredients) # list of objects
+ingredients = extract_ingredients(cocktails_details)  # list of strings
+ingredients_details = api_get_ingredients(ingredients)  # list of objects
 ref_ingredients_details = clean_ingredients_array(ingredients_details)
 t2 = time.time()
 
@@ -309,5 +354,7 @@ t2 = time.time()
 # pprint(sorted(ingredients))
 # pprint(sorted(ingredients_details, key=lambda x: x['strIngredient'].casefold()))
 
-print('Collected', len(cocktails_details), 'cocktails out of 100 in', t1 - t0, 'seconds')
-print('Received', len(ingredients_details), 'ingredient details out of', len(ingredients), 'in', t2 - t0, 'seconds.' )
+print('Collected', len(cocktails_details),
+      'cocktails out of 100 in', t1 - t0, 'seconds')
+print('Received', len(ingredients_details), 'ingredient details out of',
+      len(ingredients), 'in', t2 - t0, 'seconds.')
