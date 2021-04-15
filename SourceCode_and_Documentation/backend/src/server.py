@@ -40,3 +40,32 @@ def auth_login_flask():
     return dumps({
         'data' : None
     })
+
+@APP.route("/api/cocktails_details", methods=['GET'])
+def api_cocktail_details():
+    response = api.new_cocktails_details
+    reformattedData = {
+        'drinks' : response
+    }
+    return reformattedData
+
+@APP.route("/api/ingredients_details", methods=['GET'])
+def api_ingredients_details():
+    response = api.ingredients_details
+    reformattedData = {
+        'ingredients' : response
+    }
+    return reformattedData
+
+@APP.route("/api/random_cocktail", methods = ['GET'])
+def api_random_cocktail():
+    response = api.random_cocktail()
+    reformattedData = {
+        'drinks' : response
+    }
+    return reformattedData
+
+# @APP.route("/api/")
+#     pass
+if __name__ == "__main__":
+    APP.run(port=5050) # Do not edit this port
