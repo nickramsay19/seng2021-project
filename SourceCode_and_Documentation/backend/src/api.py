@@ -353,6 +353,12 @@ t2 = time.time()
 # pprint(cocktails_using_ingredient(random_ingredient['ingredient'], ref_cocktails_details))
 
 # pprint(ref_cocktails_details)
+for ingredient in ref_ingredients_details:
+
+    if ingredient['ingredient'] == 'Bailey' or ingredient['ingredient'] == 'Carrot':
+        print('hello')
+        pprint(ingredient)
+
 # pprint(ref_ingredients_details)
 # printing all lists. comment out if too spammy
 # pprint(sorted(cocktails_details, key=lambda x: x['strDrink'].casefold()))
@@ -362,7 +368,7 @@ t2 = time.time()
 
 arr2 = [ detail['ingredient'] for detail in ref_ingredients_details ]
 arr2.extend(ingredients)
-pprint(sorted(arr2, key=str.casefold))
+# pprint(sorted(arr2, key=str.casefold))
     # if ingredient not in (detail['ingredient'] for detail in ref_ingredients_details):
     #     print(ingredient, 'missing')
 
