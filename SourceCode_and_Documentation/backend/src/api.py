@@ -290,7 +290,7 @@ def ingredient_cleanup(ingredient, ref_cocktails_details):
         'ingredient':  ingredient['strIngredient'],
         'id':          ingredient['idIngredient'],
         'description': ingredient['strDescription'],
-        'used_in' : cocktails_using_ingredient(ingredient['strIngredient'], ref_cocktails_details),
+        'used_in': cocktails_using_ingredient(ingredient['strIngredient'], ref_cocktails_details),
     }
 
 
@@ -329,7 +329,7 @@ def cocktails_using_ingredient(ingredient, ref_cocktails_details):
         #     print(cocktail['name'], 'ingredients are:')
         #     pprint(cocktail['ingredients'])
 
-        if ingredient.casefold() in (name.casefold() for name in cocktail['ingredients'].keys()) :
+        if ingredient.casefold() in (name.casefold() for name in cocktail['ingredients'].keys()):
             used_in.append({'name': cocktail['name'],
                             'id': cocktail['id']})
     return used_in
@@ -344,7 +344,8 @@ ref_cocktails_details = clean_cocktails_array(cocktails_details)
 t1 = time.time()
 ingredients = extract_ingredients(cocktails_details)  # list of strings
 ingredients_details = api_get_ingredients(ingredients)  # list of objects
-ref_ingredients_details = clean_ingredients_array(ingredients_details, ref_cocktails_details)
+ref_ingredients_details = clean_ingredients_array(
+    ingredients_details, ref_cocktails_details)
 t2 = time.time()
 
 # random_ingredient = random.choice(ref_ingredients_details)
@@ -366,11 +367,11 @@ for ingredient in ref_ingredients_details:
 # pprint(sorted(ingredients_details, key=lambda x: x['strIngredient'].casefold()))
 
 
-arr2 = [ detail['ingredient'] for detail in ref_ingredients_details ]
+arr2 = [detail['ingredient'] for detail in ref_ingredients_details]
 arr2.extend(ingredients)
-# pprint(sorted(arr2, key=str.casefold))
-    # if ingredient not in (detail['ingredient'] for detail in ref_ingredients_details):
-    #     print(ingredient, 'missing')
+pprint(sorted(arr2, key=str.casefold))
+# if ingredient not in (detail['ingredient'] for detail in ref_ingredients_details):
+#     print(ingredient, 'missing')
 
 print('Collected', len(cocktails_details),
       'cocktails out of 100 in', round(t1 - t0, 3), 'seconds')
