@@ -359,6 +359,13 @@ t2 = time.time()
 # pprint(sorted(ingredients))
 # pprint(sorted(ingredients_details, key=lambda x: x['strIngredient'].casefold()))
 
+
+arr2 = [ detail['ingredient'] for detail in ref_ingredients_details ]
+arr2.extend(ingredients)
+pprint(sorted(arr2, key=str.casefold))
+    # if ingredient not in (detail['ingredient'] for detail in ref_ingredients_details):
+    #     print(ingredient, 'missing')
+
 print('Collected', len(cocktails_details),
       'cocktails out of 100 in', round(t1 - t0, 3), 'seconds')
 print('Received', len(ingredients_details), 'ingredient details out of',
