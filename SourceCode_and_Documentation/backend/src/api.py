@@ -337,6 +337,10 @@ hundred_cocktails = requests.get(
 cocktails_details = api_get_cocktails(hundred_cocktails)  # list of objects
 ref_cocktails_details = clean_cocktails_array(cocktails_details)
 t1 = time.time()
+
+for ingr in ingredients:
+    ingr_imgs += api_get_ingredient_image(ingr)
+
 ingredients = extract_ingredients(cocktails_details)  # list of strings
 ingredients_details = api_get_ingredients(ingredients)  # list of objects
 ref_ingredients_details = clean_ingredients_array(ingredients_details)
