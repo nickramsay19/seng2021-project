@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import './item.css'
 class Item extends Component {
     render() { 
-        // console.log(this.props);
+        console.log(this.props);
         return ( 
             <div className="item-card">
-                <div className="item-card-image"></div>
+                <img className="item-card-image" src={this.props.image}></img>
                 <p className="item-name">
                     {this.props.children}
                 </p>
