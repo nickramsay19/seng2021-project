@@ -49,8 +49,8 @@ class Ingredients extends Component {
                       <h2>Select an ingredient to see more info</h2>
                       {items.map(( ingredient ) => (
                           
-                              <Link to={`${match.url}/${ingredient['name']}`}>
-                              <Item key={ingredient['id']} image={ingredient['thumbnail']}>{ingredient['name']}</Item>
+                              <Link to={`${match.url}/${ingredient['ingredient']}`}>
+                              <Item key={ingredient['id']} image={ingredient['thumbnail']}>{ingredient['ingredient']}</Item>
                               </Link>
                       ))}
                   </Route>

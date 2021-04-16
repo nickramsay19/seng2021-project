@@ -5,18 +5,18 @@ class IngredientInfo extends Component {
     render() {
         const { match } = this.props;
         const { ingredientID } = match.params;
-        console.log(ingredientID);
+        console.log(this.props);
         return(
             <div className="item-info-card">
                 <div className="item-top-bar">
                     <h1 className="item-title">
-                        {ingredientID || "Item Title"}
+                        {this.props.name || "Item Title"}
                     </h1>
                     <Link to="/ingredients"><p className="btn btn-outline-primary">Back</p></Link>
                 </div>
                 
                 <div className="item-row">
-                    <div className="item-image"></div>
+                    <img className="item-image" src={this.props.image}></img>
                     <div className="item-ingredients">
                         <h2 className="item-header">
                             Description
