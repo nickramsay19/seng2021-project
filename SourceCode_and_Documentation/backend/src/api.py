@@ -360,6 +360,6 @@ t2 = time.time()
 # pprint(sorted(ingredients_details, key=lambda x: x['strIngredient'].casefold()))
 
 print('Collected', len(cocktails_details),
-      'cocktails out of 100 in', t1 - t0, 'seconds')
+      'cocktails out of 100 in', round(t1 - t0, 3), 'seconds')
 print('Received', len(ingredients_details), 'ingredient details out of',
-      len(ingredients), 'in', t2 - t0, 'seconds.')
+      len(ingredients), 'in', round(t2 - t0, 3), 'seconds.')
