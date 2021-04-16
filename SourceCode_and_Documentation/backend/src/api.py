@@ -370,7 +370,7 @@ cocktails_details = api_get_cocktails(hundred_cocktails)  # list of objects
 ref_cocktails_details = clean_cocktails_array(cocktails_details)
 t1 = time.time()
 ingredients = extract_ingredients(cocktails_details)  # list of strings
-images = fetch_ingredient_images(ingredients)
+# images = fetch_ingredient_images(ingredients)
 
 ingredients_details = api_get_ingredients(ingredients)  # list of objects
 ref_ingredients_details = clean_ingredients_array(
@@ -394,7 +394,7 @@ for ingredient in ref_ingredients_details:
 # pprint(sorted(cocktails_details, key=lambda x: x['strDrink'].casefold()))
 # pprint(sorted(ingredients))
 # pprint(sorted(ingredients_details, key=lambda x: x['strIngredient'].casefold()))
-pprint(images)
+# pprint(images)
 
 
 arr2 = [detail['ingredient'] for detail in ref_ingredients_details]

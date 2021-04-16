@@ -50,7 +50,7 @@ class Ingredients extends Component {
                       {items.map(( ingredient ) => (
                           
                               <Link to={`${match.url}/${ingredient['ingredient']}`}>
-                              <Item key={ingredient['id']}>{ingredient['ingredient']}</Item>
+                              <Item key={ingredient['id']} image={"http://www.thecocktaildb.com/images/ingredients/" + ingredient['ingredient'] + ".png"}>{ingredient['ingredient']}</Item>
                               </Link>
                       ))}
                   </Route>
