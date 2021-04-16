@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Item from '../Item-card/item'
 import ItemInfo from '../Item-info/item-info'
-import { Cocktails } from './Cocktails.js'
+// import { Cocktails } from './Cocktails.js'
 import { Route, Link, withRouter } from 'react-router-dom'
 import { CookiesProvider } from 'react-cookie';
 
@@ -23,7 +23,7 @@ class Drinks extends Component {
                 isLoaded: true,
                 items: result.drinks
               });
-              console.log(this.state.items);
+            //   console.log(this.state.items);
             },
             
             (error) => {
@@ -55,7 +55,7 @@ class Drinks extends Component {
                 </Route>
                 <Route path={`${match.path}/:cocktailId`}>
                     <CookiesProvider>
-                        <ItemInfo />
+                        <ItemInfo drinks={items}/>
                     </CookiesProvider>
                 </Route>
       

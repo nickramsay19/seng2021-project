@@ -87,7 +87,13 @@ class Cocktail extends Component {
     render() { 
         const { match } = this.props;
         const { cocktailId } = match.params;
-        const cocktail = Cocktails.find(({ id }) => id === cocktailId)
+        // const cocktail = Cocktails.find(({ id }) => id === cocktailId)
+
+        const cocktail = this.props.drinks.find((c) => {
+            if (c.name === cocktailId) {
+                return true
+            }
+        })
         return ( 
             <div className="item-info-card">
                 <div className="item-top-bar">
@@ -96,19 +102,18 @@ class Cocktail extends Component {
                     </h1>
                     <a href="#" className="btn btn-shortened btn-outline-primary" onClick={() => this.addIngredients(cocktailId) }>Add to Shopping List</a>  
                     
-                    <Link to="/drinks"><a href="#" className="btn btn-shortened btn-outline-primary">Back</a></Link>
+                    <Link to="/drinks"><a href="#" className="btn btn-shortened btn-outline-primary">To Drinks Page</a></Link>
                 </div>
                 
                 <div className="item-row">
-                    <div className="item-image"></div>
+                    <img className="item-image" src={cocktail.thumbnail}></img>
                     <div className="item-ingredients">
                         <h2 className="item-header">
                             Ingredients 
-                            
                         </h2>
                         <small class="text-muted"> Click to add to shopping list</small>
-                        <div className="item-ingredient-list">
-                            {cocktail.ingredients.map((item) => 
+                        <div className="item-ingredient-list">               
+                            {Object.keys(cocktail.ingredients).map((item) => 
                                 <a href="#" className="btn btn-shortened btn-outline-primary" onClick={() => this.addIngredient(item) }>{item}</a>    
                             )}
                         </div>
