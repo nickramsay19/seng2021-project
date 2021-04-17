@@ -104,7 +104,7 @@ class Cocktail extends Component {
                     <h1 className="item-title">
                         {cocktail.name}
                     </h1>
-                    <a href="#" className="btn btn-shortened btn-outline-primary" onClick={() => this.addIngredients2(cocktail) }>Add to Shopping List</a>  
+                    <a href="#" className="btn btn-shortened btn-outline-primary" onClick={() => this.addIngredients(cocktail) }>Add to Shopping List</a>  
                     
                     <Link to="/drinks"><a href="#" className="btn btn-shortened btn-outline-primary">To Drinks Page</a></Link>
                 </div>
