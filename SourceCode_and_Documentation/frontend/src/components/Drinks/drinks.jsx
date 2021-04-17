@@ -9,31 +9,12 @@ class Drinks extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          error: null,
-          isLoaded: false,
-          items: []
+          error: this.props.error,
+          isLoaded: this.props.isLoaded,
+          items: this.props.items,
         };
     }
-    componentDidMount() {
-        fetch("http://localhost:5050/api/cocktails_details")
-          .then(res => res.json())
-          .then(
-            (result) => {
-              this.setState({
-                isLoaded: true,
-                items: result.drinks
-              });
-            //   console.log(this.state.items);
-            },
-            
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              });
-            }
-          )
-    }
+
     render() { 
       const { match } = this.props;
       const { error, isLoaded, items } = this.state;
@@ -53,7 +34,7 @@ class Drinks extends Component {
                             </Link>
                     ))}
                 </Route>
-                <Route path={`${match.path}/:cocktailId`}>
+                <Route path={`${match.path}/:cocktailId+`}>
                     <ItemInfo drinks={items}/>
                 </Route>
       

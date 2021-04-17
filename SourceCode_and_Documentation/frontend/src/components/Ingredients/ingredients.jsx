@@ -10,34 +10,17 @@ class Ingredients extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          error: null,
-          isLoaded: false,
-          items: []
+          error: this.props.error,
+          isLoaded: this.props.isLoaded,
+          items: this.props.items,
         };
     }
-    componentDidMount() {
-        fetch("http://localhost:5050/api/ingredients_details")
-          .then(res => res.json())
-          .then(
-            (result) => {
-              this.setState({
-                isLoaded: true,
-                items: result.ingredients
-              });
-              console.log(this.state.items);
-            },
-            
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              });
-            }
-          )
-    }
+
     render() { 
         const { match } = this.props;
         const { error, isLoaded, items } = this.state;
+        // console.log(this.props)
+
       if (error) {
         return <div>Error: {error.message}</div>;
       } else if (!isLoaded) {
@@ -54,7 +37,7 @@ class Ingredients extends Component {
                               </Link>
                       ))}
                   </Route>
-                  <Route path={`${match.path}/:ingredientID`}>
+                  <Route path={`${match.path}/:ingredientID+`}>
                     <IngredientInfo ingredients={items}/>
                   </Route>
         
