@@ -280,7 +280,8 @@ Returns:
 
 
 def clean_cocktails_array(array):
-    return [cocktail_cleanup(cocktail) for cocktail in array]
+    return_arr = [cocktail_cleanup(cocktail) for cocktail in array]
+    return sorted(return_arr, key=lambda x: x['name'].casefold())
 
 
 '''
@@ -316,7 +317,9 @@ Returns:
 
 
 def clean_ingredients_array(ingredients_details, ref_cocktails_details):
-    return [ingredient_cleanup(ingredient, ref_cocktails_details) for ingredient in ingredients_details]
+    return_arr = [ingredient_cleanup(ingredient, ref_cocktails_details) for ingredient in ingredients_details]
+    return sorted(return_arr, key=lambda x: x['ingredient'].casefold())
+    
 
 
 '''
@@ -383,13 +386,13 @@ t2 = time.time()
 # pprint(cocktails_using_ingredient(random_ingredient['ingredient'], ref_cocktails_details))
 
 # pprint(ref_cocktails_details)
-for ingredient in ref_ingredients_details:
+# for ingredient in ref_ingredients_details:
 
-    if ingredient['ingredient'] == 'Bailey' or ingredient['ingredient'] == 'Carrot':
-        print('hello')
-        pprint(ingredient)
+#     if ingredient['ingredient'] == 'Bailey' or ingredient['ingredient'] == 'Carrot':
+#         print('hello')
+#         pprint(ingredient)
 
-# pprint(ref_ingredients_details)
+pprint(ref_ingredients_details)
 # printing all lists. comment out if too spammy
 # pprint(sorted(cocktails_details, key=lambda x: x['strDrink'].casefold()))
 # pprint(sorted(ingredients))
@@ -397,9 +400,9 @@ for ingredient in ref_ingredients_details:
 # pprint(images)
 
 
-arr2 = [detail['ingredient'] for detail in ref_ingredients_details]
-arr2.extend(ingredients)
-pprint(sorted(arr2, key=str.casefold))
+# arr2 = [detail['ingredient'] for detail in ref_ingredients_details]
+# arr2.extend(ingredients)
+# pprint(sorted(arr2, key=str.casefold))
 # if ingredient not in (detail['ingredient'] for detail in ref_ingredients_details):
 #     print(ingredient, 'missing')
 
