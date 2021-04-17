@@ -55,21 +55,25 @@ class Cocktail extends Component {
         };
     }
 
-    addIngredients = cocktailId => {
-        // get cookies
+    addIngredients = cocktail => {
+
+        // get cookies handle
         const { cookies } = this.props;
-        
-        const cocktail = Cocktails.find(({ id }) => id === cocktailId);
 
+        // get the current ingredients in cookies
         let new_ingredients = this.state.ingredients;
-        for (let i = 0; i < cocktail.ingredients.length; i++ ){
-            new_ingredients.push(cocktail.ingredients[i]);
-        }
-        //new_ingredients.push(cocktailId); // TODO: add each coktail ingredient not cokctail id
 
+        // get ingredients as array from keys
+        let ingredients_keys = Object.keys(cocktail.ingredients)
+
+        // loop through each ingredient key in cocktail
+        for (let i = 0; i < ingredients_keys.length; i++ ){
+            new_ingredients.push(ingredients_keys[i]);
+        }
+
+        // update the cookies
         this.setState({ ingredients: new_ingredients });
         cookies.set('ingredients', this.state.ingredients, { path: '/' });
-        
     }
 
     addIngredient = ingredient => {
@@ -87,28 +91,33 @@ class Cocktail extends Component {
     render() { 
         const { match } = this.props;
         const { cocktailId } = match.params;
-        const cocktail = Cocktails.find(({ id }) => id === cocktailId)
+        // const cocktail = Cocktails.find(({ id }) => id === cocktailId)
+
+        const cocktail = this.props.drinks.find((c) => {
+            if (c.name === cocktailId) {
+                return true
+            }
+        })
         return ( 
             <div className="item-info-card">
                 <div className="item-top-bar">
                     <h1 className="item-title">
                         {cocktail.name}
                     </h1>
-                    <a href="#" className="btn btn-shortened btn-outline-primary" onClick={() => this.addIngredients(cocktailId) }>Add to Shopping List</a>  
+                    <button className="btn btn-shortened btn-outline-primary" onClick={() => this.addIngredients(cocktail) }>Add to Shopping List</button>  
                     
-                    <Link to="/drinks"><a href="#" className="btn btn-shortened btn-outline-primary">Back</a></Link>
+                    <Link to="/drinks"><a href="#" className="btn btn-shortened btn-outline-primary">To Drinks Page</a></Link>
                 </div>
                 
                 <div className="item-row">
-                    <div className="item-image"></div>
+                    <img className="item-image" src={cocktail.thumbnail}></img>
                     <div className="item-ingredients">
                         <h2 className="item-header">
                             Ingredients 
-                            
                         </h2>
-                        <small class="text-muted"> Click to add to shopping list</small>
-                        <div className="item-ingredient-list">
-                            {cocktail.ingredients.map((item) => 
+                        <small className="text-muted"> Click to add to shopping list</small>
+                        <div className="item-ingredient-list">               
+                            {Object.keys(cocktail.ingredients).map((item) => 
                                 <a href="#" className="btn btn-shortened btn-outline-primary" onClick={() => this.addIngredient(item) }>{item}</a>    
                             )}
                         </div>

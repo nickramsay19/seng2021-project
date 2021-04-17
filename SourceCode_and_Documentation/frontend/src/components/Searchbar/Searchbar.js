@@ -73,14 +73,13 @@ class Searchbar extends Component {
     render() {
         return(
             <div id="searchbar">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Margarita" onChange={e => this.onSearchQueryChange(e.target.value)} /> 
-                    <button class="btn btn-secondary" type="button">Search</button>
+                <div className="input-group mb-3">
+                    <input type="text" className="form-control" placeholder="Margarita" onChange={e => this.onSearchQueryChange(e.target.value)} /> 
                 </div>
                 
-                <ul class="list-group">
+                <ul className="list-group">
                     { 
-                        this.state.search_results.map(result => <li class="list-group-item" key={result.name}>
+                        this.state.search_results.map(result => <li className="list-group-item" key={result.name}>
                             <Link to={"drinks/" + result.id }>{result.name}</Link>
                         </li>) 
                     }
