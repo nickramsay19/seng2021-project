@@ -80,7 +80,10 @@ class Cocktail extends Component {
         if (username.value === "" || content.value === "") {
             username.value = "";
             content.value = "";
-            return alert("The username or comment cannot be empty");
+            return alert("The username or comment cannot be empty.");
+        } else if (content.value.length > 1000) {
+            username.value = "";
+            return alert("The length of comment should not exceed 1000 characters.");
         }
 
         var commentOut = document.createElement("div");
@@ -156,7 +159,7 @@ class Cocktail extends Component {
                             Comments
                         </h3>
                         <input type="text" class="form-control" id="nameInput" placeholder="Username"></input>
-                        <textarea class="form-control" placeholder="Add a comment..." id="floatingTextarea"></textarea>
+                        <textarea class="form-control" placeholder="Add a comment... (Max. 1000 characters)" id="floatingTextarea"></textarea>
                         <button type="button" class="btn btn-shortened btn-outline-primary" onClick={this.postComt}>Post</button>                
                     </div>
                 </div>
@@ -167,7 +170,11 @@ class Cocktail extends Component {
                                 <div className="cmt" id={cmt.id}>
                                     <div>
                                         {cmt.ldTime}<br />{"User: "+cmt.username}<br />{cmt.message}
-                                        <button type="button" class="btn btn-link" onClick={() => {if (window.confirm("are u sure?")) this.delPost(cmt.id)}}>
+                                        <button
+                                            type="button"
+                                            class="btn btn-link"
+                                            onClick={() => {if (window.confirm("Delete this comment?")) this.delPost(cmt.id)}}
+                                        >
                                             Delete
                                         </button>
                                         <hr />

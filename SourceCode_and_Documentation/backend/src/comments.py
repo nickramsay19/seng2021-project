@@ -5,10 +5,10 @@ from error import AccessError, InputError
 Helper function
 '''
 def find_user_by_id(u_id):
-    return data.user[u_id]['user']
+    return data.users[u_id]['user']
 
 # TESTING: def comment_add(u_id, sessionKey, cocktail, message):
-def comment_add(u_id, cocktail, message, time):
+def comments_add(u_id, cocktail, message, time):
     """
     Given a u_id, sessionKey, cocktail and message, add the information
     about this comment to the database
@@ -36,14 +36,15 @@ def comment_add(u_id, cocktail, message, time):
     data.comments[comment_index]['drink'] = cocktail
     data.comments[comment_index]['comment_id'] = comment_index
     data.comments[comment_index]['message'] = message
+    # data.comments[comment_index]['u_id'] = u_id
     data.comments[comment_index]['u_id'] = u_id
     data.comments[comment_index]['ldTime'] = time
 
     return {
         'comment_id': comment_index,
     }
-
-def comment_remove(u_id, sessionKey, comment_id):
+# TESTING: def comments_remove(u_id, sessionKey, comment_id):
+def comments_remove(u_id, comment_id):
     """
     Given a u_id, sessionKey, comment_id, remove the information
     about this comment from the database
@@ -70,7 +71,7 @@ def comment_remove(u_id, sessionKey, comment_id):
 
     return {}
 
-def comment_get(cocktail):
+def comments_get(cocktail):
     """
     Given a cocktail, display the comments
     of this cocktail from the database
@@ -83,15 +84,16 @@ def comment_get(cocktail):
     -------
     Dict
         'messages': list
-    
+
     """
     msgs = []
     for cmt in data.comments:
         if cmt['drink'] == cocktail and cmt['message'] != '':
             msgs.append({})
-            msgs[-1].ldTime = cmt['time']
-            msgs[-1].username = find_user_by_id(cmt['u_id'])
-            msgs[-1].message = cmt['message']
+            msgs[-1]['cmt_id'] = cmt['drink'] + str(cmt['comment_id'])
+            msgs[-1]['ldTime'] = cmt['ldTime']
+            msgs[-1]['username'] = find_user_by_id(cmt['u_id'])
+            msgs[-1]['message'] = cmt['message']
 
     return {
         'messages': msgs,
