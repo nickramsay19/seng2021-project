@@ -3,7 +3,7 @@ function setupDatabase(){
     let ingredients = []
     let isDrinksLoaded = false
     let isIngredientsLoaded = false
-
+    
 
     fetch("http://localhost:5050/api/cocktails_details")
         .then(res => res.json())
@@ -11,7 +11,6 @@ function setupDatabase(){
             (result) => {
                 isDrinksLoaded = true
                 drinks = result.drinks
-                console.log('got drinks')
             }
         )
 
@@ -21,10 +20,9 @@ function setupDatabase(){
             (result) => {
                 isIngredientsLoaded = true
                 ingredients =  result.ingredients
-                console.log('got ingredients')
+                
             }
         )
-
     function getDrinks() {
         return drinks;
     }
@@ -32,7 +30,7 @@ function setupDatabase(){
     function getIngredients() {
         return ingredients;
     }
-
+    console.log('making prototype')
     return { getDrinks, getIngredients }
 }
 
