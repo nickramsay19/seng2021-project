@@ -17,9 +17,10 @@ class Ingredients extends Component {
     }
 
     render() { 
-        const { match } = this.props;
-        const { error, isLoaded, items } = this.state;
-        // console.log(this.props)
+      const { match } = this.props;
+      const error = this.props.error
+      const isLoaded = this.props.isLoaded
+      const items = this.props.items
 
       if (error) {
         return <div>Error: {error.message}</div>;
