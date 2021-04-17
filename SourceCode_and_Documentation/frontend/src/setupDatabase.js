@@ -4,18 +4,26 @@ function setupDatabase(){
     let isDrinksLoaded = false
     let isIngredientsLoaded = false
 
+    function getDrinks() {
+        return drinks;
+    }
 
-    fetch("http://localhost:5050/api/cocktails_details")
+    function getIngredients() {
+        return ingredients;
+    }
+
+    let drinksFetch = fetch("http://localhost:5050/api/cocktails_details")
         .then(res => res.json())
         .then(
             (result) => {
                 isDrinksLoaded = true
                 drinks = result.drinks
                 console.log('got drinks')
+                return "";
             }
-        )
+        );
 
-    fetch("http://127.0.0.1:5050/api/ingredients_details")
+    let ingredientsFetch = fetch("http://127.0.0.1:5050/api/ingredients_details")
         .then(res => res.json())
         .then(
             (result) => {
@@ -25,15 +33,11 @@ function setupDatabase(){
             }
         )
 
-    function getDrinks() {
-        return drinks;
-    }
-
-    function getIngredients() {
-        return ingredients;
-    }
-
-    return { getDrinks, getIngredients }
+    return new Promise
+            .all([drinksFetch, ingredientsFetch])
+            .then((res) => {
+                return { getDrinks, getIngredients }
+            });
 }
 
 export default setupDatabase

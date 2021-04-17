@@ -24,7 +24,7 @@ class Main extends Component {
         
         // create a userSession and pass an update method
         let userSession = createUserSession(this.userSessionUpdate);
-        let database = setupDatabase();
+        const database = setupDatabase();
         console.log(database.getDrinks())
         return (
             <Router>

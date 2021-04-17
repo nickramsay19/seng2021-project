@@ -24,7 +24,7 @@ class Ingredients extends Component {
                 isLoaded: true,
                 items: result.ingredients
               });
-              console.log(this.state.items);
+              //console.log(this.state.items);
             },
             
             (error) => {
