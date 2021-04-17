@@ -19,7 +19,7 @@ class Navbar extends Component {
     logInLogOutButton = () => {
         if(!this.props.userSession.getIsLoggedIn()){
             return ( <> <li><Link className="nav-links" to="/login">Login</Link></li>
-                        <li><Link className="nav-links" to="/register">Register</Link></li> </>
+                        <li><Link className="nav-links" to="/register">Register</Link></li></>
             );
         } else {
             return <li onClick={this.logOut}><a href="#" className="nav-links">Logout</a></li>
