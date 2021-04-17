@@ -55,24 +55,7 @@ class Cocktail extends Component {
         };
     }
 
-    addIngredients = cocktailId => {
-        // get cookies
-        const { cookies } = this.props;
-        
-        const cocktail = Cocktails.find(({ id }) => id === cocktailId);
-
-        let new_ingredients = this.state.ingredients;
-        for (let i = 0; i < cocktail.ingredients.length; i++ ){
-            new_ingredients.push(cocktail.ingredients[i]);
-        }
-        //new_ingredients.push(cocktailId); // TODO: add each coktail ingredient not cokctail id
-
-        this.setState({ ingredients: new_ingredients });
-        cookies.set('ingredients', this.state.ingredients, { path: '/' });
-        
-    }
-
-    addIngredients2 = cocktail => {
+    addIngredients = cocktail => {
 
         // get cookies handle
         const { cookies } = this.props;
