@@ -72,6 +72,27 @@ class Cocktail extends Component {
         
     }
 
+    addIngredients2 = cocktail => {
+
+        // get cookies handle
+        const { cookies } = this.props;
+
+        // get the current ingredients in cookies
+        let new_ingredients = this.state.ingredients;
+
+        // get ingredients as array from keys
+        let ingredients_keys = Object.keys(cocktail.ingredients)
+
+        // loop through each ingredient key in cocktail
+        for (let i = 0; i < ingredients_keys.length; i++ ){
+            new_ingredients.push(ingredients_keys[i]);
+        }
+
+        // update the cookies
+        this.setState({ ingredients: new_ingredients });
+        cookies.set('ingredients', this.state.ingredients, { path: '/' });
+    }
+
     addIngredient = ingredient => {
         // get cookies
         const { cookies } = this.props;
@@ -100,7 +121,7 @@ class Cocktail extends Component {
                     <h1 className="item-title">
                         {cocktail.name}
                     </h1>
-                    <a href="#" className="btn btn-shortened btn-outline-primary" onClick={() => this.addIngredients(cocktailId) }>Add to Shopping List</a>  
+                    <a href="#" className="btn btn-shortened btn-outline-primary" onClick={() => this.addIngredients2(cocktail) }>Add to Shopping List</a>  
                     
                     <Link to="/drinks"><a href="#" className="btn btn-shortened btn-outline-primary">To Drinks Page</a></Link>
                 </div>
