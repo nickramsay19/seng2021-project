@@ -115,7 +115,7 @@ class Cocktail extends Component {
                         <h2 className="item-header">
                             Ingredients 
                         </h2>
-                        <small class="text-muted"> Click to add to shopping list</small>
+                        <small className="text-muted"> Click to add to shopping list</small>
                         <div className="item-ingredient-list">               
                             {Object.keys(cocktail.ingredients).map((item) => 
                                 <a href="#" className="btn btn-shortened btn-outline-primary" onClick={() => this.addIngredient(item) }>{item}</a>    
