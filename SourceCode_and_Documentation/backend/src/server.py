@@ -37,6 +37,12 @@ def echo():
 
 @APP.route("/auth/login", methods=['POST'])
 def auth_login_flask():
+    
+    # obtain username and password from args
+    username = request.args.get('username')
+    password = request.args.get('password')
+    
+    
     return dumps({
         'data' : None
     })
