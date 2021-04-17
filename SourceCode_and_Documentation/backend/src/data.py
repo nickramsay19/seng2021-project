@@ -8,6 +8,7 @@ users = [{
     'user': '',
     'password': '',
     'u_id': '',
+    'logged_in': False,
     'shopping_list': [],
 }]
 
