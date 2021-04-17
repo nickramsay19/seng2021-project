@@ -49,12 +49,13 @@ class Ingredients extends Component {
                       <h2>Select an ingredient to see more info</h2>
                       {items.map(( ingredient ) => (
                           
-                              <Link to={`${match.url}/${ingredient['name']}`}>
-                              <Item key={ingredient['id']} image={ingredient['thumbnail']}>{ingredient['name']}</Item>
+                              <Link to={`${match.url}/${ingredient['ingredient']}`}>
+                              <Item key={ingredient['id']} image={"http://www.thecocktaildb.com/images/ingredients/" + ingredient['ingredient'] + ".png"}>{ingredient['ingredient']}</Item>
                               </Link>
                       ))}
                   </Route>
                   <Route path={`${match.path}/:ingredientID`}>
+                    <IngredientInfo ingredients={items}/>
                   </Route>
         
               </div>
