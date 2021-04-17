@@ -7,7 +7,7 @@ from pprint import pprint
 import time
 
 '''
-Author: Henry Ho 
+Author: Henry Ho
 '''
 
 # Increasing this reduces time taken to build database and increases multithread resources required
@@ -17,7 +17,7 @@ DEFAULT_TIMEOUT = 2
 
 '''
 Description:
-Fetches drink details from the API and returns it to caller. 
+Fetches drink details from the API and returns it to caller.
 
 Args:
     id: id of the drink
@@ -45,7 +45,7 @@ def api_get_cocktail_details(id, position):
 
 '''
 Description:
-Builds a raw array of all cocktail drinks and returns it. If the fetch 
+Builds a raw array of all cocktail drinks and returns it. If the fetch
 request fails, it will not be included in the returned array.
 
 Args:
@@ -98,7 +98,7 @@ def extract_ingredients(cocktails):
 
 '''
 Description:
-Fetches ingredient details from the API and returns it to caller. A known 
+Fetches ingredient details from the API and returns it to caller. A known
 issue is a type error being raised from one the ingredients called.
 
 Args:
@@ -126,10 +126,10 @@ def api_get_ingredient_details(name):
 
 '''
 Description:
-Builds a raw array of all ingredients and returns it. If the fetch 
+Builds a raw array of all ingredients and returns it. If the fetch
 request fails, it will not be included in the returned array.
 
-Args: 
+Args:
     ingredients: list of strings with the names of the ingredients
 
 Returns:
@@ -206,9 +206,19 @@ Returns:
 
 
 def api_get_ingredient_image(name):
-    url = 'www.thecocktaildb.com/images/ingredients/'+name+'.png'
-    r = requests.get(url)
+
+    url = 'http://www.thecocktaildb.com/images/ingredients/'+name+'.png'
+    print('fetching', name, ' image')
+    try:
+        r = requests.get(url, timeout=DEFAULT_TIMEOUT)
+    except requests.exceptions.ConnectTimeout:
+        # print('position', position)
+        return
     return r
+
+    # url = 'http://www.thecocktaildb.com/images/ingredients/'+name+'.png'
+    # r = requests.get(url)
+    # return r
 
 
 # Does not belong here
@@ -260,10 +270,10 @@ def cocktail_cleanup(cocktail):
 
 '''
 Description:
-Refines the cocktail array and returns a list of dicts with only the necessary parts. 
+Refines the cocktail array and returns a list of dicts with only the necessary parts.
 
 Args:
-    array: list of raw cocktail objects 
+    array: list of raw cocktail objects
 Returns:
     _: list of refined cocktail objects
 '''
@@ -279,33 +289,34 @@ Refines a raw object of an ingredient and returns only the necessary parts.
 
 Args:
     ingredient: raw ingredient object
-    
+
 Returns:
     _: dictionary of refined ingredient
 '''
 
 
-def ingredient_cleanup(ingredient):
+def ingredient_cleanup(ingredient, ref_cocktails_details):
     return {
         'ingredient':  ingredient['strIngredient'],
         'id':          ingredient['idIngredient'],
         'description': ingredient['strDescription'],
+        'used_in': cocktails_using_ingredient(ingredient['strIngredient'], ref_cocktails_details),
     }
 
 
 '''
 Description:
-Refines the ingredients array and returns a list of dicts with only the necessary parts. 
+Refines the ingredients array and returns a list of dicts with only the necessary parts.
 
 Args:
-    array: list of raw ingredient objects 
+    array: list of raw ingredient objects
 Returns:
     _: list of refined ingredient objects
 '''
 
 
-def clean_ingredients_array(array):
-    return [ingredient_cleanup(ingredient) for ingredient in array]
+def clean_ingredients_array(ingredients_details, ref_cocktails_details):
+    return [ingredient_cleanup(ingredient, ref_cocktails_details) for ingredient in ingredients_details]
 
 
 '''
@@ -324,10 +335,31 @@ Returns:
 def cocktails_using_ingredient(ingredient, ref_cocktails_details):
     used_in = []
     for cocktail in ref_cocktails_details:
-        if ingredient in cocktail['ingredients'].keys():
+        # if cocktail['name'] == "Empellón Cocina's Fat-Washed Mezcal":
+        #     print(cocktail['name'], 'ingredients are:')
+        #     pprint(cocktail['ingredients'])
+
+        if ingredient.casefold() in (name.casefold() for name in cocktail['ingredients'].keys()):
             used_in.append({'name': cocktail['name'],
                             'id': cocktail['id']})
     return used_in
+
+
+def fetch_ingredient_images(ingredients):
+    ingr_imgs = []
+    with concurrent.futures.ThreadPoolExecutor(max_workers=DEFAULT_MAX_WORKERS) as executor:
+        future_to_url = (executor.submit(api_get_ingredient_image,
+                                         ingredient) for ingredient in ingredients)
+        for future in concurrent.futures.as_completed(future_to_url):
+            try:
+                data = future.result()
+            except Exception as exc:
+                print(str(type(exc)))
+                data = None
+            if data != None:
+                ingr_imgs.append(data)
+
+    return ingr_imgs
 
 
 t0 = time.time()
@@ -338,8 +370,11 @@ cocktails_details = api_get_cocktails(hundred_cocktails)  # list of objects
 ref_cocktails_details = clean_cocktails_array(cocktails_details)
 t1 = time.time()
 ingredients = extract_ingredients(cocktails_details)  # list of strings
+# images = fetch_ingredient_images(ingredients)
+
 ingredients_details = api_get_ingredients(ingredients)  # list of objects
-ref_ingredients_details = clean_ingredients_array(ingredients_details)
+ref_ingredients_details = clean_ingredients_array(
+    ingredients_details, ref_cocktails_details)
 t2 = time.time()
 
 # random_ingredient = random.choice(ref_ingredients_details)
@@ -348,13 +383,27 @@ t2 = time.time()
 # pprint(cocktails_using_ingredient(random_ingredient['ingredient'], ref_cocktails_details))
 
 # pprint(ref_cocktails_details)
+for ingredient in ref_ingredients_details:
+
+    if ingredient['ingredient'] == 'Bailey' or ingredient['ingredient'] == 'Carrot':
+        print('hello')
+        pprint(ingredient)
+
 # pprint(ref_ingredients_details)
 # printing all lists. comment out if too spammy
 # pprint(sorted(cocktails_details, key=lambda x: x['strDrink'].casefold()))
 # pprint(sorted(ingredients))
 # pprint(sorted(ingredients_details, key=lambda x: x['strIngredient'].casefold()))
+# pprint(images)
+
+
+arr2 = [detail['ingredient'] for detail in ref_ingredients_details]
+arr2.extend(ingredients)
+pprint(sorted(arr2, key=str.casefold))
+# if ingredient not in (detail['ingredient'] for detail in ref_ingredients_details):
+#     print(ingredient, 'missing')
 
 print('Collected', len(cocktails_details),
-      'cocktails out of 100 in', t1 - t0, 'seconds')
+      'cocktails out of 100 in', round(t1 - t0, 3), 'seconds')
 print('Received', len(ingredients_details), 'ingredient details out of',
-      len(ingredients), 'in', t2 - t0, 'seconds.')
+      len(ingredients), 'in', round(t2 - t0, 3), 'seconds.')

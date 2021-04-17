@@ -7,35 +7,60 @@ import { Route, Link, withRouter } from 'react-router-dom'
 
 
 class Ingredients extends Component {
-
-    render() { 
-        let IngredientList = []; 
-
-        for(let i = 0; i < Cocktails.length; i++){
-            for(let j = 0; j < Cocktails[i].ingredients.length; j++){
-                IngredientList.push(Cocktails[i].ingredients[j]);
+    constructor(props) {
+        super(props);
+        this.state = {
+          error: null,
+          isLoaded: false,
+          items: []
+        };
+    }
+    componentDidMount() {
+        fetch("http://localhost:5050/api/ingredients_details")
+          .then(res => res.json())
+          .then(
+            (result) => {
+              this.setState({
+                isLoaded: true,
+                items: result.ingredients
+              });
+              console.log(this.state.items);
+            },
+            
+            (error) => {
+              this.setState({
+                isLoaded: true,
+                error
+              });
             }
-        }
-
-        IngredientList = [...new Set(IngredientList)]
+          )
+    }
+    render() { 
         const { match } = this.props;
-        return (
-            <div className="container">
-                <Route exact path={match.path}>
-                    <h2>Select an ingredient to see more info</h2>
-                    {IngredientList.map(( ingredient, id ) => (
-                        <Link to={`${match.url}/${ingredient}`}>
-                        <Item key={id}>{ingredient}</Item>
-                        </Link>
-                        
-                    ))}
-                </Route>
-                <Route path={`${match.path}/:ingredientID`}>
-                    <IngredientInfo />
-                </Route>
-    
-            </div>
-        );
+        const { error, isLoaded, items } = this.state;
+      if (error) {
+        return <div>Error: {error.message}</div>;
+      } else if (!isLoaded) {
+        return <div>Loading...</div>;
+      } else {
+          return (
+              <div className="container">
+                  <Route exact path={match.path}>
+                      <h2>Select an ingredient to see more info</h2>
+                      {items.map(( ingredient ) => (
+                          
+                              <Link to={`${match.url}/${ingredient['ingredient']}`}>
+                              <Item key={ingredient['id']} image={"http://www.thecocktaildb.com/images/ingredients/" + ingredient['ingredient'] + ".png"}>{ingredient['ingredient']}</Item>
+                              </Link>
+                      ))}
+                  </Route>
+                  <Route path={`${match.path}/:ingredientID`}>
+                    <IngredientInfo ingredients={items}/>
+                  </Route>
+        
+              </div>
+            );
+      }
     }
   }
 
