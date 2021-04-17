@@ -55,6 +55,7 @@ class Ingredients extends Component {
                       ))}
                   </Route>
                   <Route path={`${match.path}/:ingredientID`}>
+                    <IngredientInfo ingredients={items}/>
                   </Route>
         
               </div>

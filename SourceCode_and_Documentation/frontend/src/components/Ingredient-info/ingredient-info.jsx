@@ -5,12 +5,18 @@ class IngredientInfo extends Component {
     render() {
         const { match } = this.props;
         const { ingredientID } = match.params;
-        console.log(this.props.children);
+        console.log(this.props.ingredients);
+        const ingredient = this.props.ingredients.find((i) => {
+            if (i.ingredient === ingredientID) {
+                return true
+            }
+        })
+        console.log(ingredient)
         return(
             <div className="item-info-card">
                 <div className="item-top-bar">
                     <h1 className="item-title">
-                        {this.props.children || "Item Title"}
+                        {ingredient.ingredient || "Item Title"}
                     </h1>
                     <Link to="/ingredients"><p className="btn btn-outline-primary">Back</p></Link>
                 </div>
@@ -22,7 +28,7 @@ class IngredientInfo extends Component {
                             Description
                         </h2>
                         <div className="item-ingredient-list">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam impedit quasi architecto necessitatibus officia ea consequatur. Voluptate, eos. Soluta architecto suscipit ad quae laborum odio sit iure minus accusantium sint.
+                            {ingredient.description || "No description provided"}
                         </div>
                     </div>
                 </div>
