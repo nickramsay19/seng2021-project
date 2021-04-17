@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import userSession from '../../userSession';
 
 export default class Login extends Component {
@@ -6,18 +7,22 @@ export default class Login extends Component {
     state = { 
         username: "",
         password: "",
-        userSession: this.props.userSession
+        userSession: this.props.userSession,
+        redirect: null
     }
 
     login = () => {
         let username = this.state.username;
         let password = this.state.password;
 
-        console.log(this.state.username);
-        console.log(this.state.password);
-
         let loginSuccessful = this.state.userSession.logIn(username, password);
-        console.log(loginSuccessful);
+
+        // redirect to home page if login successful
+        if (loginSuccessful) {
+            let state = this.state;
+            state.redirect = true;
+            this.setState(state);
+        }
     }
 
     handleUsernameChange = (event) => {
@@ -29,6 +34,9 @@ export default class Login extends Component {
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to="/" />
+        }
         return (
             <div className="container">
                 <header>

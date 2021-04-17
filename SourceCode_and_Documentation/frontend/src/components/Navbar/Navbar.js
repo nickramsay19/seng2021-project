@@ -2,24 +2,25 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { MenuItems } from './MenuItems'
 import './Navbar.css'
-//import { Button } from '../Button'
-
 
 class Navbar extends Component {
     state = { 
         clicked: false,
-        userSession: this.props.userSession
     }
 
     handleClick = () => {
         this.setState({ clicked: !this.state.clicked })
     }
 
-    logInButton = () => {
-        if(!this.state.userSession.getIsLoggedIn()){
-            return <Link className="nav-links" to="/login">Login</Link>
+    logOut = () => {
+        this.props.userSession.logOut();
+    }
+
+    logInLogOutButton = () => {
+        if(!this.props.userSession.getIsLoggedIn()){
+            return <li><Link className="nav-links" to="/login">Login</Link></li>
         } else {
-            return <div styles="display: none;"></div>
+            return <li onClick={this.logOut}><a href="#" className="nav-links">Logout</a></li>
         }
     }
 
@@ -41,7 +42,7 @@ class Navbar extends Component {
                         )
                     })}
 
-                    <this.logInButton />
+                    <this.logInLogOutButton />
                 </ul>
             </nav>
         )
