@@ -14,7 +14,13 @@ class Drinks extends Component {
           items: []
         };
     }
+
     componentDidMount() {
+        let state = this.state;
+        state.items = this.props.cocktailData.getDrinks();
+        state.isLoaded = true;
+        this.setState(state);
+      /*
         fetch("http://localhost:5050/api/cocktails_details")
           .then(res => res.json())
           .then(
@@ -32,7 +38,7 @@ class Drinks extends Component {
                 error
               });
             }
-          )
+          )*/
     }
     render() { 
       const { match } = this.props;

@@ -15,30 +15,60 @@ import setupDatabase from '../../setupDatabase'
 
 class Main extends Component {
 
+    state = {
+        cocktailData: {
+            getDrinks: () => { return [] },
+            getIngredients: () => { return [] }
+        }
+    }
+
     // this method will be called on userSession updates
     userSessionUpdate = () => {
         this.forceUpdate();
+    }
+
+    updateCocktailData = () => {
+        setupDatabase(this.updateCocktailData).then(res => {
+            this.setState({cocktailData: res});
+            this.forceUpdate();
+        });
+        
+    }
+
+    componentDidMount() {
+        setupDatabase(this.updateCocktailData).then(res => {
+            this.setState({cocktailData: res});
+        });
+    }
+
+    someFunc = () => {
+        if(this.state.cocktailData.getDrinks().length > 0) { 
+            return <p>{this.state.cocktailData.getDrinks()[0].name}</p> 
+        } else {
+            return <p>bye</p>
+        }
     }
 
     render() { 
         
         // create a userSession and pass an update method
         let userSession = createUserSession(this.userSessionUpdate);
-        const database = setupDatabase();
-        console.log(database.getDrinks())
+
         return (
             <Router>
                 <Navbar userSession={userSession}/>
+                <this.someFunc />
                 <Switch>
                     <Route exact path="/"><Home/></Route>
                     <Route path="/shopping-list"><ShoppingList/></Route>
-                    <Route path="/drinks"><Drinks/></Route>
+                    <Route path="/drinks"><Drinks cocktailData={this.state.cocktailData}/></Route>
                     <Route path="/ingredients"><Ingredients/></Route>
                     <Route path="/login"><Login userSession={userSession}/></Route>
                     <Route path="/register"><Register userSession={userSession}/></Route>
                 </Switch>              
             </Router>
         );
+
     }
 }
  

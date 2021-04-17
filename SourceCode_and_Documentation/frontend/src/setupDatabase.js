@@ -1,4 +1,4 @@
-function setupDatabase(){
+async function setupDatabase(update){
     let drinks = []
     let ingredients = []
     let isDrinksLoaded = false
@@ -12,32 +12,33 @@ function setupDatabase(){
         return ingredients;
     }
 
-    let drinksFetch = fetch("http://localhost:5050/api/cocktails_details")
+    function callUpdate() {
+        update();
+    }
+
+    let drinksFetch = await fetch("http://localhost:5050/api/cocktails_details")
         .then(res => res.json())
         .then(
             (result) => {
                 isDrinksLoaded = true
                 drinks = result.drinks
-                console.log('got drinks')
-                return "";
+
+                callUpdate();
             }
         );
 
-    let ingredientsFetch = fetch("http://127.0.0.1:5050/api/ingredients_details")
+    let ingredientsFetch = await fetch("http://127.0.0.1:5050/api/ingredients_details")
         .then(res => res.json())
         .then(
             (result) => {
                 isIngredientsLoaded = true
-                ingredients =  result.ingredients
-                console.log('got ingredients')
-            }
-        )
+                ingredients = result.ingredients;
 
-    return new Promise
-            .all([drinksFetch, ingredientsFetch])
-            .then((res) => {
-                return { getDrinks, getIngredients }
-            });
+                callUpdate();
+            }
+        );
+
+    return { getDrinks, getIngredients }
 }
 
-export default setupDatabase
+export default setupDatabase;
