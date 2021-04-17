@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
 export default class Register extends Component {
-
-    username = "";
-    password = "";
-
+    
     state = { 
         username: "",
         password: "",
@@ -28,8 +25,7 @@ export default class Register extends Component {
     }
 
     handleUsernameChange = (event) => {
-        //this.setState({username: event.target.value, password: this.state.password});
-        this.username = event.targe.value;
+        this.setState({username: event.target.value, password: this.state.password});
     }
 
     handlePasswordChange = (event) => {
@@ -49,7 +45,7 @@ export default class Register extends Component {
                 <form>
                     <div className="mb-3">
                         <label className="form-label">Username</label>
-                        <input type="text" className="form-control" value={this.state.username} onChange={this.handleUsernameChange} />
+                        <input type="text" className="form-control" value={this.username} onChange={this.handleUsernameChange} />
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Password</label>
