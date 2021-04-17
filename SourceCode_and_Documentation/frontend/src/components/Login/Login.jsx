@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import userSession from '../../userSession';
 
 export default class Login extends Component {
 

@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
-import Navbar from '../Navbar/Navbar'
-import Home from '../Home/home'
-import Drinks from '../Drinks/drinks'
-import Ingredients from '../Ingredients/ingredients'
+import Navbar from '../Navbar/Navbar';
+import Home from '../Home/home';
+import Drinks from '../Drinks/drinks';
+import Ingredients from '../Ingredients/ingredients';
 import ShoppingList from '../Shopping_List/shopping_list';
-import Login from '../Login/Login'
+import Login from '../Login/Login';
+import Register from '../Register/Register';
+
+
 import createUserSession from '../../userSession'
 
 class Main extends Component {
@@ -30,6 +33,7 @@ class Main extends Component {
                     <Route path="/drinks"><Drinks/></Route>
                     <Route path="/ingredients"><Ingredients/></Route>
                     <Route path="/login"><Login userSession={userSession}/></Route>
+                    <Route path="/register"><Register userSession={userSession}/></Route>
                 </Switch>              
             </Router>
         );
