@@ -54,9 +54,7 @@ class Drinks extends Component {
                     ))}
                 </Route>
                 <Route path={`${match.path}/:cocktailId`}>
-                    
-                        <ItemInfo drinks={items}/>
-                    
+                    <ItemInfo drinks={items}/>
                 </Route>
       
             </div>
