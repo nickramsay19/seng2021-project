@@ -11,6 +11,7 @@ import Register from '../Register/Register';
 
 
 import createUserSession from '../../userSession'
+import setupDatabase from '../../setupDatabase'
 
 class Main extends Component {
 
@@ -23,7 +24,8 @@ class Main extends Component {
         
         // create a userSession and pass an update method
         let userSession = createUserSession(this.userSessionUpdate);
-
+        let database = setupDatabase();
+        console.log(database.getDrinks())
         return (
             <Router>
                 <Navbar userSession={userSession}/>
