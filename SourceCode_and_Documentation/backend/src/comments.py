@@ -1,8 +1,14 @@
 import data
 from error import AccessError, InputError
 
+'''
+Helper function
+'''
+def find_user_by_id(u_id):
+    return data.user[u_id]['user']
+
 # TESTING: def comment_add(u_id, sessionKey, cocktail, message):
-def comment_add(cocktail, message):
+def comment_add(u_id, cocktail, message, time):
     """
     Given a u_id, sessionKey, cocktail and message, add the information
     about this comment to the database
@@ -30,7 +36,8 @@ def comment_add(cocktail, message):
     data.comments[comment_index]['drink'] = cocktail
     data.comments[comment_index]['comment_id'] = comment_index
     data.comments[comment_index]['message'] = message
-    # TESTING: data.comments[comment_index]['u_id'] = u_id
+    data.comments[comment_index]['u_id'] = u_id
+    data.comments[comment_index]['ldTime'] = time
 
     return {
         'comment_id': comment_index,
@@ -81,7 +88,10 @@ def comment_get(cocktail):
     msgs = []
     for cmt in data.comments:
         if cmt['drink'] == cocktail and cmt['message'] != '':
-            msgs.append(cmt['message'])
+            msgs.append({})
+            msgs[-1].ldTime = cmt['time']
+            msgs[-1].username = find_user_by_id(cmt['u_id'])
+            msgs[-1].message = cmt['message']
 
     return {
         'messages': msgs,

@@ -53,7 +53,7 @@ class Cocktail extends Component {
     }
     
     listComt() {
-        var msgBox = document.getElementById("messageBox");
+        /*var msgBox = document.getElementById("messageBox");
         const cmtList = ["hello", "world", "!"]; // for testing
         const hr = document.createElement("div");
         hr.innerHTML = "<hr />";
@@ -67,47 +67,53 @@ class Cocktail extends Component {
             cmtOut.appendChild(cmtContent);
             cmtOut.appendChild(hr);
             msgBox.appendChild(cmtOut);
-        }
+        }*/
+        const hr = document.createElement("div");
+        hr.innerHTML = "<hr />";
+        return hr;
     }
 
-    PostComt() {
-        var username=document.getElementById('nameInput');
-        var content=document.getElementById("floatingTextarea");
-        var msgBox=document.getElementById("messageBox");
-        if (username.value==="" || content.value==="") {
-            username.value="";
-            content.value="";
+    postComt = () => {
+        var username = document.getElementById("nameInput");
+        var content = document.getElementById("floatingTextarea");
+        var msgBox = document.getElementById("messageBox");
+        if (username.value === "" || content.value === "") {
+            username.value = "";
+            content.value = "";
             return alert("The username or comment cannot be empty");
         }
-    
-        var commentOut=document.createElement("div");
-        commentOut.className="cmt";
-        //var commentName=document.createElement("div");
-        //commentName.innerHTML=" User: "+username.value;
-        //var commentPost=document.createElement("div");
-        //commentPost.innerHTML=content.value;
-        
-    
-        var commentTime=document.createElement("div");
-        var cmtDate=new Date();
-        commentTime.innerHTML=cmtDate.toLocaleString()+"<br />"+"User: "+username.value+"<br />"+content.value;
-        var hr=document.createElement("div");
-        hr.innerHTML="<hr />";
 
+        var commentOut = document.createElement("div");
+        commentOut.className = "cmt";
+        var commentTime = document.createElement("div");
+        var cmtDate = new Date();
+        commentTime.innerHTML = cmtDate.toLocaleString()+"<br />";
+        commentTime.innerHTML += "User: "+username.value+"<br />"+content.value;
+        commentTime.innerHTML += document.getElementsByClassName("btn btn-link")
+
+        username.value = "";
+        content.value = "";
         commentOut.appendChild(commentTime);
-        //commentOut.appendChild(commentName);
-        //commentOut.appendChild(commentPost);
-        commentOut.appendChild(hr);
+        
+        msgBox.insertBefore(commentOut, msgBox.childNodes[0]);
+    }
 
-        username.value="";
-        content.value="";
-        msgBox.appendChild(commentOut);
+    delPost = del_id => {
+        var del = document.getElementById(del_id);
+        del.remove();
     }
 
     render() { 
         const { match } = this.props;
         const { cocktailId } = match.params;
         const cocktail = Cocktails.find(({ id }) => id === cocktailId)
+        var ini = new Date();
+        var time = ini.toLocaleString();
+        var loadCmt = [
+            {id: "0", ldTime: time, username: "hello", message: "123"},
+            {id: "1", ldTime: time, username: "world", message: "456"},
+            {id: "2", ldTime: time, username: "!", message: "789"},
+        ];
         return ( 
             <div className="item-info-card">
                 <div className="item-top-bar">
@@ -151,12 +157,24 @@ class Cocktail extends Component {
                         </h3>
                         <input type="text" class="form-control" id="nameInput" placeholder="Username"></input>
                         <textarea class="form-control" placeholder="Add a comment..." id="floatingTextarea"></textarea>
-                        <button type="button" class="btn btn-shortened btn-outline-primary" onClick={this.PostComt}>Post</button>                
+                        <button type="button" class="btn btn-shortened btn-outline-primary" onClick={this.postComt}>Post</button>                
                     </div>
                 </div>
                 <hr class="cmtSep"></hr>
                 <div class="message_area">
-                    <div class="message_box" id="messageBox"><style onLoad={this.listComt}></style></div>
+                    <div class="message_box" id="messageBox">
+                        {loadCmt.map((cmt) => 
+                                <div className="cmt" id={cmt.id}>
+                                    <div>
+                                        {cmt.ldTime}<br />{"User: "+cmt.username}<br />{cmt.message}
+                                        <button type="button" class="btn btn-link" onClick={() => {if (window.confirm("are u sure?")) this.delPost(cmt.id)}}>
+                                            Delete
+                                        </button>
+                                        <hr />
+                                    </div>
+                                </div> 
+                        )}
+                    </div>
                 </div>
                 
             </div>
