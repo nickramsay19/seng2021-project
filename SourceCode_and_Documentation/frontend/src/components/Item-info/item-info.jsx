@@ -53,41 +53,48 @@ class Cocktail extends Component {
     }
 
     postComt = () => {
-        var username = document.getElementById("nameInput");
-        var content = document.getElementById("floatingTextarea");
-        var msgBox = document.getElementById("messageBox");
-        if (username.value === "" || content.value === "") {
-            username.value = "";
-            content.value = "";
-            return alert("The username or comment cannot be empty.");
-        } else if (content.value.length > 1000) {
-            username.value = "";
-            return alert("The length of comment should not exceed 1000 characters.");
-        }
+        fetch("http://localhost:5050/comments/add", {
+            method: "POST",
+            body: JSON.stringify({
+                'u_id': 0,
+                'cocktail': document.getElementsByClassName("item-title").value,
+                'message': document.getElementById("floatingTextarea").value,
+                'time': new Date().toLocaleString()
+            }),
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8'
+            }
+        }).then(response => {
+            return response.json();
+        }).then(json => {
+            console.log(json);
+        }).then(error => {
 
-        var commentOut = document.createElement("div");
-        commentOut.className = "cmt";
-        var commentTime = document.createElement("div");
-        var cmtDate = new Date();
-        commentTime.innerHTML = cmtDate.toLocaleString()+"<br />";
-        commentTime.innerHTML += "User: "+username.value+"<br />"+content.value;
-        commentTime.innerHTML += document.getElementsByClassName("btn btn-link")
-
-        username.value = "";
-        content.value = "";
-        commentOut.appendChild(commentTime);
-        
-        msgBox.insertBefore(commentOut, msgBox.childNodes[0]);
+        })
     }
 
     delPost = del_id => {
-        var del = document.getElementById(del_id);
-        del.remove();
+        fetch("http://localhost:5050/comments/remove", {
+            method: "POST",
+            body: JSON.stringify({
+                'u_id': 0,
+                'comment_id': parseInt(del_id.charAt(del_id.length - 1))
+            }),
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8'
+            }
+        }).then(response => {
+            return response.json();
+        }).then(json => {
+            console.log(json);
+        }).then(error => {
+
+        })
     }
 
     getPost = cocktail => {
         console.log("inside getPost");
-
+        /*
         fetch("http://localhost:5050/comments/get?cocktail=" + cocktail)
         .then(function (response) {
             console.log(response);
@@ -96,14 +103,27 @@ class Cocktail extends Component {
             console.log('GET response:');
             console.log(text);
         });
+        */
+        fetch("http://localhost:5050/comments/get?cocktail=" + cocktail, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            return response.json();
+        }).then(json => {
+            console.log(json);
+        }).then(error => {
+
+        })
     }
 
     render() { 
         const { match } = this.props;
         const { cocktailId } = match.params;
         const cocktail = Cocktails.find(({ id }) => id === cocktailId)
-        var time = new Date().toLocaleString();
-        const loadCmt = this.getPost(cocktail.name);
+        var loadCmt = this.getPost(cocktail.name);
 
         return ( 
             <div className="item-info-card">
@@ -223,3 +243,33 @@ export default withCookies(ItemInfoRouter);
 //          );
 //     }
 // }
+
+/*
+postComt = () => {
+        var username = document.getElementById("nameInput");
+        var content = document.getElementById("floatingTextarea");
+        var msgBox = document.getElementById("messageBox");
+        if (username.value === "" || content.value === "") {
+            username.value = "";
+            content.value = "";
+            return alert("The username or comment cannot be empty.");
+        } else if (content.value.length > 1000) {
+            username.value = "";
+            return alert("The length of comment should not exceed 1000 characters.");
+        }
+
+        var commentOut = document.createElement("div");
+        commentOut.className = "cmt";
+        var commentTime = document.createElement("div");
+        var cmtDate = new Date();
+        commentTime.innerHTML = cmtDate.toLocaleString()+"<br />";
+        commentTime.innerHTML += "User: "+username.value+"<br />"+content.value;
+        commentTime.innerHTML += document.getElementsByClassName("btn btn-link")
+
+        username.value = "";
+        content.value = "";
+        commentOut.appendChild(commentTime);
+        
+        msgBox.insertBefore(commentOut, msgBox.childNodes[0]);
+    }
+*/
