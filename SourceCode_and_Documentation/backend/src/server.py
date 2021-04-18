@@ -43,14 +43,11 @@ def echo():
 def auth_login_flask():
     
     # obtain users list
-    #users = [user.User(5, 'nick', '123', [])]
     users = users_data.users
     
     # obtain username and password from args
     username = request.args.get('username')
     password = request.args.get('password')
-    
-    print(str(type(username)) + ' ' + str(type(password)))
     
     # create a data object to be returned
     data = None
@@ -59,15 +56,12 @@ def auth_login_flask():
     for u in users:
         if username == u['user'] and password == u['password']:
             data = u['u_id']
-            print('FOUND')
             break
     # no user found, return -1 user id
     else:
         data = -1
         
-    return dumps({
-        'data' : data
-    })
+    return dumps({'data' : data})
 
 @APP.route("/api/cocktails_details", methods=['GET'])
 def api_cocktail_details():
