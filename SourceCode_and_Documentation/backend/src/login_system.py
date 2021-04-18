@@ -6,7 +6,7 @@ u_id = 0
 
 def user_register(username, password):
     
-    data.users.append({'user': username, 'password': password, 'u_id': len(data.users), 'logged_in': False, 'shopping_list': []}) #data.users.count()
+    data.users.append({'user': username, 'password': password, 'u_id': len(data.users), 'logged_in': False, 'shopping_list': []})
     
 
 
@@ -32,12 +32,3 @@ def shoppinglist_get(userID):
         if ((i['user'] == userID) and (i['logged_in'] == True)):
             return i['shopping_list']
 
-def main():
-    user_register('user1', 'password1')
-    user_register('user2', 'password2')
-    user_register('user3', 'password3')
-    user_register('user4', 'password4')
-    user_login('user3', 'password3')
-    user_login('user4', 'password4')
-
-main()
