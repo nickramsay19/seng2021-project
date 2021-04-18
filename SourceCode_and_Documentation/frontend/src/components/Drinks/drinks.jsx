@@ -1,42 +1,23 @@
 import React, { Component } from 'react';
 import Item from '../Item-card/item'
 import ItemInfo from '../Item-info/item-info'
-// import { Cocktails } from './Cocktails.js'
 import { Route, Link, withRouter } from 'react-router-dom'
-import { CookiesProvider } from 'react-cookie';
 
 class Drinks extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          error: null,
-          isLoaded: false,
-          items: []
+          error: this.props.error,
+          isLoaded: this.props.isLoaded,
+          items: this.props.items,
         };
     }
-    componentDidMount() {
-        fetch("http://localhost:5050/api/cocktails_details")
-          .then(res => res.json())
-          .then(
-            (result) => {
-              this.setState({
-                isLoaded: true,
-                items: result.drinks
-              });
-            //   console.log(this.state.items);
-            },
-            
-            (error) => {
-              this.setState({
-                isLoaded: true,
-                error
-              });
-            }
-          )
-    }
+
     render() { 
       const { match } = this.props;
-      const { error, isLoaded, items } = this.state;
+      const error = this.props.error
+      const isLoaded = this.props.isLoaded
+      const items = this.props.items
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -48,12 +29,12 @@ class Drinks extends Component {
                     <h2>Select a drink to see more info</h2>
                     {items.map(( cocktail ) => (
                         
-                            <Link to={`${match.url}/${cocktail['name']}`}>
-                            <Item key={cocktail['id']} image={cocktail['thumbnail']}>{cocktail['name']}</Item>
+                            <Link key={cocktail['id']}to={`${match.url}/${cocktail['name']}`}>
+                            <Item  image={cocktail['thumbnail']}>{cocktail['name']}</Item>
                             </Link>
                     ))}
                 </Route>
-                <Route path={`${match.path}/:cocktailId`}>
+                <Route path={`${match.path}/:cocktailId+`}>
                     <ItemInfo drinks={items}/>
                 </Route>
       
