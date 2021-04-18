@@ -132,7 +132,6 @@ class Cocktail extends Component {
                         {cocktail.instructions}
                     </p>
                 </div>
-                <ButtonOptions/>
                 <div className="item-comments">
                     <div className="form-floating">
                         <h3 className="item-header">
