@@ -118,7 +118,7 @@ class Cocktail extends Component {
                         <small className="text-muted"> Click to add to shopping list</small>
                         <div className="item-ingredient-list">               
                             {Object.keys(cocktail.ingredients).map((item) => 
-                                <ButtonOptions name={item} addIngredient={this.addIngredient}/>
+                                <ButtonOptions key={`${item} Options`} name={item} addIngredient={this.addIngredient}/>
                             )}
                         </div>
                     </div>
@@ -132,7 +132,7 @@ class Cocktail extends Component {
                         {cocktail.instructions}
                     </p>
                 </div>
-                
+                <ButtonOptions/>
                 <div className="item-comments">
                     <div className="form-floating">
                         <h3 className="item-header">

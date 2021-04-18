@@ -27,18 +27,26 @@ class ButtonOptions extends Component {
     }
 
     render() { 
-        console.log(this.props)
         return ( 
-            
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" {...'aria-haspopup'="true"} aria-expanded="false">
+    Dropdown button
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
+                                
+                // this.state.isHovered ? 
+                // <div className="btn-shortened btn-group" role="group" aria-label="Basic outlined example">
+                //     <button type="button" className="btn btn-outline-primary" onClick={this.toggleHover}>{this.props.name}</button>
+                //     <button type="button" class="btn btn-outline-primary" onClick={()=>this.props.addIngredient(this.props.name)}>Add</button>
+                //     <Link type="button" className="btn btn-outline-primary" to={`/ingredients/${this.props.name}`}>More Info</Link>
+                // </div>  : 
                 
-                this.state.isHovered ? 
-                <div className="btn-shortened btn-group" role="group" aria-label="Basic outlined example">
-                    <button type="button" className="btn btn-outline-primary" onClick={this.toggleHover}>{this.props.name}</button>
-                    <button type="button" class="btn btn-outline-primary" onClick={()=>this.props.addIngredient(this.props.name)}>Add</button>
-                    <Link type="button" className="btn btn-outline-primary" to={`/ingredients/${this.props.name}`}>More Info</Link>
-                </div>  : 
-                
-                <button className="btn btn-shortened btn-outline-primary" onClick={this.toggleHover}>{this.props.name}</button>
+                // <button className="btn btn-shortened btn-outline-primary" onClick={this.toggleHover}>{this.props.name}</button>
                 
                 
             

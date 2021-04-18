@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import Item from '../Item-card/item'
 import ItemInfo from '../Item-info/item-info'
-// import { Cocktails } from './Cocktails.js'
 import { Route, Link, withRouter } from 'react-router-dom'
-import { CookiesProvider } from 'react-cookie';
 
 class Drinks extends Component {
     constructor(props) {
@@ -32,8 +30,8 @@ class Drinks extends Component {
                     <h2>Select a drink to see more info</h2>
                     {items.map(( cocktail ) => (
                         
-                            <Link to={`${match.url}/${cocktail['name']}`}>
-                            <Item key={cocktail['id']} image={cocktail['thumbnail']}>{cocktail['name']}</Item>
+                            <Link key={cocktail['id']}to={`${match.url}/${cocktail['name']}`}>
+                            <Item  image={cocktail['thumbnail']}>{cocktail['name']}</Item>
                             </Link>
                     ))}
                 </Route>

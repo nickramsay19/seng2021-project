@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Item from '../Item-card/item'
 import IngredientInfo from '../Ingredient-info/ingredient-info'
-import { Cocktails } from '../Drinks/Cocktails.js'
+
 import { Route, Link, withRouter } from 'react-router-dom'
 
 
