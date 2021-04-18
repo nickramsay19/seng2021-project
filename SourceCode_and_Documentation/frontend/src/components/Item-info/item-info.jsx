@@ -95,7 +95,6 @@ class Cocktail extends Component {
                 </div>
                 
                 <Comments cocktail={cocktail.name} />
-                
             </div>
         );
     }
@@ -145,72 +144,3 @@ export default withCookies(ItemInfoRouter);
 //          );
 //     }
 // }
-
-/*
-    postComt = () => {
-        fetch("http://localhost:5050/comments/add", {
-            method: "POST",
-            body: JSON.stringify({
-                'u_id': 0,
-                'cocktail': document.getElementsByClassName("item-title").value,
-                'message': document.getElementById("floatingTextarea").value,
-                'time': new Date().toLocaleString()
-            }),
-            headers: {
-                'Content-Type': 'application/json; charset=UTF-8'
-            }
-        }).then(response => {
-            return response.json();
-        }).then(json => {
-            console.log(json);
-        }).then(error => {
-
-        })
-    }
-
-    delPost = del_id => {
-        fetch("http://localhost:5050/comments/remove", {
-            method: "POST",
-            body: JSON.stringify({
-                'u_id': 0,
-                'comment_id': parseInt(del_id.charAt(del_id.length - 1))
-            }),
-            headers: {
-                'Content-Type': 'application/json; charset=UTF-8'
-            }
-        }).then(response => {
-            return response.json();
-        }).then(json => {
-            console.log(json);
-        }).then(error => {
-
-        })
-    }
-
-    getPost = cocktail => {
-        console.log("inside getPost");
-        
-        fetch("http://localhost:5050/comments/get?cocktail=" + cocktail)
-        .then(function (response) {
-            console.log(response);
-            return response.json();
-        }).then(function (text) {
-            console.log('GET response:');
-            console.log(text);
-        });
-        
-        fetch("http://localhost:5050/comments/get?cocktail=" + cocktail, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then(response => {
-            return response.json();
-        }).then(json => {
-            console.log(json);
-        }).then(error => {
-
-        })
-    }
-*/
