@@ -1,6 +1,8 @@
 import data
 from comments import*
 
+data.clear()
+
 '''
 Testing for comment_add
 '''

@@ -51,27 +51,6 @@ class Cocktail extends Component {
         cookies.set('ingredients', this.state.ingredients, { path: '/' });
         
     }
-    
-    listComt() {
-        /*var msgBox = document.getElementById("messageBox");
-        const cmtList = ["hello", "world", "!"]; // for testing
-        const hr = document.createElement("div");
-        hr.innerHTML = "<hr />";
-
-        for (const cmt of cmtList) {
-            var cmtOut = document.createElement("div");
-            cmtOut.className = "cmt";
-            var cmtContent = document.createElement("div");
-            cmtContent.innerHTML = cmt;
-
-            cmtOut.appendChild(cmtContent);
-            cmtOut.appendChild(hr);
-            msgBox.appendChild(cmtOut);
-        }*/
-        const hr = document.createElement("div");
-        hr.innerHTML = "<hr />";
-        return hr;
-    }
 
     postComt = () => {
         var username = document.getElementById("nameInput");
@@ -106,17 +85,26 @@ class Cocktail extends Component {
         del.remove();
     }
 
+    getPost = cocktail => {
+        console.log("inside getPost");
+
+        fetch("http://localhost:5050/comments/get?cocktail=" + cocktail)
+        .then(function (response) {
+            console.log(response);
+            return response.json();
+        }).then(function (text) {
+            console.log('GET response:');
+            console.log(text);
+        });
+    }
+
     render() { 
         const { match } = this.props;
         const { cocktailId } = match.params;
         const cocktail = Cocktails.find(({ id }) => id === cocktailId)
-        var ini = new Date();
-        var time = ini.toLocaleString();
-        var loadCmt = [
-            {id: "0", ldTime: time, username: "hello", message: "123"},
-            {id: "1", ldTime: time, username: "world", message: "456"},
-            {id: "2", ldTime: time, username: "!", message: "789"},
-        ];
+        var time = new Date().toLocaleString();
+        const loadCmt = this.getPost(cocktail.name);
+
         return ( 
             <div className="item-info-card">
                 <div className="item-top-bar">
@@ -167,19 +155,21 @@ class Cocktail extends Component {
                 <div class="message_area">
                     <div class="message_box" id="messageBox">
                         {loadCmt.map((cmt) => 
-                                <div className="cmt" id={cmt.id}>
-                                    <div>
-                                        {cmt.ldTime}<br />{"User: "+cmt.username}<br />{cmt.message}
-                                        <button
-                                            type="button"
-                                            class="btn btn-link"
-                                            onClick={() => {if (window.confirm("Delete this comment?")) this.delPost(cmt.id)}}
-                                        >
-                                            Delete
-                                        </button>
-                                        <hr />
-                                    </div>
-                                </div> 
+                            <div className="cmt" id={cmt.id}>
+                                <div>
+                                    {cmt.ldTime}<br />
+                                    {"User: "+cmt.username}<br />
+                                    {cmt.message}
+                                    <button
+                                        type="button"
+                                        class="btn btn-link"
+                                        onClick={() => {if (window.confirm("Delete this comment?")) this.delPost(cmt.id)}}
+                                    >
+                                        Delete
+                                    </button>
+                                    <hr />
+                                </div>
+                            </div> 
                         )}
                     </div>
                 </div>
