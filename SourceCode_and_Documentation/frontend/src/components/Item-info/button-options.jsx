@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './item-info.css'
 import { Link } from 'react-router-dom';
-
+import Dropdown from 'react-bootstrap/Dropdown'
+import Button from 'react-bootstrap/Button'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
 class ButtonOptions extends Component {
     constructor(props) {
         super(props);
@@ -28,30 +30,35 @@ class ButtonOptions extends Component {
 
     render() { 
         return ( 
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown button
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-</div>
-                                
-                // this.state.isHovered ? 
-                // <div className="btn-shortened btn-group" role="group" aria-label="Basic outlined example">
-                //     <button type="button" className="btn btn-outline-primary" onClick={this.toggleHover}>{this.props.name}</button>
-                //     <button type="button" class="btn btn-outline-primary" onClick={()=>this.props.addIngredient(this.props.name)}>Add</button>
-                //     <Link type="button" className="btn btn-outline-primary" to={`/ingredients/${this.props.name}`}>More Info</Link>
-                // </div>  : 
-                
-                // <button className="btn btn-shortened btn-outline-primary" onClick={this.toggleHover}>{this.props.name}</button>
-                
-                
+            <Dropdown>
+                <Dropdown.Toggle as={CustomToggle} className="btn btn-shortened btn-outline-primary">
+                {this.props.name}
+                </Dropdown.Toggle>
             
+                <Dropdown.Menu>
+                <Dropdown.Item onClick={()=>this.props.addIngredient(this.props.name)}>Add To Shopping List</Dropdown.Item>
+                <Link to={`/ingredients/${this.props.name}`}>
+                <Dropdown.Item>View More Info</Dropdown.Item>
+                </Link>
+                </Dropdown.Menu>
+            </Dropdown>                    
             );
     }
 }
  
+const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+    <button
+      href=""
+      ref={ref}
+      className="btn btn-shortened btn-outline-primary"
+      onClick={(e) => {
+        e.preventDefault();
+        onClick(e);
+      }}
+    >
+      {children}
+      &#x25bc;
+    </button>
+  ));
+
 export default ButtonOptions;
