@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './item-info.css';
 import { Link, withRouter } from 'react-router-dom';
-import { Cocktails } from '../Drinks/Cocktails'
+import ButtonOptions from './button-options.jsx';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 
@@ -118,7 +118,7 @@ class Cocktail extends Component {
                         <small className="text-muted"> Click to add to shopping list</small>
                         <div className="item-ingredient-list">               
                             {Object.keys(cocktail.ingredients).map((item) => 
-                                <a href="#" className="btn btn-shortened btn-outline-primary" onClick={() => this.addIngredient(item) }>{item}</a>    
+                                <ButtonOptions name={item} addIngredient={this.addIngredient}/>
                             )}
                         </div>
                     </div>
