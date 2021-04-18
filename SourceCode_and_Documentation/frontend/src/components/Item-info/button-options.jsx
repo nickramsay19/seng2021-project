@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './item-info.css'
 import { Link } from 'react-router-dom';
+import {LinkContainer} from 'react-router-bootstrap';
 import Dropdown from 'react-bootstrap/Dropdown'
 import Button from 'react-bootstrap/Button'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
@@ -36,10 +37,10 @@ class ButtonOptions extends Component {
                 </Dropdown.Toggle>
             
                 <Dropdown.Menu>
-                <Dropdown.Item onClick={()=>this.props.addIngredient(this.props.name)}>Add To Shopping List</Dropdown.Item>
-                <Link to={`/ingredients/${this.props.name}`}>
-                <Dropdown.Item>View More Info</Dropdown.Item>
-                </Link>
+                    <Dropdown.Item onClick={()=>this.props.addIngredient(this.props.name)}>Add To Shopping List</Dropdown.Item>
+                    <LinkContainer to={`/ingredients/${this.props.name}`}>
+                    <Dropdown.Item>View More Info</Dropdown.Item>
+                    </LinkContainer>
                 </Dropdown.Menu>
             </Dropdown>                    
             );

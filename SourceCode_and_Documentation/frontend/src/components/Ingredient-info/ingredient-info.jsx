@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-
+import '../Item-info/item-info.css'
 class IngredientInfo extends Component {
     render() {
         const { match } = this.props;
@@ -15,6 +15,7 @@ class IngredientInfo extends Component {
             ingredient = {
                 ingredient : '',
                 description : '', 
+                used_in : []
             }
         }
         console.log(ingredientID)
@@ -28,8 +29,17 @@ class IngredientInfo extends Component {
                 </div>
                 
                 <div className="item-row">
-                    <img className="item-card-image" src={`http://www.thecocktaildb.com/images/ingredients/${ingredientID}.png`}></img>
+                    <img className="item-image" src={`http://www.thecocktaildb.com/images/ingredients/${ingredientID}.png`}></img>
                     <div className="item-ingredients">
+                        <small className="text-muted">Used in:</small>
+                        <div className="drinks-list">
+                            {ingredient.used_in.map((item)=> 
+                                <Link to={`/drinks/${item.name}`}className="btn btn-shortened btn-outline-primary">{item.name}</Link>
+                            )}
+                        </div>
+                    </div>
+                </div>
+                <div className="item-instructions">
                         <h2 className="item-header">
                             Description
                         </h2>
@@ -37,8 +47,6 @@ class IngredientInfo extends Component {
                             {ingredient.description || "No description provided"}
                         </div>
                     </div>
-                </div>
-                
                  
             </div>
         )
