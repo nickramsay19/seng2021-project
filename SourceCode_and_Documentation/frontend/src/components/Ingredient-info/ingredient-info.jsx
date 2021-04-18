@@ -5,7 +5,6 @@ class IngredientInfo extends Component {
     render() {
         const { match } = this.props;
         const { ingredientID } = match.params;
-        console.log(this.props.ingredients);
         var ingredient = this.props.ingredients.find((i) => {
             if (i.ingredient === ingredientID) {
                 return true
@@ -18,7 +17,6 @@ class IngredientInfo extends Component {
                 used_in : []
             }
         }
-        console.log(ingredientID)
         return(
             <div className="item-info-card">
                 <div className="item-top-bar">
@@ -33,9 +31,11 @@ class IngredientInfo extends Component {
                     <div className="item-ingredients">
                         <small className="text-muted">Used in:</small>
                         <div className="drinks-list">
-                            {ingredient.used_in.map((item)=> 
+                            {ingredient.used_in.length ? ingredient.used_in.map((item)=> 
                                 <Link to={`/drinks/${item.name}`}className="btn btn-shortened btn-outline-primary">{item.name}</Link>
-                            )}
+                            ): <small>Error: could not find '{ingredientID}'' in fetched ingredients.</small>
+                            }
+                            {}
                         </div>
                     </div>
                 </div>

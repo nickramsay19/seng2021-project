@@ -18,7 +18,6 @@ class Drinks extends Component {
       const error = this.props.error
       const isLoaded = this.props.isLoaded
       const items = this.props.items
-      console.log(isLoaded)
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
