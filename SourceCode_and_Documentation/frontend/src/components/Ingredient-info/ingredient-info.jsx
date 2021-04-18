@@ -17,18 +17,18 @@ class IngredientInfo extends Component {
                 description : '', 
             }
         }
-        console.log(ingredient)
+        console.log(ingredientID)
         return(
             <div className="item-info-card">
                 <div className="item-top-bar">
                     <h1 className="item-title">
-                        {ingredient.ingredient || "Not in database"}
+                        {ingredient.ingredient || ingredientID}
                     </h1>
-                    <Link to="/ingredients"><p className="btn btn-outline-primary">Back</p></Link>
+                    <Link to="/ingredients"><p className="btn btn-outline-primary">To Ingredients Page</p></Link>
                 </div>
                 
                 <div className="item-row">
-                    <img className="item-card-image" src={`http://www.thecocktaildb.com/images/ingredients/${ingredient.ingredient}.png`}></img>
+                    <img className="item-card-image" src={`http://www.thecocktaildb.com/images/ingredients/${ingredientID}.png`}></img>
                     <div className="item-ingredients">
                         <h2 className="item-header">
                             Description
