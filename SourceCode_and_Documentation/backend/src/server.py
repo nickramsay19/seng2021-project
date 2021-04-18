@@ -63,6 +63,26 @@ def auth_login_flask():
         
     return dumps({'data' : data})
 
+@APP.route("/auth/register", methods=['POST'])
+def auth_register_flask():
+    
+    # obtain username and password from args
+    username = request.args.get('username')
+    password = request.args.get('password')
+    
+    # check if username and password are valid
+    if len(username) == 0 and len(password) == 0:
+        return dumps({'data' : -1})
+    
+    # check if username is taken
+    for u in users_data.users:
+        if username == u['user']:
+            return dumps({'data' : -2})
+    
+    # attempt to add user, return success code 0
+    login_system.user_register(username, password)
+    return dumps({'data' : 0})
+
 @APP.route("/api/cocktails_details", methods=['GET'])
 def api_cocktail_details():
     response = api.ref_cocktails_details
