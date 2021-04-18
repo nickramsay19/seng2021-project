@@ -8,6 +8,8 @@ def find_user_by_id(u_id):
     return data.users[u_id]['user']
 
 # TESTING: def comment_add(u_id, sessionKey, cocktail, message):
+# ASSUMPTION: cocktail is always one of the included cocktails called by the API
+#             time is always a string with the format 'DD/MM/YYYY, HH:MM:SS'
 def comments_add(u_id, cocktail, message, time):
     """
     Given a u_id, sessionKey, cocktail and message, add the information
@@ -27,8 +29,16 @@ def comments_add(u_id, cocktail, message, time):
     
     Raises
     ------
-    
+    AccessError
+        Invalid u_id or not logged in
+    InputError
+        Empty or long message ( > 1000 char)
     """
+    if u_id > len(data.users):
+        raise AccessError()
+    elif len(message) <= 0 or len(message) > 1000:
+        raise InputError
+
     comment_index = len(data.comments)
     
     # create a new entry for comment
@@ -43,6 +53,7 @@ def comments_add(u_id, cocktail, message, time):
     return {
         'comment_id': comment_index,
     }
+
 # TESTING: def comments_remove(u_id, sessionKey, comment_id):
 def comments_remove(u_id, comment_id):
     """
@@ -87,7 +98,7 @@ def comments_get(cocktail):
 
     """
     msgs = []
-    for cmt in data.comments:
+    for cmt in reversed(data.comments):
         if cmt['drink'] == cocktail and cmt['message'] != '':
             msgs.append({})
             msgs[-1]['cmt_id'] = cmt['drink'] + str(cmt['comment_id'])

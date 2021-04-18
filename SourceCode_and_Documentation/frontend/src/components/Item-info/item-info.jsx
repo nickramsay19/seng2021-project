@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { Cocktails } from '../Drinks/Cocktails'
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
+import Comments from './item-comments'
 
 class Cocktail extends Component {
 
@@ -52,78 +53,10 @@ class Cocktail extends Component {
         
     }
 
-    postComt = () => {
-        fetch("http://localhost:5050/comments/add", {
-            method: "POST",
-            body: JSON.stringify({
-                'u_id': 0,
-                'cocktail': document.getElementsByClassName("item-title").value,
-                'message': document.getElementById("floatingTextarea").value,
-                'time': new Date().toLocaleString()
-            }),
-            headers: {
-                'Content-Type': 'application/json; charset=UTF-8'
-            }
-        }).then(response => {
-            return response.json();
-        }).then(json => {
-            console.log(json);
-        }).then(error => {
-
-        })
-    }
-
-    delPost = del_id => {
-        fetch("http://localhost:5050/comments/remove", {
-            method: "POST",
-            body: JSON.stringify({
-                'u_id': 0,
-                'comment_id': parseInt(del_id.charAt(del_id.length - 1))
-            }),
-            headers: {
-                'Content-Type': 'application/json; charset=UTF-8'
-            }
-        }).then(response => {
-            return response.json();
-        }).then(json => {
-            console.log(json);
-        }).then(error => {
-
-        })
-    }
-
-    getPost = cocktail => {
-        console.log("inside getPost");
-        /*
-        fetch("http://localhost:5050/comments/get?cocktail=" + cocktail)
-        .then(function (response) {
-            console.log(response);
-            return response.json();
-        }).then(function (text) {
-            console.log('GET response:');
-            console.log(text);
-        });
-        */
-        fetch("http://localhost:5050/comments/get?cocktail=" + cocktail, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then(response => {
-            return response.json();
-        }).then(json => {
-            console.log(json);
-        }).then(error => {
-
-        })
-    }
-
     render() { 
         const { match } = this.props;
         const { cocktailId } = match.params;
         const cocktail = Cocktails.find(({ id }) => id === cocktailId)
-        var loadCmt = this.getPost(cocktail.name);
 
         return ( 
             <div className="item-info-card">
@@ -161,38 +94,7 @@ class Cocktail extends Component {
                     </p>
                 </div>
                 
-                <div className="item-comments">
-                    <div className="form-floating">
-                        <h3 className="item-header">
-                            Comments
-                        </h3>
-                        <input type="text" class="form-control" id="nameInput" placeholder="Username"></input>
-                        <textarea class="form-control" placeholder="Add a comment... (Max. 1000 characters)" id="floatingTextarea"></textarea>
-                        <button type="button" class="btn btn-shortened btn-outline-primary" onClick={this.postComt}>Post</button>                
-                    </div>
-                </div>
-                <hr class="cmtSep"></hr>
-                <div class="message_area">
-                    <div class="message_box" id="messageBox">
-                        {loadCmt.map((cmt) => 
-                            <div className="cmt" id={cmt.id}>
-                                <div>
-                                    {cmt.ldTime}<br />
-                                    {"User: "+cmt.username}<br />
-                                    {cmt.message}
-                                    <button
-                                        type="button"
-                                        class="btn btn-link"
-                                        onClick={() => {if (window.confirm("Delete this comment?")) this.delPost(cmt.id)}}
-                                    >
-                                        Delete
-                                    </button>
-                                    <hr />
-                                </div>
-                            </div> 
-                        )}
-                    </div>
-                </div>
+                <Comments cocktail={cocktail.name} />
                 
             </div>
         );
@@ -245,31 +147,70 @@ export default withCookies(ItemInfoRouter);
 // }
 
 /*
-postComt = () => {
-        var username = document.getElementById("nameInput");
-        var content = document.getElementById("floatingTextarea");
-        var msgBox = document.getElementById("messageBox");
-        if (username.value === "" || content.value === "") {
-            username.value = "";
-            content.value = "";
-            return alert("The username or comment cannot be empty.");
-        } else if (content.value.length > 1000) {
-            username.value = "";
-            return alert("The length of comment should not exceed 1000 characters.");
-        }
+    postComt = () => {
+        fetch("http://localhost:5050/comments/add", {
+            method: "POST",
+            body: JSON.stringify({
+                'u_id': 0,
+                'cocktail': document.getElementsByClassName("item-title").value,
+                'message': document.getElementById("floatingTextarea").value,
+                'time': new Date().toLocaleString()
+            }),
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8'
+            }
+        }).then(response => {
+            return response.json();
+        }).then(json => {
+            console.log(json);
+        }).then(error => {
 
-        var commentOut = document.createElement("div");
-        commentOut.className = "cmt";
-        var commentTime = document.createElement("div");
-        var cmtDate = new Date();
-        commentTime.innerHTML = cmtDate.toLocaleString()+"<br />";
-        commentTime.innerHTML += "User: "+username.value+"<br />"+content.value;
-        commentTime.innerHTML += document.getElementsByClassName("btn btn-link")
+        })
+    }
 
-        username.value = "";
-        content.value = "";
-        commentOut.appendChild(commentTime);
+    delPost = del_id => {
+        fetch("http://localhost:5050/comments/remove", {
+            method: "POST",
+            body: JSON.stringify({
+                'u_id': 0,
+                'comment_id': parseInt(del_id.charAt(del_id.length - 1))
+            }),
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8'
+            }
+        }).then(response => {
+            return response.json();
+        }).then(json => {
+            console.log(json);
+        }).then(error => {
+
+        })
+    }
+
+    getPost = cocktail => {
+        console.log("inside getPost");
         
-        msgBox.insertBefore(commentOut, msgBox.childNodes[0]);
+        fetch("http://localhost:5050/comments/get?cocktail=" + cocktail)
+        .then(function (response) {
+            console.log(response);
+            return response.json();
+        }).then(function (text) {
+            console.log('GET response:');
+            console.log(text);
+        });
+        
+        fetch("http://localhost:5050/comments/get?cocktail=" + cocktail, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            return response.json();
+        }).then(json => {
+            console.log(json);
+        }).then(error => {
+
+        })
     }
 */
