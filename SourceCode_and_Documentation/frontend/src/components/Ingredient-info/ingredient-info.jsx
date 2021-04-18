@@ -27,7 +27,7 @@ class IngredientInfo extends Component {
                 </div>
                 
                 <div className="item-row">
-                    <img className="item-image" src={`http://www.thecocktaildb.com/images/ingredients/${ingredientID}.png`}></img>
+                    <img className="item-image" alt={ingredientID} src={`http://www.thecocktaildb.com/images/ingredients/${ingredientID}.png`}></img>
                     <div className="item-ingredients">
                         <small className="text-muted">Used in:</small>
                         <div className="drinks-list">

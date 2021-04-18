@@ -106,11 +106,11 @@ class Cocktail extends Component {
                     </h1>
                     <button className="btn btn-shortened btn-outline-primary" onClick={() => this.addIngredients(cocktail) }>Add to Shopping List</button>  
                     
-                    <Link to="/drinks"><a href="#" className="btn btn-shortened btn-outline-primary">To Drinks Page</a></Link>
+                    <Link to="/drinks"><button className="btn btn-shortened btn-outline-primary">To Drinks Page</button></Link>
                 </div>
                 
                 <div className="item-row">
-                    <img className="item-image" src={cocktail.thumbnail}></img>
+                    <img className="item-image" alt={cocktail.name} src={cocktail.thumbnail}></img>
                     <div className="item-ingredients">
                         <h2 className="item-header">
                             Ingredients 
