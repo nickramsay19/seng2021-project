@@ -50,18 +50,7 @@ def auth_login_flask():
     password = request.args.get('password')
     
     # create a data object to be returned
-    data = None
-    
-    # loop through users and find the correct user
-    for u in users:
-        if username == u['user'] and password == u['password']:
-            data = u['u_id']
-            break
-    # no user found, return -1 user id
-    else:
-        data = -1
-        
-    return dumps({'data' : data})
+    return dumps({'data' : login_system.user_login(username, password)})
 
 @APP.route("/auth/register", methods=['POST'])
 def auth_register_flask():
@@ -82,6 +71,28 @@ def auth_register_flask():
     # attempt to add user, return success code 0
     login_system.user_register(username, password)
     return dumps({'data' : 0})
+
+@APP.route("/shopping_list/add", methods=['POST'])
+def auth_shopping_list_add_flask():
+    
+    # obtain username and password from args
+    user_id = int(request.args.get('user_id'))
+    ingredient = request.args.get('ingredient')
+    
+    # return success or failure code (0/-1)
+    data = 0 if login_system.shoppinglist_add(user_id, ingredient) else -1
+    return dumps({'data' : data})
+
+@APP.route("/shopping_list/get", methods=['POST'])
+def auth_shopping_list_get_flask():
+    
+    # obtain username and password from args
+    user_id = int(request.args.get('user_id'))
+    
+    # return success or failure code (0/-1)
+    data = login_system.shoppinglist_get(user_id)
+    return dumps({'data' : data})
+
 
 @APP.route("/api/cocktails_details", methods=['GET'])
 def api_cocktail_details():
