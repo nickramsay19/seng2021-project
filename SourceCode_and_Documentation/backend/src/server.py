@@ -4,6 +4,10 @@ from flask import Flask, request, send_from_directory
 from flask_cors import CORS
 from error import InputError
 
+# import user utitlities and data
+import login_system
+import data
+
 import api
 
 def defaultHandler(err):
@@ -37,8 +41,31 @@ def echo():
 
 @APP.route("/auth/login", methods=['POST'])
 def auth_login_flask():
+    
+    # create mock users db
+    users = [user.User(5, 'nick', '123', [])]
+    
+    # obtain username and password from args
+    username = request.args.get('username')
+    password = request.args.get('password')
+    
+    print(str(type(username)) + ' ' + str(type(password)))
+    
+    # create a data object to be returned
+    data = None
+    
+    # loop through users and find the correct user
+    for u in users:
+        if username == u.username and password == u.password:
+            data = u.user_id
+            print('FOUND')
+            break
+    # no user found, return -1 user id
+    else:
+        data = -1
+        
     return dumps({
-        'data' : None
+        'data' : data
     })
 
 @APP.route("/api/cocktails_details", methods=['GET'])
