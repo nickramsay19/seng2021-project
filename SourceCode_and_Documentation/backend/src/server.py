@@ -6,7 +6,7 @@ from error import InputError
 
 # import user utitlities and data
 import login_system
-import data
+import data as users_data
 
 import api
 
@@ -42,8 +42,9 @@ def echo():
 @APP.route("/auth/login", methods=['POST'])
 def auth_login_flask():
     
-    # create mock users db
-    users = [user.User(5, 'nick', '123', [])]
+    # obtain users list
+    #users = [user.User(5, 'nick', '123', [])]
+    users = users_data.users
     
     # obtain username and password from args
     username = request.args.get('username')
@@ -56,8 +57,8 @@ def auth_login_flask():
     
     # loop through users and find the correct user
     for u in users:
-        if username == u.username and password == u.password:
-            data = u.user_id
+        if username == u['user'] and password == u['password']:
+            data = u['u_id']
             print('FOUND')
             break
     # no user found, return -1 user id
