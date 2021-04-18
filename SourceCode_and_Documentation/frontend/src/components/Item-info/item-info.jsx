@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './item-info.css';
 import { Link, withRouter } from 'react-router-dom';
-import { Cocktails } from '../Drinks/Cocktails'
+import ButtonOptions from './button-options.jsx';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 
@@ -106,11 +106,11 @@ class Cocktail extends Component {
                     </h1>
                     <button className="btn btn-shortened btn-outline-primary" onClick={() => this.addIngredients(cocktail) }>Add to Shopping List</button>  
                     
-                    <Link to="/drinks"><a href="#" className="btn btn-shortened btn-outline-primary">To Drinks Page</a></Link>
+                    <Link to="/drinks"><button className="btn btn-shortened btn-outline-primary">To Drinks Page</button></Link>
                 </div>
                 
                 <div className="item-row">
-                    <img className="item-image" src={cocktail.thumbnail}></img>
+                    <img className="item-image" alt={cocktail.name} src={cocktail.thumbnail}></img>
                     <div className="item-ingredients">
                         <h2 className="item-header">
                             Ingredients 
@@ -118,7 +118,7 @@ class Cocktail extends Component {
                         <small className="text-muted"> Click to add to shopping list</small>
                         <div className="item-ingredient-list">               
                             {Object.keys(cocktail.ingredients).map((item) => 
-                                <a href="#" className="btn btn-shortened btn-outline-primary" onClick={() => this.addIngredient(item) }>{item}</a>    
+                                <ButtonOptions key={`${item} Options`} name={item} addIngredient={this.addIngredient}/>
                             )}
                         </div>
                     </div>
@@ -132,7 +132,6 @@ class Cocktail extends Component {
                         {cocktail.instructions}
                     </p>
                 </div>
-                
                 <div className="item-comments">
                     <div className="form-floating">
                         <h3 className="item-header">

@@ -11,7 +11,7 @@ import Register from '../Register/Register';
 
 
 import createUserSession from '../../userSession'
-import setupDatabase from '../../setupDatabase'
+
 
 class Main extends Component {
     constructor(props) {
