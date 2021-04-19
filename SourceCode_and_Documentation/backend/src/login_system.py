@@ -14,6 +14,13 @@ def user_login(username, password):
              return i['u_id']
     return -1
 
+def user_logout(username):
+    for i in data.users:
+        if (i['user'] == username and i['logged_in']):
+             i['logged_in'] = False
+             return i['u_id']
+    return -1
+
 def shoppinglist_add(userID, ingredient):
     for i in data.users:
         print(str(i['u_id'] == userID) + ', ' + str(i['logged_in']))
