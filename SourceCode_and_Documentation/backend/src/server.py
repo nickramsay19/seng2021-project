@@ -4,6 +4,10 @@ from flask import Flask, request, send_from_directory, jsonify
 from flask_cors import CORS
 from error import InputError, AccessError
 
+# import user utitlities and data
+import login_system
+import data as users_data
+
 import api
 from comments import *
 import data
@@ -39,9 +43,58 @@ def echo():
 
 @APP.route("/auth/login", methods=['POST'])
 def auth_login_flask():
-    return dumps({
-        'data' : None
-    })
+    
+    # obtain users list
+    users = users_data.users
+    
+    # obtain username and password from args
+    username = request.args.get('username')
+    password = request.args.get('password')
+    
+    # create a data object to be returned
+    return dumps({'data' : login_system.user_login(username, password)})
+
+@APP.route("/auth/register", methods=['POST'])
+def auth_register_flask():
+    
+    # obtain username and password from args
+    username = request.args.get('username')
+    password = request.args.get('password')
+    
+    # check if username and password are valid
+    if len(username) == 0 and len(password) == 0:
+        return dumps({'data' : -1})
+    
+    # check if username is taken
+    for u in users_data.users:
+        if username == u['user']:
+            return dumps({'data' : -2})
+    
+    # attempt to add user, return success code 0
+    login_system.user_register(username, password)
+    return dumps({'data' : 0})
+
+@APP.route("/shopping_list/add", methods=['POST'])
+def auth_shopping_list_add_flask():
+    
+    # obtain username and password from args
+    user_id = int(request.args.get('user_id'))
+    ingredient = request.args.get('ingredient')
+    
+    # return success or failure code (0/-1)
+    data = 0 if login_system.shoppinglist_add(user_id, ingredient) else -1
+    return dumps({'data' : data})
+
+@APP.route("/shopping_list/get", methods=['POST'])
+def auth_shopping_list_get_flask():
+    
+    # obtain username and password from args
+    user_id = int(request.args.get('user_id'))
+    
+    # return success or failure code (0/-1)
+    data = login_system.shoppinglist_get(user_id)
+    return dumps({'data' : data})
+
 
 @APP.route("/api/cocktails_details", methods=['GET'])
 def api_cocktail_details():
