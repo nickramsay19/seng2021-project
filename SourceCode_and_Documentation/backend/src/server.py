@@ -106,6 +106,17 @@ def auth_shopping_list_get_flask():
     data = login_system.shoppinglist_get(user_id)
     return dumps({'data' : data})
 
+@APP.route("/shopping_list/remove", methods=['POST'])
+def auth_shopping_list_add_flask():
+    
+    # obtain username and password from args
+    user_id = int(request.args.get('user_id'))
+    ingredient = request.args.get('ingredient')
+    
+    # return success or failure code (0/-1)
+    data = 0 if login_system.shoppinglist_remove(user_id, ingredient) else -1
+    return dumps({'data' : data})
+
 
 @APP.route("/api/cocktails_details", methods=['GET'])
 def api_cocktail_details():
