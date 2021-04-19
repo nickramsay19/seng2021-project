@@ -37,15 +37,12 @@ class Cocktail extends Component {
 
         // loop through each ingredient key in cocktail
         for (let i = 0; i < ingredients_keys.length; i++ ){
-            new_ingredients.push(ingredients_keys[i]);
+            this.addIngredient(ingredients_keys[i]);
+            //new_ingredients.push(ingredients_keys[i]);
         }
-
-        // update the cookies
-        this.setState({ ingredients: new_ingredients });
-        cookies.set('ingredients', this.state.ingredients, { path: '/' });
     }
 
-    addIngredient = ingredient => {
+    addIngredient1 = ingredient => {
         // get cookies
         const { cookies } = this.props;
         
@@ -55,6 +52,10 @@ class Cocktail extends Component {
         this.setState({ ingredients: new_ingredients });
         cookies.set('ingredients', this.state.ingredients, { path: '/' });
         
+    }
+
+    addIngredient = ingredient => {
+        this.props.userSession.addToShoppingList(ingredient);
     }
 
     render() { 
