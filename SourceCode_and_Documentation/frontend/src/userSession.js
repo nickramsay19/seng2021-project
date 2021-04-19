@@ -135,7 +135,17 @@ function createUserSession(update){
             .then(res => res.json());
     }
 
-    return {register, logIn, logOut, getIsLoggedIn, getShoppingList}
+    function removeFromShoppingList(ingredient) {
+
+        let shopping_list = [];
+
+        let req = `http://127.0.0.1:5050/shopping_list/remove?user_id=${userId}&ingredient=${ingredient}`;
+        console.log(req);
+        return fetch(req, {method: 'post'})
+            .then(res => res.json());
+    }
+
+    return {register, logIn, logOut, getIsLoggedIn, getShoppingList, removeFromShoppingList}
 }
 
 export default createUserSession

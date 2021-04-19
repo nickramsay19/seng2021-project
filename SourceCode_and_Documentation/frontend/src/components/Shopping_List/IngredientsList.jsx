@@ -21,15 +21,7 @@ class IngredientsList extends Component {
     }
 
     componentDidMount() {
-        this.props.userSession.getShoppingList().then(res => {
-            // set state
-            this.setState({
-                ingredients: res.data
-            });
-
-            console.log('after set')
-            console.log(this.state.ingredients);
-        })
+        this.getIngredients();
     }
 
     // return ingredients with duplicates removed
@@ -45,6 +37,18 @@ class IngredientsList extends Component {
         return removeDuplicates;
     }
 
+    getIngredients = () => {
+        this.props.userSession.getShoppingList().then(res => {
+            // set state
+            this.setState({
+                ingredients: res.data
+            });
+
+            console.log('after set')
+            console.log(this.state.ingredients);
+        })
+    }
+
     // return the amount of an ingredient in ingredients
     getIngredientCount = ingredient => {
 
@@ -58,24 +62,11 @@ class IngredientsList extends Component {
 
         return count;
     }
- 
-    // handle ingredient removal
+
     removeIngredient = ingredient => {
-
-        // get cookies
-        const { cookies } = this.props;
-            
-        // declare new ingredients array
-        let new_ingredients = this.state.ingredients;
-
-        // remove single occurence of ingredient
-        new_ingredients.splice(new_ingredients.indexOf(ingredient), 1);
-        
-        // adjust ingredients in cookies
-        cookies.set('ingredients', new_ingredients, { path: '/' });
-
-        // set the component state to reflect ingredients
-        this.setState({ ingredients: new_ingredients });
+        this.props.userSession.removeFromShoppingList(ingredient).then(res => {
+            this.getIngredients();
+        })
     }
  
     render() {
