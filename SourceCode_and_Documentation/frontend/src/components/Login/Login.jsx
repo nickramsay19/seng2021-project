@@ -7,7 +7,8 @@ export default class Login extends Component {
         username: "",
         password: "",
         userSession: this.props.userSession,
-        redirect: null
+        redirect: null,
+        fail: false
     }
 
     login = () => {
@@ -15,13 +16,21 @@ export default class Login extends Component {
         let password = this.state.password;
 
         let loginSuccessful = this.state.userSession.logIn(username, password);
-
         // redirect to home page if login successful
         if (loginSuccessful) {
             let state = this.state;
             state.redirect = true;
             this.setState(state);
+        } else {
+            let state = this.state;
+            state.fail = true;
+            this.setState(state);
+            console.log(this.state.fail);
         }
+    }
+
+    failDisplay = () => {
+        return (<div className="alert alert-danger" role="alert">Failed to log in. </div>)
     }
 
     handleUsernameChange = (event) => {
@@ -43,6 +52,7 @@ export default class Login extends Component {
                 </header>
                     
                 <form>
+                    {this.state.fail ? this.failDisplay() : null}
                     <div className="mb-3">
                         <label className="form-label">Username</label>
                         <input type="text" className="form-control" value={this.state.username} onChange={this.handleUsernameChange} />
