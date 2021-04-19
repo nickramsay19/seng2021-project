@@ -26,24 +26,32 @@ function createUserSession(update){
         Cookies.set('userId', userId, { expires: 7});
     }
     
-    function logIn(name, password) {
+    function logIn(name, password, _callback) {
 
-        // check if log in is valid
-        if (name == "nick" && password == "123") {
-            isLoggedIn = true;
-            username = name;
-            userId = 0;
+        let req = `http://127.0.0.1:5050/auth/login?username=${name}&password=${password}`;
+        console.log(req);
+        fetch(req, {method: 'post'})
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+                if (res?.data != -1) {
+                    isLoggedIn = true;
+                    username = name;
+                    userId = res.data;
 
-            // set cookies
-            updateCookies();
+                    // set cookies
+                    updateCookies();
 
-            // update
-            callUpdate();
+                    // update
+                    callUpdate();
 
-            return true;
-        } else {
-            return false;
-        }
+                    // return true
+                    _callback();
+                    return true;
+                } else {
+                    return false;
+                }
+            });
     }
 
     function logOut() {

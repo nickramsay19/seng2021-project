@@ -14,14 +14,23 @@ export default class Login extends Component {
         let username = this.state.username;
         let password = this.state.password;
 
-        let loginSuccessful = this.state.userSession.logIn(username, password);
+        let loginSuccessful = false;
+        this.state.userSession.logIn(username, password, () => {
+            // this callback will be called if successful
 
-        // redirect to home page if login successful
-        if (loginSuccessful) {
+            loginSuccessful = true;
+
+            console.log("returning loginSuccessful2");
+            console.log(true);
+
+            // redirect to home page if login successful
             let state = this.state;
             state.redirect = true;
             this.setState(state);
-        }
+        })
+
+        return loginSuccessful;
+        
     }
 
     handleUsernameChange = (event) => {
