@@ -13,17 +13,36 @@ class IngredientsList extends Component {
         // get cookies
         const { cookies } = props;
 
-        // set state
         this.state = {
-            ingredients: cookies.get('ingredients') || []
+            ingredients: []
         };
+
+        
+    }
+
+    componentDidMount() {
+        this.props.userSession.getShoppingList().then(res => {
+            // set state
+            this.setState({
+                ingredients: res.data
+            });
+
+            console.log('after set')
+            console.log(this.state.ingredients);
+        })
     }
 
     // return ingredients with duplicates removed
     getUniqueIngredients = () => {
 
+        console.log('b4 removal dups')
+        console.log(this.state.ingredients)
+
         // convert ingredients array to state, then array to remove duplicates
-        return [... new Set(this.state.ingredients)];
+        let removeDuplicates = [... new Set(this.state.ingredients)];
+        console.log('remove dups');
+        console.log(removeDuplicates);
+        return removeDuplicates;
     }
 
     // return the amount of an ingredient in ingredients
@@ -52,7 +71,6 @@ class IngredientsList extends Component {
         // remove single occurence of ingredient
         new_ingredients.splice(new_ingredients.indexOf(ingredient), 1);
         
-
         // adjust ingredients in cookies
         cookies.set('ingredients', new_ingredients, { path: '/' });
 
@@ -67,7 +85,7 @@ class IngredientsList extends Component {
                     this.getUniqueIngredients().map((ingredient, index) =>   
                     
                         <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
-                            <span>{ingredient} <small class="text-muted">x { this.getIngredientCount(ingredient) }</small></span>
+                            <span>{ingredient} <small className="text-muted">x { this.getIngredientCount(ingredient) }</small></span>
                             
                             <button className="btn btn-danger" onClick={() => this.removeIngredient(ingredient)}>
                                 Remove

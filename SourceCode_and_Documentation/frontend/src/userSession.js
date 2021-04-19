@@ -125,7 +125,17 @@ function createUserSession(update){
         return isLoggedIn;
     }
 
-    return {register, logIn, logOut, getIsLoggedIn}
+    function getShoppingList() {
+
+        let shopping_list = [];
+
+        let req = `http://127.0.0.1:5050/shopping_list/get?user_id=${userId}`;
+        console.log(req);
+        return fetch(req, {method: 'post'})
+            .then(res => res.json());
+    }
+
+    return {register, logIn, logOut, getIsLoggedIn, getShoppingList}
 }
 
 export default createUserSession

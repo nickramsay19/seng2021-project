@@ -86,7 +86,7 @@ class Main extends Component {
                 <Navbar userSession={userSession}/>
                 <Switch>
                     <Route exact path="/"><Home items={this.state.ingItems} isLoaded={this.state.ingLoaded}/></Route>
-                    <Route path="/shopping-list"><ShoppingList/></Route>
+                    <Route path="/shopping-list"><ShoppingList userSession={userSession} /></Route>
                     <Route path="/drinks"><Drinks items={this.state.drinkItems} isLoaded={this.state.drinksLoaded}/></Route>
                     <Route path="/ingredients"><Ingredients items={this.state.ingItems} isLoaded={this.state.ingLoaded}/></Route>
                     <Route path="/login"><Login userSession={userSession}/></Route>
