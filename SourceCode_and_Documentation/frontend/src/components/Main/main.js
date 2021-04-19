@@ -38,7 +38,7 @@ class Main extends Component {
                     this.setState({
                         drinksLoaded: true,
                         drinkItems: result.drinks,
-                });
+                    });
                 },
                 
                 (error) => {
