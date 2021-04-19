@@ -4,7 +4,9 @@ import IngredientInfo from '../Ingredient-info/ingredient-info'
 
 import { Route, Link, withRouter } from 'react-router-dom'
 
-
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 class Ingredients extends Component {
     constructor(props) {
@@ -31,12 +33,18 @@ class Ingredients extends Component {
               <div className="container">
                   <Route exact path={match.path}>
                       <h2>Select an ingredient to see more info</h2>
+                      <Container>
+                        <Row xs={1} sm={2} md={3} lg={4}>
                       {items.map(( ingredient ) => (
-                          
+                              <Col>
                               <Link to={`${match.url}/${ingredient['ingredient']}`}>
                               <Item key={ingredient['id']} image={"http://www.thecocktaildb.com/images/ingredients/" + ingredient['ingredient'] + ".png"}>{ingredient['ingredient']}</Item>
                               </Link>
+                              </Col>
+                              
                       ))}
+                      </Row>
+                      </Container>
                   </Route>
                   <Route path={`${match.path}/:ingredientID+`}>
                     <IngredientInfo ingredients={items}/>
