@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Item from '../Item-card/item'
 import ItemInfo from '../Item-info/item-info'
 import { Route, Link, withRouter } from 'react-router-dom'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 class Drinks extends Component {
     constructor(props) {
@@ -27,12 +30,18 @@ class Drinks extends Component {
             <div className="container">
                 <Route exact path={match.path}>
                     <h2>Select a drink to see more info</h2>
-                    {items.map(( cocktail ) => (
-                        
-                            <Link key={cocktail['id']}to={`${match.url}/${cocktail['name']}`}>
-                            <Item  image={cocktail['thumbnail']}>{cocktail['name']}</Item>
-                            </Link>
-                    ))}
+                    <Container>
+                        <Row xs={1} sm={2} md={3} lg={4}>
+                          {items.map(( cocktail ) => (
+                              <Col>
+                                  <Link key={cocktail['id']}to={`${match.url}/${cocktail['name']}`}>
+                                      <Item  image={cocktail['thumbnail']}>{cocktail['name']}</Item>
+                                  </Link>
+                              </Col>    
+                          ))}
+                        </Row>
+                    </Container>
+                    
                 </Route>
                 <Route path={`${match.path}/:cocktailId+`}>
                     <ItemInfo drinks={items}/>
