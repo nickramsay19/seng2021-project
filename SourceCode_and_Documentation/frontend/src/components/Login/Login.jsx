@@ -17,8 +17,8 @@ export default class Login extends Component {
 
         let loginSuccessful = false;
         this.state.userSession.logIn(username, password, () => {
-            // this callback will be called if successful
 
+            // this callback will be called if successful
             loginSuccessful = true;
 
             console.log("returning loginSuccessful2");
@@ -29,6 +29,11 @@ export default class Login extends Component {
             state.redirect = true;
             this.setState(state);
         })
+
+        // assume failed until response recieved from api
+        let state = this.state;
+        state.fail = true;
+        this.setState(state);
 
         return loginSuccessful;
     }
