@@ -52,6 +52,19 @@ def auth_login_flask():
     # create a data object to be returned
     return dumps({'data' : login_system.user_login(username, password)})
 
+@APP.route("/auth/logout", methods=['POST'])
+def auth_login_flask():
+    
+    # obtain users list
+    users = users_data.users
+    
+    # obtain username and password from args
+    username = request.args.get('username')
+    
+    # create a data object to be returned
+    return dumps({'data' : login_system.user_logout(username)})
+
+
 @APP.route("/auth/register", methods=['POST'])
 def auth_register_flask():
     
