@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
+import { Link } from 'react-router-dom'
  
 class IngredientsList extends Component {
     static propTypes = {
@@ -16,8 +17,6 @@ class IngredientsList extends Component {
         this.state = {
             ingredients: []
         };
-
-        
     }
 
     componentDidMount() {
@@ -26,9 +25,6 @@ class IngredientsList extends Component {
 
     // return ingredients with duplicates removed
     getUniqueIngredients = () => {
-
-        console.log('b4 removal dups')
-        console.log(this.state.ingredients)
 
         // convert ingredients array to state, then array to remove duplicates
         let removeDuplicates = [... new Set(this.state.ingredients)];
@@ -43,9 +39,6 @@ class IngredientsList extends Component {
             this.setState({
                 ingredients: res.data
             });
-
-            console.log('after set')
-            console.log(this.state.ingredients);
         })
     }
 
@@ -76,7 +69,7 @@ class IngredientsList extends Component {
                     this.getUniqueIngredients().map((ingredient, index) =>   
                     
                         <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
-                            <span>{ingredient} <small className="text-muted">x { this.getIngredientCount(ingredient) }</small></span>
+                            <span><Link to={ '/ingredients/' + ingredient }>{ingredient}</Link> &nbsp; <small className="text-muted">x { this.getIngredientCount(ingredient) }</small></span>
                             
                             <button className="btn btn-danger" onClick={() => this.removeIngredient(ingredient)}>
                                 Remove
