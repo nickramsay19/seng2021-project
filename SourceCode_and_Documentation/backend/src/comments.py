@@ -7,18 +7,16 @@ Helper function
 def find_user_by_id(u_id):
     return data.users[u_id]['user']
 
-# TESTING: def comment_add(u_id, sessionKey, cocktail, message):
 # ASSUMPTION: cocktail is always one of the included cocktails called by the API
 #             time is always a string with the format 'DD/MM/YYYY, HH:MM:SS'
 def comments_add(u_id, cocktail, message, time):
     """
-    Given a u_id, sessionKey, cocktail and message, add the information
+    Given a u_id, cocktail and message, add the information
     about this comment to the database
 
     Parameters
     ----------
     u_id :: int
-    sessionKey :: int
     cocktail :: str
     message :: str
 
@@ -31,13 +29,9 @@ def comments_add(u_id, cocktail, message, time):
     ------
     AccessError
         Invalid u_id or not logged in
-    InputError
-        Empty or long message ( > 1000 char)
     """
-    if u_id > len(data.users):
-        raise AccessError()
-    elif len(message) <= 0 or len(message) > 1000:
-        raise InputError
+    if u_id > len(data.users) or data.users[u_id]['logged_in'] == False:
+        raise AccessError
 
     comment_index = len(data.comments)
     
@@ -54,16 +48,14 @@ def comments_add(u_id, cocktail, message, time):
         'comment_id': comment_index,
     }
 
-# TESTING: def comments_remove(u_id, sessionKey, comment_id):
 def comments_remove(u_id, comment_id):
     """
-    Given a u_id, sessionKey, comment_id, remove the information
+    Given a u_id and comment_id, remove the information
     about this comment from the database
 
     Parameters
     ----------
     u_id :: int
-    sessionKey :: int
     comment_id :: int
 
     Returns

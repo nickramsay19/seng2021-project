@@ -147,8 +147,16 @@ def api_random_cocktail():
 @APP.route("/comments/add", methods = ['POST'])
 def http_comments_add():
     payload = request.get_json()
-    # print(payload['cocktail'])
-    return dumps(comments_add(payload['u_id'], payload['cocktail'], payload['message'], payload['time']))
+    try:
+        return dumps(comments_add(
+            payload['u_id'],
+            payload['cocktail'],
+            payload['message'],
+            payload['time']
+        ))
+    except AccessError:
+        error_msg = "You need to log in or register to comment."
+        return custom_error(400, message = error_msg)
 
 # comments_remove flask route
 @APP.route("/comments/remove", methods = ['POST'])
