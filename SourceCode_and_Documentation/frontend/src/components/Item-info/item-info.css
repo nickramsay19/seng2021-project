@@ -72,14 +72,6 @@ hr.cmtSep {
     border: 1px solid #000000;
 }
 
-.btn-outline-primary.custom-btn {
-    background-color: #c4c4c4;
-	border-color: #c4c4c4;
-    color: #000000;
-}
-
-.btn-outline-primary.custom-btn:hover {
-	border-color: #c4c4c4;
-    background-color: #c4c4c4;
-    color: #6d76f7;
+.btn-link {
+    float: right;
 }

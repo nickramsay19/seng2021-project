@@ -76,7 +76,6 @@ def api_get_cocktails(cocktails):
 '''
 Description:
 Extracts the string of all all ingredients used in the cocktails array.
-
 Args:
     cocktails: raw list of cocktails
 Returns:
@@ -225,7 +224,6 @@ def api_get_ingredient_image(name):
 '''
 Description:
 Selects from a random list of refined array of cocktails and returns one.
-
 Returns:
     _ : refined object of a random cocktail
 '''
@@ -271,7 +269,6 @@ def cocktail_cleanup(cocktail):
 '''
 Description:
 Refines the cocktail array and returns a list of dicts with only the necessary parts.
-
 Args:
     array: list of raw cocktail objects
 Returns:
@@ -308,7 +305,6 @@ def ingredient_cleanup(ingredient, ref_cocktails_details):
 '''
 Description:
 Refines the ingredients array and returns a list of dicts with only the necessary parts.
-
 Args:
     array: list of raw ingredient objects
 Returns:

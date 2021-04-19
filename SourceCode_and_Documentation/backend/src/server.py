@@ -1,14 +1,16 @@
 import jwt
 from json import dumps
-from flask import Flask, request, send_from_directory
+from flask import Flask, request, send_from_directory, jsonify
 from flask_cors import CORS
-from error import InputError
+from error import InputError, AccessError
 
 # import user utitlities and data
 import login_system
 import data as users_data
 
 import api
+from comments import *
+import data
 
 def defaultHandler(err):
     response = err.get_response()
@@ -140,6 +142,45 @@ def api_random_cocktail():
         'drinks' : response
     }
     return reformattedData
+
+# comments_add flask route
+@APP.route("/comments/add", methods = ['POST'])
+def http_comments_add():
+    payload = request.get_json()
+    # print(payload['cocktail'])
+    return dumps(comments_add(payload['u_id'], payload['cocktail'], payload['message'], payload['time']))
+
+# comments_remove flask route
+@APP.route("/comments/remove", methods = ['POST'])
+def http_comments_remove():
+    payload = request.get_json()
+    try:
+        return dumps(comments_remove(payload['u_id'], payload['comment_id']))
+    except AccessError:
+        error_msg = "You can only delete comments posted by you."
+        return custom_error(400, message = error_msg)
+
+# comments_get flask route
+@APP.route("/comments/get", methods = ['GET'])
+def http_comments_get():
+    cocktail = request.args.get('cocktail')
+    return dumps(comments_get(cocktail))
+
+# for error checking
+def custom_error(status_code, message):
+    response = jsonify({'status': status_code, 'message': message})
+    response.status_code = status_code
+    return response
+
+# comments_testusers flask route
+@APP.route("/comments/testusers", methods = ['GET'])
+def http_comments_testusers():
+    return dumps(data.users)
+
+# comments_testcomments flask route
+@APP.route("/comments/testcomments", methods = ['GET'])
+def http_comments_testcomments():
+    return dumps(data.comments)
 
 # @APP.route("/api/")
 #     pass
