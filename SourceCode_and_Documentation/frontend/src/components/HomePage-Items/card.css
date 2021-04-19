@@ -21,6 +21,12 @@
   margin-bottom: 30px;
 }
 
+.card-image1:hover {
+  background: #fff;
+  color: #6568f4;
+  transition: 250ms;
+}
+
 .inner-card {
   background-color: #e0dfdf;
   display: inline-block;
