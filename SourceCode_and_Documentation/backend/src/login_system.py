@@ -32,7 +32,9 @@ def shoppinglist_add(userID, ingredient):
 
 def shoppinglist_remove(userID, ingredient):
     for i in data.users:
-        if ((i['user'] == userID) and (i['logged_in'] == True)):
+        print(str(type(userID)) + ', ' + str(type(i['user'])))
+        print(str(i['user'] == userID) + ', ' + str(i['logged_in']))
+        if (i['user'] == userID and i['logged_in']):
             i['shopping_list'].remove(ingredient)
             return True
     return False

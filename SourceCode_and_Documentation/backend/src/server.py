@@ -81,9 +81,8 @@ def auth_register_flask():
         if username == u['user']:
             return dumps({'data' : -2})
     
-    # attempt to add user, return success code 0
-    login_system.user_register(username, password)
-    return dumps({'data' : 0})
+    # attempt to add user, return user ID
+    return dumps({'data' : login_system.user_register(username, password)})
 
 @APP.route("/shopping_list/add", methods=['POST'])
 def auth_shopping_list_add_flask():
