@@ -53,7 +53,7 @@ def auth_login_flask():
     return dumps({'data' : login_system.user_login(username, password)})
 
 @APP.route("/auth/logout", methods=['POST'])
-def auth_login_flask():
+def auth_logout_flask():
     
     # obtain users list
     users = users_data.users
@@ -107,7 +107,7 @@ def auth_shopping_list_get_flask():
     return dumps({'data' : data})
 
 @APP.route("/shopping_list/remove", methods=['POST'])
-def auth_shopping_list_add_flask():
+def auth_shopping_list_remove_flask():
     
     # obtain username and password from args
     user_id = int(request.args.get('user_id'))
