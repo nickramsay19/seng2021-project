@@ -7,21 +7,39 @@ export default class Login extends Component {
         username: "",
         password: "",
         userSession: this.props.userSession,
-        redirect: null
+        redirect: null,
+        fail: false
     }
 
     login = () => {
         let username = this.state.username;
         let password = this.state.password;
 
-        let loginSuccessful = this.state.userSession.logIn(username, password);
+        let loginSuccessful = false;
+        this.state.userSession.logIn(username, password, () => {
 
-        // redirect to home page if login successful
-        if (loginSuccessful) {
+            // this callback will be called if successful
+            loginSuccessful = true;
+
+            console.log("returning loginSuccessful2");
+            console.log(true);
+
+            // redirect to home page if login successful
             let state = this.state;
             state.redirect = true;
             this.setState(state);
-        }
+        })
+
+        // assume failed until response recieved from api
+        let state = this.state;
+        state.fail = true;
+        this.setState(state);
+
+        return loginSuccessful;
+    }
+
+    failDisplay = () => {
+        return (<div className="alert alert-danger" role="alert">Failed to log in. </div>)
     }
 
     handleUsernameChange = (event) => {
@@ -43,6 +61,7 @@ export default class Login extends Component {
                 </header>
                     
                 <form>
+                    {this.state.fail ? this.failDisplay() : null}
                     <div className="mb-3">
                         <label className="form-label">Username</label>
                         <input type="text" className="form-control" value={this.state.username} onChange={this.handleUsernameChange} />

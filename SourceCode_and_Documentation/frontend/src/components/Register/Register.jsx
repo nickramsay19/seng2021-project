@@ -14,14 +14,22 @@ export default class Register extends Component {
         let username = this.state.username;
         let password = this.state.password;
 
-        let loginSuccessful = this.state.userSession.logIn(username, password);
+        let registerSuccessful = false;
+        this.state.userSession.register(username, password, () => {
 
-        // redirect to home page if login successful
-        if (loginSuccessful) {
+            // this callback will be called if successful
+            registerSuccessful = true;
+
+            console.log("returning registerSuccessful");
+            console.log(true);
+
+            // redirect to home page if login successful
             let state = this.state;
             state.redirect = true;
             this.setState(state);
-        }
+        })
+
+        return registerSuccessful;
     }
 
     handleUsernameChange = (event) => {
