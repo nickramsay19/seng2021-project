@@ -6,7 +6,7 @@ class IngredientInfo extends Component {
         const { match } = this.props;
         const { ingredientID } = match.params;
         var ingredient = this.props.ingredients.find((i) => {
-            if (i.ingredient === ingredientID) {
+            if (i.ingredient.toUpperCase() === ingredientID.toUpperCase()) {
                 return true
             }
         })
