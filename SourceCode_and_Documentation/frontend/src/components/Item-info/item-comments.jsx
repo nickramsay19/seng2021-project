@@ -137,13 +137,6 @@ class Comments extends React.Component {
                                     {cmt.ldTime}<br />
                                     {"User: "+cmt.username}<br />
                                     {cmt.message}
-                                    <button
-                                        type="button"
-                                        class="btn btn-link"
-                                        onClick={() => {if (window.confirm("Delete this comment?")) this.delPost(cmt.cmt_id)}}
-                                    >
-                                       Delete
-                                    </button>
                                     <hr />
                                 </div>
                             )}
