@@ -146,9 +146,16 @@ def api_random_cocktail():
 # comments_add flask route
 @APP.route("/comments/add", methods = ['POST'])
 def http_comments_add():
-    payload = request.get_json()
+    
+    # obtain url parameters
+    u_id = request.args.get('u_id')
+    cocktail = request.args.get('cocktail')
+    message = request.args.get('message')
+    time = request.args.get('time')
+    
+    print('payload ' + str(payload))
     # print(payload['cocktail'])
-    return dumps(comments_add(payload['u_id'], payload['cocktail'], payload['message'], payload['time']))
+    return dumps(comments_add(u_id, cocktail, message, time))
 
 # comments_remove flask route
 @APP.route("/comments/remove", methods = ['POST'])
