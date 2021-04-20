@@ -7,7 +7,8 @@ export default class Register extends Component {
         username: "",
         password: "",
         userSession: this.props.userSession,
-        redirect: null
+        redirect: null,
+        fail: false
     }
 
     register = () => {
@@ -33,6 +34,11 @@ export default class Register extends Component {
             })
         })
 
+        // assume failed until response recieved from api
+        let state = this.state;
+        state.fail = true;
+        this.setState(state);
+
         return registerSuccessful;
     }
 
@@ -42,6 +48,10 @@ export default class Register extends Component {
 
     handlePasswordChange = (event) => {
         this.setState({username: this.state.username, password: event.target.value});
+    }
+
+    failDisplay = () => {
+        return (<div className="alert alert-danger" role="alert">Username already taken. </div>)
     }
 
     render() {
@@ -54,6 +64,8 @@ export default class Register extends Component {
                     <h1>Register</h1>
                 </header>
                     
+                {this.state.fail ? this.failDisplay() : null}
+
                 <form>
                     <div className="mb-3">
                         <label className="form-label">Username</label>
