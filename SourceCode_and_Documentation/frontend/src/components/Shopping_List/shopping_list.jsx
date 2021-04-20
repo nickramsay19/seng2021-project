@@ -11,7 +11,7 @@ export default class Shopping_List extends Component {
                 <header>
                     <h1>Shopping List</h1>
                     <CookiesProvider>
-                        <IngredientsList/>
+                        <IngredientsList userSession={this.props.userSession}/>
                     </CookiesProvider>
                 </header>
             </div>

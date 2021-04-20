@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
+import { Link } from 'react-router-dom'
  
 class IngredientsList extends Component {
     static propTypes = {
@@ -13,17 +14,32 @@ class IngredientsList extends Component {
         // get cookies
         const { cookies } = props;
 
-        // set state
         this.state = {
-            ingredients: cookies.get('ingredients') || []
+            ingredients: []
         };
+    }
+
+    componentDidMount() {
+        this.getIngredients();
     }
 
     // return ingredients with duplicates removed
     getUniqueIngredients = () => {
 
         // convert ingredients array to state, then array to remove duplicates
-        return [... new Set(this.state.ingredients)];
+        let removeDuplicates = [... new Set(this.state.ingredients)];
+        console.log('remove dups');
+        console.log(removeDuplicates);
+        return removeDuplicates;
+    }
+
+    getIngredients = () => {
+        this.props.userSession.getShoppingList().then(res => {
+            // set state
+            this.setState({
+                ingredients: res.data
+            });
+        })
     }
 
     // return the amount of an ingredient in ingredients
@@ -39,25 +55,11 @@ class IngredientsList extends Component {
 
         return count;
     }
- 
-    // handle ingredient removal
+
     removeIngredient = ingredient => {
-
-        // get cookies
-        const { cookies } = this.props;
-            
-        // declare new ingredients array
-        let new_ingredients = this.state.ingredients;
-
-        // remove single occurence of ingredient
-        new_ingredients.splice(new_ingredients.indexOf(ingredient), 1);
-        
-
-        // adjust ingredients in cookies
-        cookies.set('ingredients', new_ingredients, { path: '/' });
-
-        // set the component state to reflect ingredients
-        this.setState({ ingredients: new_ingredients });
+        this.props.userSession.removeFromShoppingList(ingredient).then(res => {
+            this.getIngredients();
+        })
     }
  
     render() {
@@ -67,7 +69,7 @@ class IngredientsList extends Component {
                     this.getUniqueIngredients().map((ingredient, index) =>   
                     
                         <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
-                            <span>{ingredient} <small class="text-muted">x { this.getIngredientCount(ingredient) }</small></span>
+                            <span><Link to={ '/ingredients/' + ingredient }>{ingredient}</Link> &nbsp; <small className="text-muted">x { this.getIngredientCount(ingredient) }</small></span>
                             
                             <button className="btn btn-danger" onClick={() => this.removeIngredient(ingredient)}>
                                 Remove

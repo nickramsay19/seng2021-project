@@ -101,7 +101,7 @@ class Searchbar extends Component {
         return(
             <div id="searchbar">
                 <div className="input-group mb-3">
-                    <input type="text" className="form-control" placeholder="Margarita" onChange={e => this.onSearchQueryChange(e.target.value)} /> 
+                    <input type="text" className="form-control" placeholder="Michelada" onChange={e => this.onSearchQueryChange(e.target.value)} /> 
                 </div>
                 
                 <ul className="list-group">

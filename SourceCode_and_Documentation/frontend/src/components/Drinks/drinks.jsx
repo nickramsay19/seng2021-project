@@ -35,7 +35,7 @@ class Drinks extends Component {
                           {items.map(( cocktail ) => (
                               <Col>
                                   <Link key={cocktail['id']}to={`${match.url}/${cocktail['name']}`}>
-                                      <Item  image={cocktail['thumbnail']}>{cocktail['name']}</Item>
+                                      <Item image={cocktail['thumbnail']}>{cocktail['name']}</Item>
                                   </Link>
                               </Col>    
                           ))}
@@ -44,7 +44,7 @@ class Drinks extends Component {
                     
                 </Route>
                 <Route path={`${match.path}/:cocktailId+`}>
-                    <ItemInfo drinks={items}/>
+                    <ItemInfo userSession={this.props.userSession} drinks={items}/>
                 </Route>
       
             </div>
