@@ -6,6 +6,8 @@ import random
 from pprint import pprint
 import time
 
+import data as d
+
 '''
 Author: Henry Ho
 '''
@@ -366,14 +368,14 @@ t0 = time.time()
 hundred_cocktails = requests.get(
     'http://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail', timeout=DEFAULT_TIMEOUT).json()['drinks']
 cocktails_details = api_get_cocktails(hundred_cocktails)  # list of objects
-ref_cocktails_details = clean_cocktails_array(cocktails_details)
+d.drinks = clean_cocktails_array(cocktails_details)
 t1 = time.time()
 ingredients = extract_ingredients(cocktails_details)  # list of strings
 # images = fetch_ingredient_images(ingredients)
 
 ingredients_details = api_get_ingredients(ingredients)  # list of objects
-ref_ingredients_details = clean_ingredients_array(
-    ingredients_details, ref_cocktails_details)
+d.ingredients = clean_ingredients_array(
+    ingredients_details, d.drinks)
 t2 = time.time()
 
 # random_ingredient = random.choice(ref_ingredients_details)
@@ -388,7 +390,7 @@ t2 = time.time()
 #         print('hello')
 #         pprint(ingredient)
 
-pprint(ref_ingredients_details)
+# pprint(ref_ingredients_details)
 # printing all lists. comment out if too spammy
 # pprint(sorted(cocktails_details, key=lambda x: x['strDrink'].casefold()))
 # pprint(sorted(ingredients))

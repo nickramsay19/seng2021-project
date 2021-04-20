@@ -6,7 +6,6 @@ from error import InputError, AccessError
 
 # import user utitlities and data
 import login_system
-import data as users_data
 
 import api
 from comments import *
@@ -45,7 +44,7 @@ def echo():
 def auth_login_flask():
     
     # obtain users list
-    users = users_data.users
+    users = data.users
     
     # obtain username and password from args
     username = request.args.get('username')
@@ -58,7 +57,7 @@ def auth_login_flask():
 def auth_logout_flask():
     
     # obtain users list
-    users = users_data.users
+    users = data.users
     
     # obtain username and password from args
     username = request.args.get('username')
@@ -79,7 +78,7 @@ def auth_register_flask():
         return dumps({'data' : -1})
     
     # check if username is taken
-    for u in users_data.users:
+    for u in data.users:
         if username == u['user']:
             return dumps({'data' : -2})
     
@@ -121,7 +120,7 @@ def auth_shopping_list_remove_flask():
 
 @APP.route("/api/cocktails_details", methods=['GET'])
 def api_cocktail_details():
-    response = api.ref_cocktails_details
+    response = data.drinks
     reformattedData = {
         'drinks' : response
     }
@@ -129,7 +128,7 @@ def api_cocktail_details():
 
 @APP.route("/api/ingredients_details", methods=['GET'])
 def api_ingredients_details():
-    response = api.ref_ingredients_details
+    response = data.ingredients
     reformattedData = {
         'ingredients' : response
     }
@@ -137,7 +136,7 @@ def api_ingredients_details():
 
 @APP.route("/api/random_cocktail", methods = ['GET'])
 def api_random_cocktail():
-    response = api.random_cocktail(api.ref_cocktails_details)
+    response = api.random_cocktail(data.drinks)
     reformattedData = {
         'drinks' : response
     }
