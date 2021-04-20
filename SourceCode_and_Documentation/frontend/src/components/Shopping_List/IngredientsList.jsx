@@ -30,8 +30,6 @@ class IngredientsList extends Component {
 
         // convert ingredients array to state, then array to remove duplicates
         let removeDuplicates = [... new Set(this.state.ingredients)];
-        console.log('remove dups');
-        console.log(removeDuplicates);
         return removeDuplicates;
     }
   
