@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import { instanceOf } from 'prop-types';
-import { withCookies, Cookies } from 'react-cookie';
 import { Link } from 'react-router-dom'
  
 class IngredientsList extends Component {
-    static propTypes = {
-        cookies: instanceOf(Cookies).isRequired
-    };
     
     constructor(props) {
         super(props);
-    
-        // get cookies
-        const { cookies } = props;
 
         this.state = {
             ingredients: []
@@ -21,16 +14,6 @@ class IngredientsList extends Component {
 
     componentDidMount() {
         this.getIngredients();
-    }
-
-    // return ingredients with duplicates removed
-    getUniqueIngredients = () => {
-
-        // convert ingredients array to state, then array to remove duplicates
-        let removeDuplicates = [... new Set(this.state.ingredients)];
-        console.log('remove dups');
-        console.log(removeDuplicates);
-        return removeDuplicates;
     }
 
     getIngredients = () => {
@@ -42,6 +25,14 @@ class IngredientsList extends Component {
         })
     }
 
+    // return ingredients with duplicates removed
+    getUniqueIngredients = () => {
+
+        // convert ingredients array to state, then array to remove duplicates
+        let removeDuplicates = [... new Set(this.state.ingredients)];
+        return removeDuplicates;
+    }
+  
     // return the amount of an ingredient in ingredients
     getIngredientCount = ingredient => {
 
@@ -61,25 +52,38 @@ class IngredientsList extends Component {
             this.getIngredients();
         })
     }
+
+    noIngredientsDisplay = () => {
+        console.log(this.state.ingredients);
+        if (this.state?.ingredients?.length > 0) {
+            return <div styles="display: none;"></div>
+        } else {
+            return <p>Add ingredients from the <Link to="drinks">drinks page</Link> and they will show up here.</p>
+        }
+    }
  
     render() {
         return (
-            <ul className="list-group list-group-flush">
-                {   
-                    this.getUniqueIngredients().map((ingredient, index) =>   
-                    
-                        <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
-                            <span><Link to={ '/ingredients/' + ingredient }>{ingredient}</Link> &nbsp; <small className="text-muted">x { this.getIngredientCount(ingredient) }</small></span>
-                            
-                            <button className="btn btn-danger" onClick={() => this.removeIngredient(ingredient)}>
-                                Remove
-                            </button>
-                        </li>
-                    ) 
-                }
-            </ul>
+            <div id="ingredients-list">
+                <this.noIngredientsDisplay />
+
+                <ul className="list-group list-group-flush">
+                    {   
+                        this.getUniqueIngredients().map((ingredient, index) =>   
+                        
+                            <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
+                                <span><Link to={ '/ingredients/' + ingredient }>{ingredient}</Link>&nbsp;<small className="text-muted">x { this.getIngredientCount(ingredient) }</small></span>
+                                
+                                <button className="btn btn-danger" onClick={() => this.removeIngredient(ingredient)}>
+                                    Remove
+                                </button>
+                            </li>
+                        ) 
+                    }
+                </ul>
+            </div>
         );
     }
 }
  
-export default withCookies(IngredientsList);
+export default IngredientsList;

@@ -9,9 +9,7 @@ import ShoppingList from '../Shopping_List/shopping_list';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 
-
 import createUserSession from '../../userSession'
-
 
 class Main extends Component {
     constructor(props) {

@@ -23,10 +23,14 @@ export default class Register extends Component {
             console.log("returning registerSuccessful");
             console.log(true);
 
-            // redirect to home page if login successful
-            let state = this.state;
-            state.redirect = true;
-            this.setState(state);
+            // now attempt to login with registered details
+            this.state.userSession.logIn(username, password, () => {
+    
+                // redirect to home page if since successful
+                let state = this.state;
+                state.redirect = true;
+                this.setState(state);
+            })
         })
 
         return registerSuccessful;
