@@ -127,8 +127,6 @@ function createUserSession(update){
 
     function getShoppingList() {
 
-        let shopping_list = [];
-
         let req = `http://127.0.0.1:5050/shopping_list/get?user_id=${userId}`;
         console.log(req);
         return fetch(req, {method: 'post'})
@@ -137,8 +135,6 @@ function createUserSession(update){
 
     function removeFromShoppingList(ingredient) {
 
-        let shopping_list = [];
-
         let req = `http://127.0.0.1:5050/shopping_list/remove?user_id=${userId}&ingredient=${ingredient}`;
         console.log(req);
         return fetch(req, {method: 'post'})
@@ -146,8 +142,6 @@ function createUserSession(update){
     }
 
     function addToShoppingList(ingredient) {
-
-        let shopping_list = [];
 
         let req = `http://127.0.0.1:5050/shopping_list/add?user_id=${userId}&ingredient=${ingredient}`;
         console.log(req);
