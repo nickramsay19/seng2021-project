@@ -69,21 +69,24 @@ class Searchbar extends Component {
 
             // check query against ingredients
             for (let i = 0; i < ingredients.length; i++) {
-                if(stringSimilarity.compareTwoStrings(query_words[w].toLowerCase(), ingredients[i].ingredient_name.toLowerCase()) > 0.7){
+                if (stringSimilarity.compareTwoStrings(query_words[w].toLowerCase(), ingredients[i].ingredient_name.toLowerCase()) > 0.7){
 
                     // add all cocktails made with ingredient i
                     for (let d = 0; d < ingredients[i].used_in.length; d++) {
                         results.push(ingredients[i].used_in[d].name)
                     }
+                } else if (w < query_words.length - 1 && stringSimilarity.compareTwoStrings((query_words[w] + query_words[w+1]).toLowerCase(), ingredients[i].ingredient_name.toLowerCase()) > 0.6) {
                     
-                    // break the for loop, ingredient has already been added
-                    break;
+                    // add all cocktails made with ingredient i
+                    for (let d = 0; d < ingredients[i].used_in.length; d++) {
+                        results.push(ingredients[i].used_in[d].name)
+                    }
                 }
             }
 
             // check against cocktail name
             for (let d = 0; d < drinks.length; d++) {
-                if(stringSimilarity.compareTwoStrings(query_words[w].toLowerCase(), drinks[d].toLowerCase()) > 0.7){
+                if(stringSimilarity.compareTwoStrings(query_words[w].toLowerCase(), drinks[d].toLowerCase()) > 0.4){
                     results.push(drinks[d])
                 }
             }
