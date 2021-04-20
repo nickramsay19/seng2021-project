@@ -103,7 +103,7 @@ class Cocktail extends Component {
                     </p>
                 </div>
                 
-                <Comments cocktail={cocktail.name} />
+                <Comments cocktail={cocktail.name} userSession={this.props.userSession}/>
             </div>
         );
     }

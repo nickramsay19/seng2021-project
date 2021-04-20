@@ -149,7 +149,11 @@ function createUserSession(update){
             .then(res => res.json());
     }
 
-    return {register, logIn, logOut, getIsLoggedIn, getShoppingList, removeFromShoppingList, addToShoppingList}
+    function getUserId() {
+        return parseInt(userId);
+    }
+
+    return {register, logIn, logOut, getIsLoggedIn, getUserId, getShoppingList, removeFromShoppingList, addToShoppingList}
 }
 
 export default createUserSession

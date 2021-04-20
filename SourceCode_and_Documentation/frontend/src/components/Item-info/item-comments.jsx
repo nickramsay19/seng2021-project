@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Comments extends React.Component {
     constructor(props) {
@@ -18,11 +19,10 @@ class Comments extends React.Component {
             return alert("The message cannot be empty or longer than 1000 characters");
         }
 
-
         fetch("http://localhost:5050/comments/add", {
             method: "POST",
             body: JSON.stringify({
-                'u_id': 0,
+                'u_id': this.props.userSession.getUserId(),
                 'cocktail': cocktail,
                 'message': message,
                 'time': new Date().toLocaleString()
@@ -85,6 +85,30 @@ class Comments extends React.Component {
         const { cocktail } = this.props;
         this.getPost(cocktail);
     }
+
+    commentPostBox = () => {
+        if (this.props.userSession.getIsLoggedIn()) {
+            return (
+                <>
+                    <textarea
+                        class="form-control"
+                        placeholder="Add a comment... (Max. 1000 characters)"
+                        id="floatingTextarea"
+                    >
+                    </textarea>
+                    <button
+                        type="button"
+                        class="btn btn-shortened btn-outline-primary"
+                        onClick={this.postComt}
+                    >
+                        Post
+                    </button>   
+                </>    
+            )
+        } else {
+            return <p>Please <Link to="/login">log in</Link> to post comments. Or your can register <Link to="/register">here.</Link></p>
+        }
+    }
     
     render() {
         const { comments, isLoaded, error } = this.state;
@@ -96,25 +120,14 @@ class Comments extends React.Component {
         } else {
             return (
                 <div>
+                        
                     <div className="item-comments">
-                        <div className="form-floating">
-                            <h3 className="item-header">
-                                Comments
-                            </h3>
-                            <textarea
-                                class="form-control"
-                                placeholder="Add a comment... (Max. 1000 characters)"
-                                id="floatingTextarea"
-                            >
-                            </textarea>
-                            <button
-                                type="button"
-                                class="btn btn-shortened btn-outline-primary"
-                                onClick={this.postComt}
-                            >
-                                Post
-                            </button>                
-                        </div>
+                    <div className="form-floating">
+                        <h3 className="item-header">
+                            Comments
+                        </h3>
+                        <this.commentPostBox />    
+                    </div>
                     </div>
                     <hr class="cmtSep"></hr>
                     <div class="message_area">
