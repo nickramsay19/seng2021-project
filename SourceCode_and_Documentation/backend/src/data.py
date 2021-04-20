@@ -1,25 +1,50 @@
-from api import *
 
 def clear():
     users = []
     comments = []
 
-drinks = ref_cocktails_details
+drinks = []
+'''
+drink = {
+    'name':         '',
+    'id':           '',
+    'ingredients':  [],
+    'instructions': '',
+    'thumbnail':    '',
+}
+'''
+ingredients = []
+'''
+ingredient = {
+    'ingredient':  '',
+    'id':          '',
+    'description': '',
+    'used_in': [{
+        'name' : '',
+        'id' : '',
+    }],
+}
+'''
 
-ingredients = ref_ingredients_details
+users = []
 
-users = [{
+'''
+user = {
     'user': '',
     'password': '',
     'u_id': '',
     'logged_in': False,
     'shopping_list': [],
-}]
+}
+'''
+comments = []
 
-comments = [{
+'''
+comment = {
     'drink': '',
     'comment_id': '',
     'message': '',
     'time': '',
     'u_id': '',
-}]
+}
+'''
