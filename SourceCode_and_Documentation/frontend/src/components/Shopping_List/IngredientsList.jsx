@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { instanceOf } from 'prop-types';
-import { withCookies, Cookies } from 'react-cookie';
 import { Link } from 'react-router-dom'
  
 class IngredientsList extends Component {
@@ -10,9 +9,6 @@ class IngredientsList extends Component {
     
     constructor(props) {
         super(props);
-    
-        // get cookies
-        const { cookies } = props;
 
         this.state = {
             ingredients: []
@@ -69,7 +65,7 @@ class IngredientsList extends Component {
                     this.getUniqueIngredients().map((ingredient, index) =>   
                     
                         <li className="list-group-item d-flex justify-content-between align-items-center" key={index}>
-                            <span><Link to={ '/ingredients/' + ingredient }>{ingredient}</Link> &nbsp; <small className="text-muted">x { this.getIngredientCount(ingredient) }</small></span>
+                            <span><Link to={ '/ingredients/' + ingredient }>{ingredient}</Link>&nbsp;<small className="text-muted">x { this.getIngredientCount(ingredient) }</small></span>
                             
                             <button className="btn btn-danger" onClick={() => this.removeIngredient(ingredient)}>
                                 Remove
@@ -82,4 +78,4 @@ class IngredientsList extends Component {
     }
 }
  
-export default withCookies(IngredientsList);
+export default IngredientsList;
