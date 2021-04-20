@@ -70,10 +70,6 @@ export default class Login extends Component {
                         <label className="form-label">Password</label>
                         <input type="password" className="form-control" value={this.state.password} onChange={this.handlePasswordChange}/>
                     </div>
-                    <div className="mb-3 form-check">
-                        <input type="checkbox" className="form-check-input" />
-                        <label className="form-check-label">Check me out</label>
-                    </div>
                     <button type="button" className="btn btn-primary" onClick={this.login}>Log in</button>
                 </form>
             </div>
