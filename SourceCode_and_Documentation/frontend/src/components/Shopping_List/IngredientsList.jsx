@@ -3,9 +3,6 @@ import { instanceOf } from 'prop-types';
 import { Link } from 'react-router-dom'
  
 class IngredientsList extends Component {
-    static propTypes = {
-        cookies: instanceOf(Cookies).isRequired
-    };
     
     constructor(props) {
         super(props);
