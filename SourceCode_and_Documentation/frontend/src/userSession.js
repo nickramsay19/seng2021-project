@@ -34,7 +34,7 @@ function createUserSession(update){
             .then(res => res.json())
             .then(res => {
                 console.log(res);
-                if (res?.data != -1) {
+                if (res?.data > 0) {
                     isLoggedIn = true;
                     username = name;
                     userId = res.data;
