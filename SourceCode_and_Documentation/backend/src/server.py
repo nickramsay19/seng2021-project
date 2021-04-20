@@ -148,12 +148,12 @@ def api_random_cocktail():
 def http_comments_add():
     
     # obtain url parameters
-    u_id = request.args.get('u_id')
+    u_id = int(request.args.get('u_id'))
     cocktail = request.args.get('cocktail')
     message = request.args.get('message')
     time = request.args.get('time')
     
-    print('payload ' + str(payload))
+    print('u_id ' + str(u_id))
     # print(payload['cocktail'])
     return dumps(comments_add(u_id, cocktail, message, time))
 
