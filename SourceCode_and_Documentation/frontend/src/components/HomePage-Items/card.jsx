@@ -16,9 +16,9 @@ class Card extends Component {
               <h5 className="card-title">Cocktail of the Day</h5>
               <p className="card-text">Martini</p>
             </div>
-
+            <p className="list-group list-group-item">Dry Vermouth, Gin, Olive</p>
             <ul className="list-group list-group-flush">
-              <li className="list-group-item">Dry Vermouth, Gin, Olive</li>
+              
             </ul>
           </div>
          );
