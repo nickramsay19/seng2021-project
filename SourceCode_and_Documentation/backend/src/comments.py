@@ -105,7 +105,9 @@ def comments_get(cocktail):
             msgs[-1]['ldTime'] = cmt['ldTime']
             msgs[-1]['username'] = find_user_by_id(cmt['u_id'])
             msgs[-1]['message'] = cmt['message']
-
+            msgs[-1]['u_id'] = cmt['u_id']
+            msgs[-1]['comment_id'] = cmt['comment_id']
+    
     return {
         'messages': msgs,
     }

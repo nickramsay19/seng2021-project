@@ -42,13 +42,13 @@ class Comments extends React.Component {
         })
     }
 
-    delPost = del_id => {
+    delPost = (del_id, comment_id) => {
         const { cocktail } = this.props;
         fetch("http://localhost:5050/comments/remove", {
             method: "POST",
             body: JSON.stringify({
-                'u_id': 0,
-                'comment_id': parseInt(del_id.charAt(del_id.length - 1))
+                'u_id': parseInt(del_id),
+                'comment_id': parseInt(comment_id)
             }),
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8'
@@ -110,6 +110,29 @@ class Comments extends React.Component {
         }
     }
     
+    delButton = del_id => {
+        console.log(this.props.userSession.getUserId());
+        console.log(del_id.del_id);
+        console.log(del_id.comment_id);
+        if (this.props.userSession.getUserId() === parseInt(del_id.del_id)) {
+            return (
+                <button
+                    type="button"
+                    class="btn btn-link"
+                    onClick={
+                        () => {
+                            if (window.confirm("Delete this comment?")) this.delPost(del_id.del_id, del_id.comment_id)
+                        }
+                    }
+                >
+                    Delete
+                </button>
+            )
+        } else {
+            return null;
+        }
+    }
+
     render() {
         const { comments, isLoaded, error } = this.state;
         
@@ -137,6 +160,7 @@ class Comments extends React.Component {
                                     {cmt.ldTime}<br />
                                     {"User: "+cmt.username}<br />
                                     {cmt.message}
+                                    <this.delButton del_id={cmt.u_id} comment_id={cmt.comment_id}/>
                                     <hr />
                                 </div>
                             )}
