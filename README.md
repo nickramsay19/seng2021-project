@@ -19,7 +19,7 @@ Frontend - 3000
 Backend - 5050
 
 To run:
-- pip3 install -r requirements.txt (python3 modules for the backend server in backend/)
-- npm install (frontend React frontend/src)
-- python3 server.py (from backend/src/)
-- npm start (from frontend/src/)
+- In SourceCode_and_Documentation/backend, run the command 'pip3 install -r requirements.txt' (python3 modules for the backend server in backend/).
+- In SourceCode_and_Documentation/frontend, run the command 'npm install' (frontend React frontend/src).
+- To start the backend server, ensure that port 5050 is open. Then run the command 'python3 SourceCode_and_Documentation/backend/src/server.py' (from backend/src/).
+- To start the frontend server, ensure that port 3000 is open. Then run the command npm start in the SourceCode_and_Documentation/frontend server (from frontend/src/).
