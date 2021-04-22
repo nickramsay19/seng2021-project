@@ -15,5 +15,5 @@
 3. To start the backend server, run the command 'python src/server.py' or 'python3 src/server.py' depending on your installation of python.
 4. If the application fails to run due to port error, change the port number on the last line to something else or stop anything running on port 5050 before redoing step 3.
 
-(BUG) : Carrot doesn't work - returns NULL from API :(
-(BUG) : Not all computers / networks fetch same amount of cocktails / drinks
+# The *Carrot* Problem
+(API BUG) : Carrot doesn't work - returns NULL from API :(
