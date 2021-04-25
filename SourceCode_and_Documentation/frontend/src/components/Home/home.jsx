@@ -11,7 +11,7 @@ export default class Home extends Component {
                 <header>
                     <h1>Home Page</h1>
                 </header>
-                    <h3>Search bar</h3>
+                    <h3>Enter an ingredient or cocktail to get started.</h3>
                 
                 <Searchbar items={this.props.items} isLoaded={this.props.ingLoaded}/>
                 <Card />   
